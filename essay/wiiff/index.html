@@ -1,0 +1,691 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>WIIFF (What&#x27;s in it for Friendship) 🫂 (1)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-default { background-color: rgba(84, 72, 49, 0.08); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d4981cd-d5fb-805d-b28b-c16fcd502d27" class="page sans"><header><img class="page-cover-image" src="WIIFF%20(What&#x27;s%20in%20it%20for%20Friendship)%20%F0%9F%AB%82%20(1)%201d4981cdd5fb805db28bc16fcd502d27/1000113454.jpg" style="object-position:center 50%"/><h1 class="page-title">WIIFF (What&#x27;s in it for Friendship) 🫂 (1)</h1><p class="page-description"></p></header><div class="page-body"><p id="1d4981cd-d5fb-81cf-ac39-ca32affce5aa" class="">(Essay- 1 ,27 October,2024)</p><h1 id="1d4981cd-d5fb-81cd-818b-d256711c2db9" class="">Introduction </h1><p id="1d4981cd-d5fb-81a3-845a-c30f6ce7a342" class="">
+</p><p id="1d4981cd-d5fb-81be-a0cd-d99dc52a0fda" class="">🎵 <em>Could I interest you in everything</em>?</p><p id="1d4981cd-d5fb-812f-80d7-c7bb275882d1" class="">All of the time</p><p id="1d4981cd-d5fb-8154-b0c9-dd3b093d6fe7" class="">A little bit of everything</p><p id="1d4981cd-d5fb-8195-9efd-f1cf75a3779c" class="">All of the time</p><p id="1d4981cd-d5fb-81e8-9959-c464a8efb019" class="">Apathy&#x27;s a tragedy</p><p id="1d4981cd-d5fb-812c-b6dc-dbd7fcba90cb" class="">And boredom is a crime</p><p id="1d4981cd-d5fb-8170-b0b7-fd0757e30371" class="">Anything and everything</p><p id="1d4981cd-d5fb-81f3-90e0-f1c9f73581fd" class="">all of the time<br/><br/></p><p id="1d4981cd-d5fb-81a1-b325-e4438bb3f1f9" class=""><strong>Welcome to the Internet - Bob Burham</strong><br/><br/></p><p id="1d4981cd-d5fb-81b5-9052-c9bf6620f78e" class="">In this age 📱,</p><p id="1d4981cd-d5fb-816a-aaaa-d63fd6a080bf" class="">When we all are sitting with <span style="border-bottom:0.05em solid">Group of friends</span> in garden all looking <span style="border-bottom:0.05em solid">into screens</span>,</p><p id="1d4981cd-d5fb-81f5-a8e9-fe7ada971ab5" class="">One is scrolling reels &quot;ye acchi baat nahi hai&quot;  🤳  and </p><p id="1d4981cd-d5fb-8131-b92d-c86cd9ec77c9" class="">one is watching carry minati being Mr.beast  🎬</p><p id="1d4981cd-d5fb-818b-8882-d8971f6db9bb" class="">Because they all are looking for  INTERESTING things.<br/>So, I went on a quest to 🔎 <br/><strong>WIIFF</strong>* so that people look to each other not screens.</p><p id="1d4981cd-d5fb-81e8-a114-c86bd5e4004e" class="">(WHAT&#x27;S IN IT FOR FRIENDSHIP ?)</p><p id="1d4981cd-d5fb-81c1-8593-df7fd3d5c6cc" class="">📱➡️👥</p><h2 id="1d4981cd-d5fb-81e3-9321-cbaa015a7f0a" class=""><br/>1.Wit   2.Wisdom  3.Stories <br/></h2><p id="1d4981cd-d5fb-8100-95ce-f44cea0b1df9" class=""><br/>When I spend time with you,<br/></p><p id="1d4981cd-d5fb-81d8-8063-efa28d9e51a6" class="">You should make me <strong>laugh</strong> 😂</p><p id="1d4981cd-d5fb-81b1-be08-cb3895a76cd5" class="">I should <strong>learn</strong> something  💡 </p><p id="1d4981cd-d5fb-8188-ae1f-ce1f55f863a3" class="">and you should be able to make me lean into your <strong>stories</strong> 📖</p><p id="1d4981cd-d5fb-817f-8889-c5b888b13602" class=""><br/>It&#x27;s <br/><mark class="highlight-brown"><strong>Good trio for Good Times</strong></mark> but What about creating that <strong>Safe place </strong>for <mark class="highlight-default"><mark class="highlight-teal_background">vulnerability</mark></mark> that we all crave for ?</p><p id="1d4981cd-d5fb-81e9-b075-eef35c058efc" class=""><strong>TRUST</strong> that passes the <em>Difficult/Bad times</em> is based on this Qualities </p><h2 id="1d4981cd-d5fb-8162-b507-e942bdc0aa3e" class=""><br/>1. Being Non-Judgemental <br/></h2><h2 id="1d4981cd-d5fb-81bf-9eb5-c86391ccbc2d" class="">2.  Not giving them Gentle Reminder(s)</h2><h2 id="1d4981cd-d5fb-81b0-aa7a-dfd0f3d4f792" class="">3. Be able to Cry in front of them</h2><p id="1d4981cd-d5fb-81fc-b548-ce2982b2ade3" class=""> <br/>Have this six qualities in mind and look for it in your friend circle.<br/></p><p id="1d4981cd-d5fb-81e4-ac7d-ed030c4b2c44" class=""><br/>How many friends you found 🤔 ?<br/></p><p id="1d4981cd-d5fb-81fb-b08a-f14064907f5a" class="">-&gt; 1-2-3 ,&lt; ?</p><p id="1d4981cd-d5fb-81aa-b0da-c9801bf26229" class=""><br/>This <br/><strong>2 AM 🌗 </strong>friends will be there in your <em>BAD times.</em></p><p id="1d4981cd-d5fb-811d-8b91-fe13c617e854" class=""><br/>But question here <br/></p><blockquote id="1d4981cd-d5fb-8139-9337-c79b304e132a" class=""> Are we having people in our Life for <strong>GREAT TIMES</strong>   ? </blockquote><p id="1d4981cd-d5fb-81c9-a593-c04c0775d6c2" class=""><br/> <br/><strong>Friends who are HAPPY in our SUCCESS</strong></p><p id="1d4981cd-d5fb-81f3-b47f-f3eac34eaf5a" class=""><br/>When you WON 🏆 that competition,award or anything you can just CALL them and you know undoubtedly they will be <br/><mark class="highlight-yellow"><mark class="highlight-blue_background">HAPPY</mark></mark> for you and not a bit jealous. </p><p id="1d4981cd-d5fb-81fe-ac84-c247c683d032" class=""><br/>So , here&#x27;s this 7 habits that may help us to be Better FRIENDS with each other.<br/></p><p id="1d4981cd-d5fb-81c9-b0c6-fbeb5be4cab4" class="">
+</p><p id="1d4981cd-d5fb-81db-b213-dc40d19af184" class="">(Click on the titles to read)</p><h1 id="1d4981cd-d5fb-811b-8694-e4d4c9b33a4d" class="">The Good Friends </h1><p id="1d4981cd-d5fb-8167-a0fc-fccea9ceb15d" class="">
+</p><figure id="1d4981cd-d5fb-81e1-a983-fd7851ddb8d5" class="link-to-page"><a href="WIIFF%20(What&#x27;s%20in%20it%20for%20Friendship)%20%F0%9F%AB%82%20(1)%201d4981cdd5fb805db28bc16fcd502d27/The%20Wit%201d4981cdd5fb81e1a983fd7851ddb8d5.html">The Wit</a></figure><figure id="1d4981cd-d5fb-811d-b927-d6bafea506af" class="link-to-page"><a href="WIIFF%20(What&#x27;s%20in%20it%20for%20Friendship)%20%F0%9F%AB%82%20(1)%201d4981cdd5fb805db28bc16fcd502d27/Wisdom%201d4981cdd5fb811db927d6bafea506af.html">Wisdom</a></figure><figure id="1d4981cd-d5fb-81e3-9bc8-cc7a3fc5c886" class="link-to-page"><a href="WIIFF%20(What&#x27;s%20in%20it%20for%20Friendship)%20%F0%9F%AB%82%20(1)%201d4981cdd5fb805db28bc16fcd502d27/Stories%201d4981cdd5fb81e39bc8cc7a3fc5c886.html">Stories </a></figure><p id="1d4981cd-d5fb-81af-9a5f-c285fef7dcf2" class=""> </p><h1 id="1d4981cd-d5fb-8116-9bf0-f514ae1a80f4" class="">The Best Friends</h1><p id="1d4981cd-d5fb-815d-8689-c31c968221e3" class="">
+</p><figure id="1d4981cd-d5fb-8106-878a-d82528ce521c" class="link-to-page"><a href="WIIFF%20(What&#x27;s%20in%20it%20for%20Friendship)%20%F0%9F%AB%82%20(1)%201d4981cdd5fb805db28bc16fcd502d27/Being%20Non-%20Judgemental%201d4981cdd5fb8106878ad82528ce521c.html">Being Non- Judgemental </a></figure><figure id="1d4981cd-d5fb-81df-922f-c944777f2273" class="link-to-page"><a href="WIIFF%20(What&#x27;s%20in%20it%20for%20Friendship)%20%F0%9F%AB%82%20(1)%201d4981cdd5fb805db28bc16fcd502d27/Being%20A%20person%20who%20Doesn&#x27;t%20need%20GENTLE%20REMINDERS%201d4981cdd5fb81df922fc944777f2273.html">Being A person who Doesn&#x27;t need GENTLE REMINDERS</a></figure><figure id="1d4981cd-d5fb-815b-a3c7-f499b368c30e" class="link-to-page"><a href="WIIFF%20(What&#x27;s%20in%20it%20for%20Friendship)%20%F0%9F%AB%82%20(1)%201d4981cdd5fb805db28bc16fcd502d27/Listen%20%F0%9F%91%82%201d4981cdd5fb815ba3c7f499b368c30e.html">Listen 👂</a></figure><p id="1d4981cd-d5fb-81c7-9a86-fb189a95a773" class="">
+</p><h1 id="1d4981cd-d5fb-81e2-998a-c72ac7b031c9" class="">The Ultimatem </h1><p id="1d4981cd-d5fb-8124-8eea-c3f9515901ed" class="">
+</p><figure id="1d4981cd-d5fb-81d6-999e-ed46068f181b" class="link-to-page"><a href="WIIFF%20(What&#x27;s%20in%20it%20for%20Friendship)%20%F0%9F%AB%82%20(1)%201d4981cdd5fb805db28bc16fcd502d27/Being%20Happy%20In%20other%20Success%201d4981cdd5fb81d6999eed46068f181b.html">Being Happy In other Success </a></figure><p id="1d4981cd-d5fb-8176-90c2-e4f9e320d19c" class="">
+</p><p id="1d4981cd-d5fb-81a2-9a21-c5adcac2f315" class=""><del>Summary</del> </p><figure id="1d4981cd-d5fb-811f-910c-db3515e248fe" class="link-to-page"><a href="WIIFF%20(What&#x27;s%20in%20it%20for%20Friendship)%20%F0%9F%AB%82%20(1)%201d4981cdd5fb805db28bc16fcd502d27/Actionary%201d4981cdd5fb811f910cdb3515e248fe.html">Actionary</a></figure><p id="1d4981cd-d5fb-8101-9911-c5c5fdf78412" class="">
+</p><p id="1d4981cd-d5fb-8191-9648-ed82c2d2a50f" class="">Appendix </p><figure id="1d4981cd-d5fb-81c3-82a1-e1ebce09f654" class="link-to-page"><a href="WIIFF%20(What&#x27;s%20in%20it%20for%20Friendship)%20%F0%9F%AB%82%20(1)%201d4981cdd5fb805db28bc16fcd502d27/Sources%201d4981cdd5fb81c382a1e1ebce09f654.html">Sources</a></figure><p id="1d4981cd-d5fb-8105-b5e0-d6dc9b4feec1" class="">
+</p><h1 id="1d4981cd-d5fb-813d-b802-df17b79a165e" class="">🙏 </h1><p id="1d4981cd-d5fb-81e2-926a-ccbe8c339ec3" class="">Special  Thanks to Sarah Baiju,Henil Malaviya, Drashti Mehta,Sachi Patel for reading draft of this</p><p id="1d4981cd-d5fb-814e-a269-c91c14abc11f" class="">
+</p><h1 id="1d4981cd-d5fb-8176-a032-c53ca6fd583b" class="">Connect with Me </h1><p id="1d4981cd-d5fb-81d2-96df-f79cd3cc92d2" class="">Would really love to here from you </p><p id="1d4981cd-d5fb-8176-b93c-f265730af342" class="">How this article feel to you ?</p><p id="1d4981cd-d5fb-81d6-8cd7-fa7a38ff0f3c" class="">Say “WIIFF” to me </p><p id="1d4981cd-d5fb-81d2-8e16-f4ae602abc98" class=""> on <a href="https://wa.me/qr/7G2FKJMC6FQ5J1">WhatsApp</a> or DM on <a href="https://www.instagram.com/om_desai514/profilecard/?igsh=d3FkcDRtNzR5cDFt">IG</a></p><p id="1d4981cd-d5fb-81c5-98f2-e7470dfabd1e" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
