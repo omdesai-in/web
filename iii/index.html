@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I,I,I</title>
-    <link rel="icon" type="image/jpg" href="ideathon/media/favicon.jpg">
+    <title>It's About Individuals & Their Ideas</title>
+    <link rel="icon" type="image/jpg" href="iii/media/favicon.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
         * {
@@ -316,6 +316,38 @@
             margin-top: 15px;
         }
 
+        .audio-player {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .audio-player audio {
+            width: 100%;
+            max-width: 400px;
+            height: 40px;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .audio-player audio::-webkit-media-controls-panel {
+            background-color: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .section-audio {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .section-audio audio {
+            width: 100%;
+            max-width: 350px;
+            height: 35px;
+            border-radius: 6px;
+        }
+
         p {
             margin-bottom: 15px;
         }
@@ -461,6 +493,22 @@
                 margin: 0;
                 font-size: 0.85rem;
             }
+            
+            .section-audio {
+                padding: 10px;
+                margin: 10px 0;
+            }
+            
+            .section-audio audio {
+                width: 100%;
+                max-width: 280px;
+                height: 28px;
+            }
+            
+            .audio-player audio {
+                max-width: 280px;
+                height: 35px;
+            }
         }
 
         /* Smooth scrolling */
@@ -478,12 +526,19 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>I,I,I</h1>
+            <h1>Ideathon</h1>
             <div class="header-divider"></div>
             <p>Individuals,Ideas & Insight</p>
         </div>
         
         <div class="content">
+            <div class="audio-player">
+                <audio controls>
+                    <source src="iii/media/Intro.m4a" type="audio/mp4">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
             <div class="intro">
                 <p>It's not about Ideathon but it's about individuals and their ideas – I thought like this when I was sitting in the idea lab seeing all the participants pitching their ideas.</p>
                 
@@ -494,6 +549,12 @@
 
             <div class="team-section">
                 <h2 class="team-header smartxbin">SmartXBin</h2>
+                <div class="section-audio">
+                    <audio controls>
+                        <source src="iii/media/SmartXBin.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
                 <p>When Dharmik and I were in first year, what we saw was teams were all girls or all boys, not many mixed teams. So, this year Dharmik thought to reward girls' participation by giving them 5 extra points.</p>
                 
                 <p>But alas, the idea was to promote leadership & pitching skills in girls but in reality, many groups added girls just for the sake of 5 points.</p>
@@ -511,6 +572,12 @@
 
             <div class="team-section">
                 <h2 class="team-header unitap">Unitap</h2>
+                <div class="section-audio">
+                    <audio controls>
+                        <source src="iii/media/unitap.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
                 <p>AGI is coming, AR/VR is coming and many new technologies – and that brings uncertainty with it. But how do you respond to uncertainty?</p>
                 
                 <p>If we fear uncertainty, then it leads to nothing. But if we convert it into curiosity, then it could be turned into something meaningful.</p>
@@ -525,6 +592,12 @@
 
             <div class="team-section">
                 <h2 class="team-header dhruv-jay">Dhruv & Jay Patel</h2>
+                <div class="section-audio">
+                    <audio controls>
+                        <source src="iii/media/Dhruv.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
                 <p>What I loved about these boys is they thought to solve a problem that no one is caring about, at least in Ideathon.</p>
                 
                 <p>But more than that, they were very clear in terms of what they wanted to do – they want to increase the profit of their customers.</p>
@@ -542,6 +615,12 @@
 
             <div class="team-section">
                 <h2 class="team-header rajanya-team">Rajanya, Drasthi and Kavya</h2>
+                <div class="section-audio">
+                    <audio controls>
+                        <source src="iii/media/Rajanya.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
                 <p>I don't know how but yes,finally I was able to understand girls.is it reality or dream ?
                     I don't care what was important is that they understood the key concept of communication:"be SIMPLE".
                      Their presentation was not made of jargons but simple words that are understandable.</p>
@@ -555,6 +634,12 @@
 
             <div class="team-section">
                 <h2 class="team-header shiv-tanvi">Shiv & Tanvi's Team</h2>
+                <div class="section-audio">
+                    <audio controls>
+                        <source src="iii/media/Tanvi.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
                 <p>I don't remember their teammates' names, but he was so audacious that he said, "We'll train our own dataset."</p>
                 
                 <p>It seems crazy but one should have crazy dreams – otherwise what's the point of merely existing on this planet without doing some epic shit?</p>
@@ -569,6 +654,12 @@
 
             <div class="team-section">
                 <h2 class="team-header vishwa-rudra">Vishwa & Rudra</h2>
+                <div class="section-audio">
+                    <audio controls>
+                        <source src="iii/media/Vishwa and Rudra.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
                 <p>(I forgot the last guy's name, sorry & my handwriting is like the man whose birthday is on a dry day – so not able to read your name even on my page)</p>
                 
                 <p>For God's sake, please don't just read your slide. Although you may think we are unpad gawar loko – NO, we are just unpaid good loko.</p>
@@ -586,6 +677,12 @@
 
             <div class="team-section">
                 <h2 class="team-header bio-bricks">Bio Bricks</h2>
+                <div class="section-audio">
+                    <audio controls>
+                        <source src="iii/media/Biobricks.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
                 <p>Personally, I'm a very professional guy when I have to – otherwise I shift gears from bakchod guy to yelling about how I gave a flower to a random girl at a competition, to a listener who's trying to understand another person. (<span class="hindi">Ha, isi ko mood swings bolte hai shayad!!!</span>)</p>
                 
                 <p>But in the Idea Lab, I'm professional. So if you're gonna pitch for >5 mins, then sorry dude, I can't tolerate that as rules are same for everyone – so I just told Bio Bricks that. But Harmisha asked for 30 sec more – I hesitated but then gave it – and it saved 2–3 mins of QnA because their business model was remaining.</p>
@@ -602,6 +699,12 @@
             </div>
 
             <div class="summary-section">
+                <div class="section-audio">
+                    <audio controls>
+                        <source src="iii/media/Ending.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
                 <h2>So, in summary what's the major ideas I'm going away with?</h2>
                 
                 <div class="summary-item">
