@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I,I,I</title>
+    <link rel="icon" type="image/jpg" href="ideathon/media/favicon.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #2d3748;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            padding: 40px 30px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1.5" fill="white" opacity="0.08"/><circle cx="50" cy="10" r="0.8" fill="white" opacity="0.12"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+
+        .header h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-divider {
+            width: 60px;
+            height: 3px;
+            background: white;
+            margin: 20px auto;
+            border-radius: 2px;
+            opacity: 0.8;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-radius: 15px;
+            border-left: 5px solid #ff6b6b;
+            position: relative;
+        }
+
+        .hindi {
+            font-style: italic;
+            color: #7c3aed;
+            font-weight: 500;
+            background: linear-gradient(90deg, #7c3aed, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .team-section {
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .team-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid;
+            display: inline-block;
+        }
+
+        .team-header.smartxbin { border-color: #ff6b6b; }
+        .team-header.unitap { border-color: #4facfe; }
+        .team-header.dhruv-jay { border-color: #43e97b; }
+        .team-header.rajanya-team { border-color: #fa709a; }
+        .team-header.shiv-tanvi { border-color: #a8edea; }
+        .team-header.vishwa-rudra { border-color: #ffd89b; }
+        .team-header.bio-bricks { border-color: #d299c2; }
+
+        .highlight-box {
+            margin: 25px 0;
+            padding: 20px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .highlight-box.smartxbin {
+            background: linear-gradient(135deg, #ffe0e0, #ffeaea);
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .highlight-box.unitap {
+            background: linear-gradient(135deg, #e3f2fd, #e8f4fd);
+            border-left: 5px solid #4facfe;
+        }
+
+        .highlight-box.dhruv-jay {
+            background: linear-gradient(135deg, #e8f5e8, #f0f9f0);
+            border-left: 5px solid #43e97b;
+        }
+
+        .highlight-box.rajanya-team {
+            background: linear-gradient(135deg, #fce4ec, #fdf2f8);
+            border-left: 5px solid #fa709a;
+        }
+
+        .highlight-box.shiv-tanvi {
+            background: linear-gradient(135deg, #e0f2f1, #f0fdf4);
+            border-left: 5px solid #a8edea;
+        }
+
+        .highlight-box.vishwa-rudra {
+            background: linear-gradient(135deg, #fff8e1, #fffbf0);
+            border-left: 5px solid #ffd89b;
+        }
+
+        .highlight-box.bio-bricks {
+            background: linear-gradient(135deg, #f3e8ff, #faf5ff);
+            border-left: 5px solid #d299c2;
+        }
+
+        .highlight-box .content {
+            position: relative;
+            z-index: 1;
+            padding: 0;
+        }
+
+        .quote {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3748;
+            font-style: italic;
+            margin: 15px 0;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 3rem;
+            color: #cbd5e0;
+            position: absolute;
+            left: -10px;
+            top: -10px;
+            font-family: serif;
+        }
+
+        .summary-section {
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+        }
+
+        .summary-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .summary-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid #ffa726;
+            position: relative;
+            z-index: 1;
+        }
+
+        .signature {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 15px;
+            font-style: italic;
+        }
+
+        .signature .correction {
+            text-decoration: line-through;
+            color: #e53e3e;
+        }
+
+        .signature .replacement {
+            color: #38a169;
+            font-weight: 600;
+        }
+
+        .signature .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e1306c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 10px 15px 0 15px;
+        }
+
+        .signature .instagram-link:hover {
+            color: #c13584;
+            transform: translateY(-2px);
+        }
+
+        .signature .instagram-link svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .signature .linkedin-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #0077b5;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 10px 15px 0 15px;
+        }
+
+        .signature .linkedin-link:hover {
+            color: #005885;
+            transform: translateY(-2px);
+        }
+
+        .signature .linkedin-link svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .signature .name-with-favicon {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .signature .name-with-favicon img {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+        }
+
+        .signature .social-links {
+            margin-top: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .content {
+                padding: 25px 20px;
+            }
+            
+            .highlight-box {
+                padding: 15px;
+                margin: 20px 0;
+            }
+            
+            .quote {
+                font-size: 1.1rem;
+                padding: 0 10px;
+            }
+            
+            .quote::before {
+                font-size: 2rem;
+                left: -5px;
+                top: -5px;
+            }
+            
+            .team-header {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+            
+            .intro {
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+            
+            .summary-section {
+                padding: 20px;
+                margin-top: 40px;
+            }
+            
+            .summary-section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .summary-item {
+                padding: 12px 15px;
+                margin: 12px 0;
+            }
+            
+            .signature {
+                padding: 20px;
+                margin-top: 30px;
+            }
+            
+            .signature .social-links {
+                margin-top: 10px;
+            }
+            
+            .signature .instagram-link,
+            .signature .linkedin-link {
+                margin: 5px 10px 0 10px;
+                font-size: 0.9rem;
+            }
+            
+            .signature .instagram-link svg,
+            .signature .linkedin-link svg {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .signature .name-with-favicon img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            .header {
+                padding: 25px 15px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .team-header {
+                font-size: 1.3rem;
+            }
+            
+            .highlight-box {
+                padding: 12px;
+                margin: 15px 0;
+            }
+            
+            .quote {
+                font-size: 1rem;
+                padding: 0 5px;
+            }
+            
+            .intro {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .summary-section {
+                padding: 15px;
+            }
+            
+            .summary-section h2 {
+                font-size: 1.3rem;
+            }
+            
+            .signature {
+                padding: 15px;
+            }
+            
+            .signature .social-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            .signature .instagram-link,
+            .signature .linkedin-link {
+                margin: 0;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Subtle animations */
+        .team-section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>I,I,I</h1>
+            <div class="header-divider"></div>
+            <p>Individuals,Ideas & Insight</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <p>It's not about Ideathon but it's about individuals and their ideas – I thought like this when I was sitting in the idea lab seeing all the participants pitching their ideas.</p>
+                
+                <p>It's not LinkedIn so I'm not thrilled, and it's not Instagram so I'm not the happiest person in the world, but yes; I'm a very curious fellow trying to understand what they were trying to pitch and here I'm sharing the individuals I liked or the ideas I liked.</p>
+                
+                <p>(So sorry if I'm not able to cover you or mention your name -- I can't remember everything, <span class="hindi">agar mere dost udhaari wapis kar de to badam le lunga, lekin nahi karenge</span>)</p>
+            </div>
+
+            <div class="team-section">
+                <h2 class="team-header smartxbin">SmartXBin</h2>
+                <p>When Dharmik and I were in first year, what we saw was teams were all girls or all boys, not many mixed teams. So, this year Dharmik thought to reward girls' participation by giving them 5 extra points.</p>
+                
+                <p>But alas, the idea was to promote leadership & pitching skills in girls but in reality, many groups added girls just for the sake of 5 points.</p>
+                
+                <p>But in that, this is the team led by a girl named Kinjal. She's not just there as a showpiece but the leader who's pitching her idea.</p>
+                
+                <div class="highlight-box smartxbin">
+                    <div class="content">
+                        <p>And she used the same concept of human behaviour:</p>
+                        <div class="quote">"The behaviour that gets rewarded, gets repeated!"</div>
+                        <p>What was more special about Kinjal & her team was that they were not searching for "some big-bang-bold idea or big thing, They are solving real problems for real people."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <h2 class="team-header unitap">Unitap</h2>
+                <p>AGI is coming, AR/VR is coming and many new technologies – and that brings uncertainty with it. But how do you respond to uncertainty?</p>
+                
+                <p>If we fear uncertainty, then it leads to nothing. But if we convert it into curiosity, then it could be turned into something meaningful.</p>
+                
+                <div class="highlight-box unitap">
+                    <div class="content">
+                        <p>Now that's not my words – it's Kunal Shah – and Tirth Shah's team is just proving it.</p>
+                        <p><strong>They explored a tech that is new to them.</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <h2 class="team-header dhruv-jay">Dhruv & Jay Patel</h2>
+                <p>What I loved about these boys is they thought to solve a problem that no one is caring about, at least in Ideathon.</p>
+                
+                <p>But more than that, they were very clear in terms of what they wanted to do – they want to increase the profit of their customers.</p>
+                
+                <div class="highlight-box dhruv-jay">
+                    <div class="content">
+                        <p>One thing I observed in Jay was he doesn't want to give false claims, and it taught one important thing:</p>
+                        <div class="quote">"Do what you say" and "If you don't want to do it, don't do it or don't say it."</div>
+                        <p>(I also don't want to attend lecture/lab but that is exceptions – so attend it and <span class="hindi">jor se bolo Jai Mataji</span>, nahi – "Present Ma'am")</p>
+                    </div>
+                </div>
+                
+                <p>Anyone wonders why I used Ma'am instead of Sir? Because next in the list is Ma'ams who pitched well.</p>
+            </div>
+
+            <div class="team-section">
+                <h2 class="team-header rajanya-team">Rajanya, Drasthi and Kavya</h2>
+                <p>I don't know how but yes,finally I was able to understand girls.is it reality or dream ?
+                    I don't care what was important is that they understood the key concept of communication:"be SIMPLE".
+                     Their presentation was not made of jargons but simple words that are understandable.</p>
+                
+                <div class="highlight-box rajanya-team">
+                    <div class="content">
+                        <p>It may be the result of a good bond but yes, <strong>coordination and division of work between Kavya, Drashti, and Rajanya was excellent.</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <h2 class="team-header shiv-tanvi">Shiv & Tanvi's Team</h2>
+                <p>I don't remember their teammates' names, but he was so audacious that he said, "We'll train our own dataset."</p>
+                
+                <p>It seems crazy but one should have crazy dreams – otherwise what's the point of merely existing on this planet without doing some epic shit?</p>
+                
+                <div class="highlight-box shiv-tanvi">
+                    <div class="content">
+                        <p>When Tanvi was giving her pitch she pointed out some real-life problems of students, Be it having academic load to 2 AM overthinking thoughts – I've talked to a few 1st-year students one-on-one. Surprisingly, some of them seem mature. Now I don't know her personally but from a 2-min pitch, Tanvi seemed mature.</p>
+                        <p><strong>So be crazy as well as mature – that's what they want to do.</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <h2 class="team-header vishwa-rudra">Vishwa & Rudra</h2>
+                <p>(I forgot the last guy's name, sorry & my handwriting is like the man whose birthday is on a dry day – so not able to read your name even on my page)</p>
+                
+                <p>For God's sake, please don't just read your slide. Although you may think we are unpad gawar loko – NO, we are just unpaid good loko.</p>
+                
+                <div class="highlight-box vishwa-rudra">
+                    <div class="content">
+                        <p>But I love to make predictions and it's 70–80% correct – so when they were pitching I thought they don't know any stuff, they're just gonna read slides.</p>
+                        
+                        <p>So I just stopped them and asked QnA – and surprisingly, Vishwa and Rudra & his fellow were answering questions.</p>
+                        
+                        <p><strong>So girl & guys, keep it up – you've got a good sense of what you wanna do!</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <h2 class="team-header bio-bricks">Bio Bricks</h2>
+                <p>Personally, I'm a very professional guy when I have to – otherwise I shift gears from bakchod guy to yelling about how I gave a flower to a random girl at a competition, to a listener who's trying to understand another person. (<span class="hindi">Ha, isi ko mood swings bolte hai shayad!!!</span>)</p>
+                
+                <p>But in the Idea Lab, I'm professional. So if you're gonna pitch for >5 mins, then sorry dude, I can't tolerate that as rules are same for everyone – so I just told Bio Bricks that. But Harmisha asked for 30 sec more – I hesitated but then gave it – and it saved 2–3 mins of QnA because their business model was remaining.</p>
+                
+                <div class="highlight-box bio-bricks">
+                    <div class="content">
+                        <div class="quote">One professional opinion I have for pitching your ideas is: have 3-line, 1-min, 3-min, and 5-min versions of your pitch. You don't know when you've got a great person with limited time.</div>
+                        
+                        <p>And they were from CSD – their designing of PPT was amazing too.</p>
+                        
+                        <p><strong>It's not about being better, it's about being different.</strong> One simple thing they've done is they had to show 10 images/steps. So for the first 5, they were going left to right standard way, but for 6–10 images, they were coming right to left.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-section">
+                <h2>So, in summary what's the major ideas I'm going away with?</h2>
+                
+                <div class="summary-item">
+                    <strong>Vishwa & Rudra's team experience:</strong> I learnt that "Om, please don't make assumptions very early."
+                </div>
+                
+                <div class="summary-item">
+                    <strong>Rajanya, Drasthi, and Kavya</strong> gave me a good reminder that a great pitch is only about being "Simple."
+                </div>
+                
+                <div class="summary-item">
+                    <strong>Shiv & Tanvi's team</strong> taught how your dreams could be crazy but still you are mature enough to see feasibility.
+                </div>
+            </div>
+
+            <div class="signature">
+                <p>til then,</p>
+                <p>Tata bye bye!</p>
+                <p><span class="correction">Unpad gawar</span> ❌</p>
+                <p><span class="replacement">Unpaid author</span></p>
+                <div class="name-with-favicon">
+                    <img src="ideathon/media/favicon.jpg" alt="Om Desai">
+                    <strong>Om Desai</strong>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/om_desai514/" target="_blank" class="instagram-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                        @om_desai514
+                    </a>
+                    <a href="https://www.linkedin.com/in/om-desai-954551161/" target="_blank" class="linkedin-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
