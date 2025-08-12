@@ -29,9 +29,10 @@
     .acc.open .content{padding-top:10px;max-height:400px}
     footer{padding:30px 0;color:#9aa4b2;text-align:center}
     @media (max-width:880px){.hero{grid-template-columns:1fr}.poster{height:200px}}
+
     /* Testimonials */
     #testimonials {background: #f8f3e7; color: #333; border-radius: 10px; padding: 40px;}
-    .testimonial-card {display: none; font-size: 16px; line-height: 1.5;}
+    .testimonial-card {display: none; font-size: 16px; line-height: 1.5; background: #fffef9; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);}
     .testimonial-card.active {display: block; animation: fade 0.5s ease-in-out;}
     @keyframes fade {from {opacity: 0;} to {opacity: 1;}}
     .testimonial-nav {text-align: center; margin-top: 20px;}
@@ -66,10 +67,8 @@
     <h2 style="text-align:center; color:#333;">What Students Say</h2>
     <div id="testimonial-container">
       <div class="testimonial-card active">If I tell about today’s session than it was really nice and comfort for us and also we can find ourselves.</div>
-      <div class="testimonial-card">Honestly, I was expecting some awkward college thing but this turned out to be better I walked in Curious and felt like I got to pause & actually open up with clarity. I didn't think I would but there was something about the way the session went which made all of us introspect positively. This session wasn't one of those "fix-yourself-be-more-disciplined" kind workshop but more like a mirror. A non-judgy one?
-</div>
-      <div class="testimonial-card">Attending the session was a genuinely eye-opening experience for me. This gave me the feeling of self awareness and encouraged to work on the things I've been pulling off. Overall, I feel safe and the non-judgmental environment helped me open up more than I expected.
-</div>
+      <div class="testimonial-card">Honestly, I was expecting some awkward college thing but this turned out to be better I walked in Curious and felt like I got to pause & actually open up with clarity. I didn't think I would but there was something about the way the session went which made all of us introspect positively. This session wasn't one of those "fix-yourself-be-more-disciplined" kind workshop but more like a mirror. A non-judgy one?</div>
+      <div class="testimonial-card">Attending the session was a genuinely eye-opening experience for me. This gave me the feeling of self awareness and encouraged to work on the things I've been pulling off. Overall, I feel safe and the non-judgmental environment helped me open up more than I expected.</div>
       <div class="testimonial-card">Session felt more like a gossip with friends. Got a medium to share problems within. It was very interactive.</div>
       <div class="testimonial-card">Loved the session. It was very interesting. I recalled all my good memories. Would love to have such sessions in future.</div>
     </div>
@@ -98,9 +97,12 @@
 
   <footer>Ancient Intelligence Labs • ADIT • New V.V. Nagar • Invite-only cohorts</footer>
 </div>
+
 <script>
   // Accordion toggle
-  document.querySelectorAll('[data-acc]').forEach(acc=>{acc.addEventListener('click', ()=>acc.classList.toggle('open'))});
+  document.querySelectorAll('[data-acc]').forEach(acc=>{
+    acc.addEventListener('click', ()=>acc.classList.toggle('open'))
+  });
 
   // Journey scroll highlight
   const steps = document.querySelectorAll('.journey-step');
@@ -123,25 +125,47 @@
     }
   });
 
-  // Testimonials auto-rotate
+  // Testimonials with pause toggle & equal height
   const testimonialCards = document.querySelectorAll('.testimonial-card');
   let currentTestimonial = 0;
+  let pauseRotation = false;
+  let maxHeight = 0;
+
+  // Equal height calculation
+  testimonialCards.forEach(card => {
+    if (card.offsetHeight > maxHeight) {
+      maxHeight = card.offsetHeight;
+    }
+  });
+  testimonialCards.forEach(card => card.style.height = maxHeight + 'px');
+
   const showTestimonial = (index) => {
     testimonialCards.forEach((card, i) => {
       card.classList.toggle('active', i === index);
     });
   };
+
   document.getElementById('nextTest').addEventListener('click', () => {
     currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
     showTestimonial(currentTestimonial);
+    pauseRotation = false;
   });
+
   document.getElementById('prevTest').addEventListener('click', () => {
     currentTestimonial = (currentTestimonial - 1 + testimonialCards.length) % testimonialCards.length;
     showTestimonial(currentTestimonial);
+    pauseRotation = false;
   });
+
+  document.getElementById('testimonial-container').addEventListener('click', () => {
+    pauseRotation = !pauseRotation;
+  });
+
   setInterval(() => {
-    currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
-    showTestimonial(currentTestimonial);
+    if (!pauseRotation) {
+      currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+      showTestimonial(currentTestimonial);
+    }
   }, 3300);
 </script>
 </body>
