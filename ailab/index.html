@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ancient Intelligence Labs — Find Yourself</title>
+  <style>
+    body {margin:0; font-family: Inter, sans-serif; background: #0f1724; color: #e6eef6;}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px}
+    .btn{background:linear-gradient(90deg,#d96b4b,#f6c85f);padding:12px 18px;border-radius:10px;color:#071021;font-weight:700;text-decoration:none;display:inline-block;margin-top:18px}
+    .small-note{font-size:13px;color:#9aa4b2;margin-top:8px;margin-bottom:24px}
+    .card{background:#0b1220;padding:20px;border-radius:12px}
+    .muted{color:#9aa4b2}
+    .hero{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;min-height:68vh}
+    .hero-copy h1{font-size:clamp(28px,4.6vw,48px);margin-bottom:16px}
+    .poster{width:100%;border-radius:10px;overflow:hidden;background:#071827;display:flex;align-items:center;justify-content:center;height:260px}
+    .journey-flow{position:relative;margin-top:20px;padding-left:40px}
+    .journey-flow::before{content:"";position:absolute;left:20px;top:0;bottom:0;width:2px;background:#9aa4b2;}
+    .journey-step{position:relative;padding:20px;background:#0b1220;border-radius:10px;margin-bottom:20px;display:flex;align-items:flex-start;gap:12px;transition:background 0.3s ease,color 0.3s ease}
+    .journey-step::before{content:"";position:absolute;left:-28px;top:24px;width:16px;height:16px;border-radius:50%;background:#9aa4b2;transition:background 0.3s ease;}
+    .journey-step.active-start{background:linear-gradient(90deg,#d96b4b,#f6c85f);color:#071021;font-weight:bold}
+    .journey-step.active-mid{background:linear-gradient(90deg,#f6c85f,#d96b4b);color:#071021;font-weight:bold}
+    .journey-step.active-end{background:linear-gradient(90deg,#f6c85f,#d96b4b);color:#071021;font-weight:bold}
+    .journey-icon{font-size:20px;min-width:24px;text-align:center}
+    .accordion{display:grid;gap:8px}
+    .acc{background:#0b1220;border-radius:10px;padding:14px;cursor:pointer}
+    .acc h5{margin:0;display:flex;justify-content:space-between;align-items:center}
+    .acc .content{max-height:0;overflow:hidden;transition:max-height .32s ease,padding-top .32s ease}
+    .acc.open .content{padding-top:10px;max-height:400px}
+    footer{padding:30px 0;color:#9aa4b2;text-align:center}
+    @media (max-width:880px){.hero{grid-template-columns:1fr}.poster{height:200px}}
+    /* Testimonials */
+    #testimonials {background: #f8f3e7; color: #333; border-radius: 10px; padding: 40px;}
+    .testimonial-card {display: none; font-size: 16px; line-height: 1.5;}
+    .testimonial-card.active {display: block; animation: fade 0.5s ease-in-out;}
+    @keyframes fade {from {opacity: 0;} to {opacity: 1;}}
+    .testimonial-nav {text-align: center; margin-top: 20px;}
+    .testimonial-btn {background: rgba(0,0,0,0.5); color: #fff; border: none; padding: 8px 12px; margin: 0 5px; border-radius: 50%; cursor: pointer;}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-copy">
+      <h1>Find Yourself Before the World Finds You</h1>
+      <p>An invite-only journey for first-year ADIT students to explore confidence, creativity, and courage — and leave with a story worth telling.</p>
+      <a href="https://forms.gle/ofiYEB6YQYCUheLA8" class="btn" target="_blank">Apply Now →</a>
+      <br><br>
+      <div class="small-note">Only 5 seats per cohort • Deposit-based (₹50 refundable)</div>
+    </div>
+    <div class="poster">Video/Media Placeholder</div>
+  </header>
+
+  <section id="journey">
+    <h2>The Journey</h2>
+    <div class="journey-flow">
+      <div class="journey-step" data-step="start"><div class="journey-icon">📝</div><div><h4>Apply</h4><p>Fill out our unique, thought-provoking application form. Expect questions that reveal your real self.</p></div></div>
+      <div class="journey-step" data-step="mid"><div class="journey-icon">💡</div><div><h4>Confidence</h4><p>Understand your strengths and blind spots, align actions with ambitions, and take your first bold step.</p></div></div>
+      <div class="journey-step" data-step="mid"><div class="journey-icon">🎨</div><div><h4>Creativity</h4><p>Unlock your creative potential, find your unique mode of expression, and build a sustainable creative habit.</p></div></div>
+      <div class="journey-step" data-step="mid"><div class="journey-icon">⚡</div><div><h4>Courage</h4><p>Step out of your comfort zone, act decisively, and own your victories — big or small.</p></div></div>
+      <div class="journey-step" data-step="end"><div class="journey-icon">🎓</div><div><h4>Convocation</h4><p>Graduate with a personalised letter to your parents celebrating your growth.</p></div></div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <h2 style="text-align:center; color:#333;">What Students Say</h2>
+    <div id="testimonial-container">
+      <div class="testimonial-card active">If I tell about today’s session than it was really nice and comfort for us and also we can find ourselves.</div>
+      <div class="testimonial-card">Honestly, I was expecting some awkward college thing but this turned out to be better I walked in Curious and felt like I got to pause & actually open up with clarity. I didn't think I would but there was something about the way the session went which made all of us introspect positively. This session wasn't one of those "fix-yourself-be-more-disciplined" kind workshop but more like a mirror. A non-judgy one?
+</div>
+      <div class="testimonial-card">Attending the session was a genuinely eye-opening experience for me. This gave me the feeling of self awareness and encouraged to work on the things I've been pulling off. Overall, I feel safe and the non-judgmental environment helped me open up more than I expected.
+</div>
+      <div class="testimonial-card">Session felt more like a gossip with friends. Got a medium to share problems within. It was very interactive.</div>
+      <div class="testimonial-card">Loved the session. It was very interesting. I recalled all my good memories. Would love to have such sessions in future.</div>
+    </div>
+    <div class="testimonial-nav">
+      <button class="testimonial-btn" id="prevTest">&#10094;</button>
+      <button class="testimonial-btn" id="nextTest">&#10095;</button>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h3>FAQ</h3>
+    <div class="accordion" style="margin-top:12px">
+      <div class="acc" data-acc><h5>How much time will this take? <span>+</span></h5><div class="content muted">When you’re not in lectures or mass-bunking while scrolling reels — that’s our time. We meet for a 2-hour session once or twice a week. Each module usually needs 1–2 sessions.</div></div>
+      <div class="acc" data-acc><h5>Is this free or paid? <span>+</span></h5><div class="content muted">It’s deposit-based: ₹50 a day before the session, refunded after you attend. First it was your parents’ money — now you’ve earned it.</div></div>
+      <div class="acc" data-acc><h5>Do I get a certificate? <span>+</span></h5><div class="content muted">No — you get something more meaningful: a personalised letter to your parents recognising their role in your journey.</div></div>
+    </div>
+  </section>
+
+  <section id="apply" style="margin-top:40px">
+    <div class="card">
+      <h3>Your First Year. Make It Count.</h3>
+      <p class="muted">Applications close on <strong>21st August 2025</strong>. Seats: Only 5 per cohort.</p>
+      <a class="btn" href="https://forms.gle/ofiYEB6YQYCUheLA8" target="_blank">Apply Now</a>
+    </div>
+  </section>
+
+  <footer>Ancient Intelligence Labs • ADIT • New V.V. Nagar • Invite-only cohorts</footer>
+</div>
+<script>
+  // Accordion toggle
+  document.querySelectorAll('[data-acc]').forEach(acc=>{acc.addEventListener('click', ()=>acc.classList.toggle('open'))});
+
+  // Journey scroll highlight
+  const steps = document.querySelectorAll('.journey-step');
+  window.addEventListener('scroll', () => {
+    let activeStep = null;
+    steps.forEach(step => {
+      const rect = step.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.3) {
+        activeStep = step;
+      }
+    });
+    steps.forEach(step => {
+      step.classList.remove('active-start','active-mid','active-end');
+    });
+    if (activeStep) {
+      const type = activeStep.getAttribute('data-step');
+      if (type === 'start') activeStep.classList.add('active-start');
+      else if (type === 'mid') activeStep.classList.add('active-mid');
+      else if (type === 'end') activeStep.classList.add('active-end');
+    }
+  });
+
+  // Testimonials auto-rotate
+  const testimonialCards = document.querySelectorAll('.testimonial-card');
+  let currentTestimonial = 0;
+  const showTestimonial = (index) => {
+    testimonialCards.forEach((card, i) => {
+      card.classList.toggle('active', i === index);
+    });
+  };
+  document.getElementById('nextTest').addEventListener('click', () => {
+    currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+    showTestimonial(currentTestimonial);
+  });
+  document.getElementById('prevTest').addEventListener('click', () => {
+    currentTestimonial = (currentTestimonial - 1 + testimonialCards.length) % testimonialCards.length;
+    showTestimonial(currentTestimonial);
+  });
+  setInterval(() => {
+    currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+    showTestimonial(currentTestimonial);
+  }, 3300);
+</script>
+</body>
+</html>
