@@ -15,6 +15,20 @@
   .hero-copy h1{font-size:clamp(28px,4.6vw,48px);margin-bottom:16px}
   .poster{width:100%;border-radius:10px;overflow:hidden;background:#071827;display:flex;align-items:center;justify-content:center;height:260px}
 
+  @media (max-width: 768px) {
+    .heading-section h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    .heading-section p {
+        font-size: 1rem;
+    }
+    .video-holder iframe {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+    }
+}
   /* Journey */
   .journey-flow{position:relative;margin-top:20px;padding-left:40px}
   .journey-flow::before{content:"";position:absolute;left:20px;top:0;bottom:0;width:2px;background:#9aa4b2;}
@@ -42,7 +56,82 @@
   .progress-bar {height:4px; background:rgba(255,255,255,0.3); position:absolute; bottom:0; left:0; width:100%;}
   .progress-fill {height:100%; background:linear-gradient(90deg,#d96b4b,#f6c85f); width:0%; transition:width 0.1s linear;}
 
-  /* FAQ */
+  /*What to Expect */
+ 
+  .expect-section {max-width:800px; margin:0 auto; padding:40px 20px;}
+  .expect-step {background:#0b1220; padding:20px; border-radius:12px; margin-bottom:20px; opacity:0.5; transition:opacity 0.4s ease, transform 0.4s ease; display:flex; flex-direction:column; gap:10px;}
+  .expect-step.active {opacity:1; transform:scale(1.02); background:linear-gradient(90deg,#d96b4b,#f6c85f); color:#071021;}
+  .expect-step img {max-width:100%; border-radius:8px; filter:blur(6px);}
+  .expect-btn {background:#fff; color:#071021; padding:10px 16px; border:none; border-radius:8px; cursor:pointer; font-weight:600; align-self:flex-start;}
+/*How its different */
+.immersive { margin: 20px auto; border-radius: 16px; overflow: hidden; background: #0b1220; max-width: 900px; }
+.story-hero {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.story-hero > div {
+    width: 100%;
+    max-width: 400px; /* optional: control max width per image box */
+    border-radius: 10px;
+    overflow: hidden;
+    background: #071827;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 260px;
+}
+
+.story-hero img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+ .progress-fixed { position: sticky; bottom: 0; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,.2); } .progress-fixed .fill { height: 100%; width: 0; background: linear-gradient(90deg, #d96b4b, #f6c85f); transition: width .2s linear; }
+  
+ .story-section {
+    padding:40px 20px;
+    max-width:800px;
+    margin:0 auto;
+  }
+
+  .story-card {
+    background:#111a2e;
+    padding:24px;
+    border-radius:16px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.4);
+    font-size:1.1rem;
+    line-height:1.6;
+    margin-bottom:20px;
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .story-card.show {
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .progress-container {
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:6px;
+    background:rgba(255,255,255,0.2);
+  }
+  .progress-fill {
+    height:100%;
+    background:linear-gradient(90deg,#d96b4b,#f6c85f);
+    width:0%;
+    transition:width 0.2s linear;
+  }
+ /* FAQ */
   .accordion{display:grid;gap:8px;margin-top:12px;}
   .acc{background:#0b1220;border-radius:10px;padding:14px;cursor:pointer;transition:background 0.3s ease;}
   .acc:hover{background:#131c32;}
@@ -89,11 +178,60 @@
     </div>
   </section>
 
+
   <section class="story-section">
     <h2 style="margin-bottom:20px;">What Students Say</h2>
     <div id="storyCard" class="story-card"></div>
     <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
   </section>
+
+  <section class="expect-section">
+    <h2 class="expect-section">What to Expect at AI LABS</h2>
+
+  <div class="expect-step" data-step>
+    <h3>✅ I've Applied</h3>
+    <p>You’ve taken the first step. Applications are now under review.</p>
+    <button class="expect-btn">Continue</button>
+  </div>
+  <div class="expect-step" data-step>
+    <h3>📄 Offer Letter</h3>
+    <p>If selected, you’ll receive your offer letter on 23rd August. Reply with <strong>"Accepted"</strong> to enroll.</p>
+    
+    <button class="expect-btn">Accepted</button>
+  </div>
+  <div class="expect-step" data-step>
+    <h3>🎯 First Session</h3>
+    <p>Your first session with your cohort will be on <strong>Confidence</strong>.</p>
+    <button class="expect-btn">Continue</button>
+  </div>
+  <div class="expect-step" data-step>
+    <h3>🚀 Modules & Challenges</h3>
+    <p>Complete the three modules & challenges to our benchmark.</p>
+    <button class="expect-btn">Let's Celebrate</button>
+  </div>
+  <div class="expect-step" data-step>
+    <h3>🎓 Convocation</h3>
+    <p>Graduate with recognition and a personalised letter to your parents.</p>
+    
+  </div>
+
+  <section class="immersive" id="different">
+    <h2 class="immersive">Things that are waiting for you..!!!</h2>
+
+  <div class="story-hero">
+    <div>
+        <img id="image1" src="media/offer.png" alt="Blurred Offer Letter" class="active">
+    </div>
+    <div>
+        <img id="image2" src="media/parent.png" alt="Blurred Parents Letter">
+    </div>
+    
+</div>
+
+<div class="story-section" id="storySection"></div>
+<div class="progress-container"><div class="progress-fill" id="progressFill"></div>
+</div>
+</section>
 
   <section id="faq">
     <h3>FAQ</h3>
@@ -124,18 +262,18 @@
   <footer>Ancient Intelligence Labs • ADIT • New V.V. Nagar • Invite-only cohorts</footer>
 </div>
 <script>
-  // Journey scroll highlight
-  const steps = document.querySelectorAll('.journey-step');
+  // ---------------- Journey scroll highlight ----------------
+  const journeySteps = document.querySelectorAll('.journey-step');
   window.addEventListener('scroll', () => {
     let activeStep = null;
-    steps.forEach(step => {
+    journeySteps.forEach(step => {
       const rect = step.getBoundingClientRect();
       if (rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.3) {
         activeStep = step;
       }
     });
-    steps.forEach(step => {
-      step.classList.remove('active-start','active-mid','active-end');
+    journeySteps.forEach(step => {
+      step.classList.remove('active-start', 'active-mid', 'active-end');
     });
     if (activeStep) {
       const type = activeStep.getAttribute('data-step');
@@ -145,26 +283,19 @@
     }
   });
 
-  // Testimonials story card autoplay
+  // ---------------- Testimonials story card autoplay ----------------
   const testimonials = [
-    // Short original with grammar quirks kept exactly
     "If I tell  about today’s session  than it was  really nice and comfort for us and also we can find ourselves.",
-
-    // First long testimonial split into 3 story cards
     "Honestly, I was expecting some awkward college thing but this turned out to be better. I walked in curious and felt like I got to pause & actually open up with clarity.",
     "I didn't think I would — but there was something about the way the session went which made all of us introspect positively.",
     "This session wasn't one of those 'fix-yourself-be-more-disciplined' kind workshops, but more like a mirror. A non-judgy one?",
-
-    // Second long testimonial split into 3 story cards
     "Attending the session was a genuinely eye-opening experience for me.",
     "It gave me the feeling of self-awareness and encouraged me to work on the things I've been putting off.",
     "Overall, I feel safe, and the non-judgmental environment helped me open up more than I expected.",
-
-    // Other short ones
     "Session felt more like a gossip with friends. Got a medium to share problems within. It was very interactive.",
     "Loved the session. It was very interesting. I recalled all my good memories. Would love to have such sessions in future."
   ];
-  let currentIndex = 0;
+  let currentTestimonialIndex = 0;
   let storyCard = document.getElementById('storyCard');
   let progressFill = document.getElementById('progressFill');
   let autoPlay = true;
@@ -182,9 +313,8 @@
   }
 
   function nextTestimonial() {
-    currentIndex = (currentIndex + 1) % testimonials.length;
-    showTestimonial(currentIndex);
-    progress = 0;
+    currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
+    showTestimonial(currentTestimonialIndex);
     progressFill.style.width = '0%';
   }
 
@@ -205,7 +335,43 @@
   storyCard.addEventListener('mousedown', () => autoPlay = false);
   storyCard.addEventListener('mouseup', () => autoPlay = true);
 
-  // FAQ toggle
+  // ---------------- Expect checklist scroll highlight ----------------
+  const expectSteps = document.querySelectorAll('.expect-step');
+  let currentExpectIndex = 0;
+
+  function highlightExpectStep(index) {
+    expectSteps.forEach((step, i) => {
+      step.classList.toggle('active', i === index);
+    });
+  }
+
+  highlightExpectStep(currentExpectIndex);
+
+  document.querySelectorAll('.expect-btn').forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      if (index < expectSteps.length - 1) {
+        currentExpectIndex = index + 1;
+        highlightExpectStep(currentExpectIndex);
+        expectSteps[currentExpectIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    let activeStep = null;
+    expectSteps.forEach((step, i) => {
+      const rect = step.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.3) {
+        activeStep = i;
+      }
+    });
+    if (activeStep !== null) {
+      highlightExpectStep(activeStep);
+      currentExpectIndex = activeStep;
+    }
+  });
+
+  // ---------------- FAQ toggle ----------------
   document.querySelectorAll('[data-acc]').forEach(acc => {
     acc.addEventListener('click', () => {
       acc.classList.toggle('open');
@@ -213,8 +379,57 @@
   });
 
   // Init
-  showTestimonial(currentIndex);
+  showTestimonial(currentTestimonialIndex);
   startProgress();
+
+  const storyParts = [
+  "AI labs me humne ek aisa safar pura kiya jo humare andar chuppi creativity,courage aur confidence ko bahar lane ka tha.",
+  "Jab mene AI lab ko join kiya tha honestly mujhe andaza nhi tha ki ye itna transform krne wala experience hoga.mujhe laga tha ke shayad kuch workshops hongi,thodi activities hongi -lekin jo mila wo usse kahi zyada tha.",
+  "Yaha humne sikha ke creativity koi fancy cheez nhi hoti-vo humare har thought me,har idea me,har expression me hoti hai,aur sabse badi baat ye ke hame express karna sikhaya gaya khulkar bina dare.",
+  "Kai baar hum apne ideas bol ne se darte hain sochte hain,kya log judge karenge,kya mai sahi rah pai hu ?lekin is lab mai uss dar ko dheere dheere hataya.yaha kisi ne hamari hasi nahi udayai, balki har kisine hame samjne ki koshish ki.",
+  "Hamne bahut sari crazy,fun aur meaningful activities ki aur har activity ke baad ek chiz andar se badal rahi thi- humara confidence.",
+  "Yaha sirf battein nhi huyi- yaha hamare andar ka artist,speaker,thinker aur creator jaaga.",
+  "Aur honestly kahu toh ye sab akele possible nahi tha-humare mentor,om bhai ne,humare friends ne,ek safe aur supportive space banaya.",
+  "Ek aisa space jaha hum gir skte the,lekin koi hasta nahi tha-sab saath dete the.Aaj hum aise level pe pohogh gye hain,jahan hum apne ideas ke sath proud mehssos karte hain… jaha hum public mein bolne se nahi darte… aur jaha creativity ab humara hissa ban chuki hai.",
+  "Thank you AI labs."
+];
+
+const storySection = document.getElementById('storySection');
+const progressFilll = document.getElementById('progressFill');
+
+let currentIndex = 0;
+let totalParts = storyParts.length;
+let started = false; // To ensure it runs only once
+
+function showPart(index) {
+  const card = document.createElement('div');
+  card.className = 'story-card';
+  card.textContent = storyParts[index];
+  storySection.appendChild(card);
+  setTimeout(() => card.classList.add('show'), 100);
+  progressFill.style.width = ((index + 1) / totalParts) * 100 + '%';
+}
+
+function nextPart() {
+  if(currentIndex < totalParts) {
+    showPart(currentIndex);
+    currentIndex++;
+    setTimeout(nextPart, 2500);
+  }
+}
+
+// Detect when user reaches the section
+window.addEventListener('scroll', () => {
+  const sectionTop = storySection.getBoundingClientRect().top;
+  const windowHeight = window.innerHeight;
+
+  if(sectionTop < windowHeight && !started) {
+    started = true;
+    nextPart();
+  }
+});
+
 </script>
+
 </body>
 </html>
