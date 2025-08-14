@@ -50,13 +50,51 @@
   .trait-desc {font-size:0.95rem;color:#9aa4b2;}
 
   /* Story Cards Testimonials */
-  .story-section {padding:40px 0; background:#0b1220; text-align:center; position:relative; overflow:hidden; margin-top:60px; border-radius:12px;}
-  .story-card {max-width:700px; margin:0 auto; font-size:1.2rem; line-height:1.6; background:#111a2e; padding:30px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,0.4); transition:background 0.5s ease;}
-  .story-card.fade {opacity:0; transform:translateX(-20px); transition:opacity 0.4s ease, transform 0.4s ease;}
-  .story-card.show {opacity:1; transform:translateX(0);}
-  .progress-bar {height:4px; background:rgba(255,255,255,0.3); position:absolute; bottom:0; left:0; width:100%;}
-  .progress-fill {height:100%; background:linear-gradient(90deg,#d96b4b,#f6c85f); width:0%; transition:width 0.1s linear;}
-
+   .story-section {
+    padding: 40px 0;
+    background: #0b1220;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 60px;
+    border-radius: 12px;
+    height: 250px; /* fixed section height */
+  }
+  .story-card {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    background: #111a2e;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    width: calc(100% - 40px);
+  }
+  .story-card.show {
+    opacity: 1;
+    z-index: 2;
+  }
+  .progress-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #d96b4b, #f6c85f);
+    width: 0%;
+    transition: width 0.1s linear;
+  }
   /*What to Expect */
  
   .expect-section {max-width:800px; margin:0 auto; padding:40px 20px;}
@@ -186,8 +224,15 @@
 
   <section class="story-section">
     <h2 style="margin-bottom:20px;">What Students Say</h2>
-    <div id="storyCard" class="story-card"></div>
-    <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+    <body>
+  <div class="story-section">
+    <div class="story-card card-a show" id="cardA"></div>
+    <div class="story-card card-b" id="cardB"></div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
   </section>
 
   <section class="expect-section">
@@ -290,55 +335,64 @@
 
   // ---------------- Testimonials story card autoplay ----------------
   const testimonials = [
-    "If I tell  about today’s session  than it was  really nice and comfort for us and also we can find ourselves.",
-    "Honestly, I was expecting some awkward college thing but this turned out to be better. I walked in curious and felt like I got to pause & actually open up with clarity.",
-    "I didn't think I would — but there was something about the way the session went which made all of us introspect positively.",
-    "This session wasn't one of those 'fix-yourself-be-more-disciplined' kind workshops, but more like a mirror. A non-judgy one?",
-    "Attending the session was a genuinely eye-opening experience for me.",
-    "It gave me the feeling of self-awareness and encouraged me to work on the things I've been putting off.",
-    "Overall, I feel safe, and the non-judgmental environment helped me open up more than I expected.",
-    "Session felt more like a gossip with friends. Got a medium to share problems within. It was very interactive.",
-    "Loved the session. It was very interesting. I recalled all my good memories. Would love to have such sessions in future."
-  ];
-  let currentTestimonialIndex = 0;
-  let storyCard = document.getElementById('storyCard');
-  let progressFill = document.getElementById('progressFill');
-  let autoPlay = true;
-  let progress = 0;
+  "If I tell about today’s session, then it was really nice and comfortable for us and also we can find ourselves.",
+  "Honestly, I was expecting some awkward college thing but this turned out to be better. I walked in curious and felt like I got to pause & actually open up with clarity.",
+  "I didn't think I would — but there was something about the way the session went which made all of us introspect positively.",
+  "This session wasn't one of those 'fix-yourself-be-more-disciplined' kind workshops, but more like a mirror. A non-judgy one?",
+  "Attending the session was a genuinely eye-opening experience for me.",
+  "It gave me the feeling of self-awareness and encouraged me to work on the things I've been putting off.",
+  "Overall, I feel safe, and the non-judgmental environment helped me open up more than I expected.",
+  "Session felt more like a gossip with friends. Got a medium to share problems within. It was very interactive.",
+  "Loved the session. It was very interesting. I recalled all my good memories. Would love to have such sessions in future."
+];
 
-  function showTestimonial(index) {
-    storyCard.classList.remove('show');
-    storyCard.classList.add('fade');
-    setTimeout(() => {
-      storyCard.textContent = testimonials[index];
-      storyCard.classList.remove('fade');
-      storyCard.classList.add('show');
-      progress = 0;
-    }, 400);
-  }
+let currentIndexx = 0;
+let progress = 0;
+let autoPlay = true;
+let activeCard = 'A';
 
-  function nextTestimonial() {
-    currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
-    showTestimonial(currentTestimonialIndex);
-    progressFill.style.width = '0%';
-  }
+const cardA = document.getElementById('cardA');
+const cardB = document.getElementById('cardB');
+const progressFill = document.getElementById('progressFill');
 
-  function startProgress() {
-    setInterval(() => {
-      if (autoPlay) {
-        progress += 1;
-        progressFill.style.width = progress + '%';
-        if (progress >= 100) {
-          nextTestimonial();
-        }
+cardA.textContent = testimonials[currentIndexx];
+cardA.classList.add('show');
+
+function nextTestimonial() {
+  const nextIndex = (currentIndex + 1) % testimonials.length;
+  const incomingCard = activeCard === 'A' ? cardB : cardA;
+  const outgoingCard = activeCard === 'A' ? cardA : cardB;
+
+  incomingCard.textContent = testimonials[nextIndexx];
+  incomingCard.classList.add('show');
+  outgoingCard.classList.remove('show');
+
+  activeCard = activeCard === 'A' ? 'B' : 'A';
+  currentIndex = nextIndex;
+  progress = 0;
+  progressFill.style.width = '0%';
+}
+
+function startProgress() {
+  setInterval(() => {
+    if (autoPlay) {
+      progress += 1;
+      progressFill.style.width = progress + '%';
+      if (progress >= 100) {
+        nextTestimonial();
       }
-    }, 40);
-  }
+    }
+  }, 40);
+}
 
-  storyCard.addEventListener('touchstart', () => autoPlay = false);
-  storyCard.addEventListener('touchend', () => autoPlay = true);
-  storyCard.addEventListener('mousedown', () => autoPlay = false);
-  storyCard.addEventListener('mouseup', () => autoPlay = true);
+[cardA, cardB].forEach(card => {
+  card.addEventListener('mousedown', () => autoPlay = false);
+  card.addEventListener('mouseup', () => autoPlay = true);
+  card.addEventListener('touchstart', () => autoPlay = false);
+  card.addEventListener('touchend', () => autoPlay = true);
+});
+
+startProgress();
 
   // ---------------- Expect checklist scroll highlight ----------------
   const expectSteps = document.querySelectorAll('.expect-step');
