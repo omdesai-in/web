@@ -48,83 +48,87 @@
   .trait-icon {font-size:2rem;margin-bottom:10px;}
   .trait-title {font-weight:bold;margin-bottom:8px;}
   .trait-desc {font-size:0.95rem;color:#9aa4b2;}
+/*Testimonials*/
 
-  /* Story Cards Testimonials */
-    :root {
-    --card-max-w: 760px;
-    --frame-h: 260px; /* keeps layout stable & centers text vertically */
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    background: #0b1220;
-    color: #e6eef6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+/* Story Cards Testimonials */
+:root {
+  --card-max-w: 760px;
+  --frame-h: 260px; /* stable height to avoid jitter */
+}
 
-  .story-section {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 12px 56px; /* bottom space for progress bar */
-    margin-top: 60px;
-    overflow: hidden;
-  }
+.story-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 40px 12px 56px; /* bottom space for progress bar */
+  margin-top: 60px;
+  overflow: hidden;
+}
 
-  /* Fixed frame prevents layout shift; cards are absolutely layered inside */
-  .story-frame {
-    position: relative;
-    width: min(92vw, var(--card-max-w));
-    height: var(--frame-h);
-    z-index: 1;
-  }
+.story-frame {
+  position: relative;
+  width: min(92vw, var(--card-max-w));
+  min-height: var(--frame-h);
+}
 
-  .story-card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
+/* Each card fills the frame and centers content */
+.story-card {
+  position: absolute;
+  inset: 0;                    /* fill .story-frame */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
-    background: #111a2e;
-    color: #e6eef6;
-    padding: clamp(16px, 3.2vw, 28px);
-    border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+  background: rgba(17, 26, 46, 0.94);
+  color: #e6eef6;
+  padding: clamp(16px, 3.2vw, 28px);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45);
 
-    font-size: clamp(1rem, 2.2vw, 1.15rem);
-    line-height: 1.7;
-    text-align: left;
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  line-height: 1.7;
 
-    opacity: 0;
-    transition: opacity 420ms ease;
-  }
-  .story-card.show { opacity: 1; z-index: 2; }
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
 
-  .progress-bar {
-    height: 4px;
-    background: rgba(255,255,255,0.25);
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 24px;
-    width: 100%;
-    z-index: 0;
-  }
-  .progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #d96b4b, #f6c85f);
-    transition: width 0.1s linear;
-  }
+.story-card.show { opacity: 1; z-index: 2; }
 
-  @media (max-width: 520px) {
-    :root { --frame-h: 300px; }
-  /*What to Expect */
-  }
+.story-card p,
+.story-card { /* allow plain text or <p> */
+  max-width: 46ch;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  margin: 0 auto;
+}
+
+/* Progress bar */
+.progress-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 24px;
+  height: 4px;
+  width: 100%;
+  background: rgba(255,255,255,0.25);
+  overflow: hidden;
+  z-index: 3;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #d96b4b, #f6c85f);
+  transition: width 0.1s linear;
+}
+
+/* Mobile tweaks */
+@media (max-width: 520px) {
+  :root { --frame-h: 300px; }
+  .story-section { padding: 24px 12px 48px; }
+  .story-card { padding: 18px; }
+  .story-card p, .story-card { max-width: 90%; font-size: 1rem; }
+}
+/*what to expect*/
   .expect-section {max-width:800px; margin:0 auto; padding:40px 20px;}
   .expect-step {background:#0b1220; padding:20px; border-radius:12px; margin-bottom:20px; opacity:0.5; transition:opacity 0.4s ease, transform 0.4s ease; display:flex; flex-direction:column; gap:10px;}
   .expect-step.active {opacity:1; transform:scale(1.02); background:linear-gradient(90deg,#d96b4b,#f6c85f); color:#071021;}
@@ -253,14 +257,14 @@
   <section class="story-section">
     <h2 style="margin-bottom:20px;">What Students Say</h2>
     <body>
- <div class="story-section" id="testimonialSection">
-    <div class="story-frame">
-      <div class="story-card" id="cardA"></div>
-      <div class="story-card" id="cardB"></div>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<div class="story-section">
+  <div class="story-frame">
+    <div class="story-card" id="cardA"></div>
+    <div class="story-card" id="cardB"></div>
   </div>
-  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
   </section>
 
   <section class="expect-section">
