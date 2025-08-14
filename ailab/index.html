@@ -69,12 +69,15 @@
   position: relative;
   width: min(92vw, var(--card-max-w));
   min-height: var(--frame-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Each card fills the frame and centers content */
 .story-card {
   position: absolute;
-  inset: 0;                    /* fill .story-frame */
+  inset: 0; /* fill .story-frame */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,9 +94,17 @@
 
   opacity: 0;
   transition: opacity 420ms ease;
+
+  /* Long text handling */
+  overflow-y: auto;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.story-card.show { opacity: 1; z-index: 2; }
+.story-card.show {
+  opacity: 1;
+  z-index: 2;
+}
 
 .story-card p,
 .story-card { /* allow plain text or <p> */
@@ -114,6 +125,7 @@
   overflow: hidden;
   z-index: 3;
 }
+
 .progress-fill {
   height: 100%;
   width: 0%;
@@ -125,9 +137,15 @@
 @media (max-width: 520px) {
   :root { --frame-h: 300px; }
   .story-section { padding: 24px 12px 48px; }
-  .story-card { padding: 18px; }
-  .story-card p, .story-card { max-width: 90%; font-size: 1rem; }
+  .story-card {
+    padding: 18px;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-height: var(--frame-h);
+  }
+  .story-card p, .story-card { max-width: 90%; }
 }
+
 /*what to expect*/
   .expect-section {max-width:800px; margin:0 auto; padding:40px 20px;}
   .expect-step {background:#0b1220; padding:20px; border-radius:12px; margin-bottom:20px; opacity:0.5; transition:opacity 0.4s ease, transform 0.4s ease; display:flex; flex-direction:column; gap:10px;}
