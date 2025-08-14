@@ -50,53 +50,81 @@
   .trait-desc {font-size:0.95rem;color:#9aa4b2;}
 
   /* Story Cards Testimonials */
-   .story-section {
-    padding: 40px 0;
+    :root {
+    --card-max-w: 760px;
+    --frame-h: 260px; /* keeps layout stable & centers text vertically */
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     background: #0b1220;
-    text-align: center;
+    color: #e6eef6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .story-section {
     position: relative;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 12px 56px; /* bottom space for progress bar */
     margin-top: 60px;
-    border-radius: 12px;
-    height: 250px; /* fixed section height */
+    overflow: hidden;
   }
+
+  /* Fixed frame prevents layout shift; cards are absolutely layered inside */
+  .story-frame {
+    position: relative;
+    width: min(92vw, var(--card-max-w));
+    height: var(--frame-h);
+    z-index: 1;
+  }
+
   .story-card {
-    max-width: 700px;
-    margin: 0 auto;
-    font-size: 1.2rem;
-    line-height: 1.6;
-    background: #111a2e;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+
+    background: #111a2e;
+    color: #e6eef6;
+    padding: clamp(16px, 3.2vw, 28px);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    line-height: 1.7;
+    text-align: left;
+
     opacity: 0;
-    transition: opacity 0.5s ease;
-    width: calc(100% - 40px);
+    transition: opacity 420ms ease;
   }
-  .story-card.show {
-    opacity: 1;
-    z-index: 2;
-  }
+  .story-card.show { opacity: 1; z-index: 2; }
+
   .progress-bar {
     height: 4px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255,255,255,0.25);
     position: absolute;
-    bottom: 0;
     left: 0;
+    right: 0;
+    bottom: 24px;
     width: 100%;
+    z-index: 0;
   }
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #d96b4b, #f6c85f);
     width: 0%;
+    background: linear-gradient(90deg, #d96b4b, #f6c85f);
     transition: width 0.1s linear;
   }
+
+  @media (max-width: 520px) {
+    :root { --frame-h: 300px; }
   /*What to Expect */
- 
+  }
   .expect-section {max-width:800px; margin:0 auto; padding:40px 20px;}
   .expect-step {background:#0b1220; padding:20px; border-radius:12px; margin-bottom:20px; opacity:0.5; transition:opacity 0.4s ease, transform 0.4s ease; display:flex; flex-direction:column; gap:10px;}
   .expect-step.active {opacity:1; transform:scale(1.02); background:linear-gradient(90deg,#d96b4b,#f6c85f); color:#071021;}
@@ -225,13 +253,13 @@
   <section class="story-section">
     <h2 style="margin-bottom:20px;">What Students Say</h2>
     <body>
-  <div class="story-section">
-    <div class="story-card card-a show" id="cardA"></div>
-    <div class="story-card card-b" id="cardB"></div>
-
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
+ <div class="story-section" id="testimonialSection">
+    <div class="story-frame">
+      <div class="story-card" id="cardA"></div>
+      <div class="story-card" id="cardB"></div>
     </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
   </div>
   </section>
 
@@ -334,65 +362,68 @@
   });
 
   // ---------------- Testimonials story card autoplay ----------------
-  const testimonials = [
-  "If I tell about today’s session, then it was really nice and comfortable for us and also we can find ourselves.",
-  "Honestly, I was expecting some awkward college thing but this turned out to be better. I walked in curious and felt like I got to pause & actually open up with clarity.",
-  "I didn't think I would — but there was something about the way the session went which made all of us introspect positively.",
-  "This session wasn't one of those 'fix-yourself-be-more-disciplined' kind workshops, but more like a mirror. A non-judgy one?",
-  "Attending the session was a genuinely eye-opening experience for me.",
-  "It gave me the feeling of self-awareness and encouraged me to work on the things I've been putting off.",
-  "Overall, I feel safe, and the non-judgmental environment helped me open up more than I expected.",
-  "Session felt more like a gossip with friends. Got a medium to share problems within. It was very interactive.",
-  "Loved the session. It was very interesting. I recalled all my good memories. Would love to have such sessions in future."
-];
+(() => {
+  // Keep everything scoped to avoid name clashes with your page
+  const T_LIST = [
+    "If I tell about today’s session, then it was really nice and comfortable for us and also we can find ourselves.",
+    "Honestly, I was expecting some awkward college thing but this turned out to be better. I walked in curious and felt like I got to pause & actually open up with clarity.",
+    "I didn't think I would — but there was something about the way the session went which made all of us introspect positively.",
+    "This session wasn't one of those 'fix-yourself-be-more-disciplined' kind workshops, but more like a mirror. A non-judgy one?",
+    "Attending the session was a genuinely eye-opening experience for me.",
+    "It gave me the feeling of self-awareness and encouraged me to work on the things I've been putting off.",
+    "Overall, I feel safe, and the non-judgmental environment helped me open up more than I expected.",
+    "Session felt more like a gossip with friends. Got a medium to share problems within. It was very interactive.",
+    "Loved the session. It was very interesting. I recalled all my good memories. Would love to have such sessions in future."
+  ];
 
-let currentIndexx = 0;
-let progress = 0;
-let autoPlay = true;
-let activeCard = 'A';
+  let tIdx = 0;           // renamed to avoid conflict with existing page vars
+  let tProgress = 0;      // progress percent (0-100)
+  let tAuto = true;       // autoplay toggle
+  let activeCardId = 'A'; // which card is currently on top
 
-const cardA = document.getElementById('cardA');
-const cardB = document.getElementById('cardB');
-const progressFill = document.getElementById('progressFill');
+  const cardA = document.getElementById('cardA');
+  const cardB = document.getElementById('cardB');
+  const progressFill = document.getElementById('progressFill');
+  const section = document.getElementById('testimonialSection');
 
-cardA.textContent = testimonials[currentIndexx];
-cardA.classList.add('show');
+  // initial content
+  cardA.textContent = T_LIST[tIdx];
+  cardA.classList.add('show');
 
-function nextTestimonial() {
-  const nextIndex = (currentIndex + 1) % testimonials.length;
-  const incomingCard = activeCard === 'A' ? cardB : cardA;
-  const outgoingCard = activeCard === 'A' ? cardA : cardB;
+  function nextTestimonial() {
+    const nextIdx = (tIdx + 1) % T_LIST.length;
+    const incoming = activeCardId === 'A' ? cardB : cardA;
+    const outgoing = activeCardId === 'A' ? cardA : cardB;
 
-  incomingCard.textContent = testimonials[nextIndexx];
-  incomingCard.classList.add('show');
-  outgoingCard.classList.remove('show');
+    incoming.textContent = T_LIST[nextIdx];
+    incoming.classList.add('show');
+    outgoing.classList.remove('show');
 
-  activeCard = activeCard === 'A' ? 'B' : 'A';
-  currentIndex = nextIndex;
-  progress = 0;
-  progressFill.style.width = '0%';
-}
+    activeCardId = activeCardId === 'A' ? 'B' : 'A';
+    tIdx = nextIdx;
+    tProgress = 0;
+    progressFill.style.width = '0%';
+  }
 
-function startProgress() {
+  // One interval only (scoped), avoids duplicates across hot reloads
+  const TICK_MS = 40; // 40ms * 100 = ~4s per testimonial
   setInterval(() => {
-    if (autoPlay) {
-      progress += 1;
-      progressFill.style.width = progress + '%';
-      if (progress >= 100) {
-        nextTestimonial();
-      }
-    }
-  }, 40);
-}
+    if (!tAuto) return;
+    tProgress += 1;
+    if (tProgress > 100) tProgress = 100;
+    progressFill.style.width = tProgress + '%';
+    if (tProgress >= 100) nextTestimonial();
+  }, TICK_MS);
 
-[cardA, cardB].forEach(card => {
-  card.addEventListener('mousedown', () => autoPlay = false);
-  card.addEventListener('mouseup', () => autoPlay = true);
-  card.addEventListener('touchstart', () => autoPlay = false);
-  card.addEventListener('touchend', () => autoPlay = true);
-});
-
-startProgress();
+  // Pause on hold/click (desktop + touch)
+  [cardA, cardB, section].forEach(el => {
+    el.addEventListener('mousedown', () => (tAuto = false));
+    el.addEventListener('mouseup',   () => (tAuto = true));
+    el.addEventListener('mouseleave',() => (tAuto = true));
+    el.addEventListener('touchstart',() => (tAuto = false), {passive: true});
+    el.addEventListener('touchend',  () => (tAuto = true));
+  });
+})();
 
   // ---------------- Expect checklist scroll highlight ----------------
   const expectSteps = document.querySelectorAll('.expect-step');
