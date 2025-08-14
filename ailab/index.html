@@ -52,7 +52,7 @@
   /* Story Cards Testimonials */
   .story-section {padding:40px 0; background:#0b1220; text-align:center; position:relative; overflow:hidden; margin-top:60px; border-radius:12px;}
   .story-card {max-width:700px; margin:0 auto; font-size:1.2rem; line-height:1.6; background:#111a2e; padding:30px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,0.4); transition:background 0.5s ease;}
-  .story-card.fade {opacity:0; transform:translateX(20px); transition:opacity 0.4s ease, transform 0.4s ease;}
+  .story-card.fade {opacity:0; transform:translateX(-20px); transition:opacity 0.4s ease, transform 0.4s ease;}
   .story-card.show {opacity:1; transform:translateX(0);}
   .progress-bar {height:4px; background:rgba(255,255,255,0.3); position:absolute; bottom:0; left:0; width:100%;}
   .progress-fill {height:100%; background:linear-gradient(90deg,#d96b4b,#f6c85f); width:0%; transition:width 0.1s linear;}
@@ -149,7 +149,7 @@
     <div class="hero-copy">
       <h1>Find Yourself Before the World Finds You</h1>
       <p>An invite-only journey for first-year ADIT students to explore confidence, creativity, and courage — in the Ancient Intelligence Lab, a safe space to nurture your unique seed into a thriving plant, leaving you with a story worth telling.</p>
-      <a href="https://forms.gle/ofiYEB6YQYCUheLA8" class="btn" target="_blank">Apply Now →</a>
+      <a href="https://link.nxog.tech/applicationailab" class="btn" target="_blank">Apply Now →</a>
       <br><br>
       <div class="small-note"> 5 Unique Students per cohort • Deposit-based (₹50 refundable)</div>
     </div>
@@ -260,7 +260,7 @@
     <div class="card">
       <h3>Your First Year. Make It Count.</h3>
       <p class="muted">Round 1 deadline: <strong>21st August 2025</strong>. <br>5 Unique Students per cohort.</p>
-      <a class="btn" href="https://forms.gle/ofiYEB6YQYCUheLA8" target="_blank">Apply Now</a>
+      <a class="btn" href="https://link.nxog.tech/applicationailab" target="_blank">Apply Now</a>
     </div>
   </section>
 
@@ -314,7 +314,7 @@
       storyCard.classList.remove('fade');
       storyCard.classList.add('show');
       progress = 0;
-    }, 300);
+    }, 400);
   }
 
   function nextTestimonial() {
