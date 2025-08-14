@@ -14,6 +14,7 @@
   .hero{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;min-height:68vh}
   .hero-copy h1{font-size:clamp(28px,4.6vw,48px);margin-bottom:16px}
   .poster{width:100%;border-radius:10px;overflow:hidden;background:#071827;display:flex;align-items:center;justify-content:center;height:260px}
+@media (max-width:880px){.hero{grid-template-columns:1fr}.poster{height:200px}}
 
   @media (max-width: 768px) {
     .heading-section h1 {
@@ -147,12 +148,16 @@
   <header class="hero">
     <div class="hero-copy">
       <h1>Find Yourself Before the World Finds You</h1>
-      <p>An invite-only journey for first-year ADIT students to explore confidence, creativity, and courage — and leave with a story worth telling.</p>
+      <p>An invite-only journey for first-year ADIT students to explore confidence, creativity, and courage — in the Ancient Intelligence Lab, a safe space to nurture your unique seed into a thriving plant, leaving you with a story worth telling.</p>
       <a href="https://forms.gle/ofiYEB6YQYCUheLA8" class="btn" target="_blank">Apply Now →</a>
       <br><br>
-      <div class="small-note">Only 5 seats per cohort • Deposit-based (₹50 refundable)</div>
+      <div class="small-note"> 5 Unique Students per cohort • Deposit-based (₹50 refundable)</div>
     </div>
-    <div class="poster">Video/Media Placeholder</div>
+    <div class="poster">
+      <video  width="500px" controls autoplay muted loop alt="weird video  of me dancing">
+        <source src  ="ailab/media/s1.mp4" type="video/mp4">
+    </video>
+    </div>
   </header>
 
   <section id="journey">
@@ -254,7 +259,7 @@
   <section id="apply" style="margin-top:40px">
     <div class="card">
       <h3>Your First Year. Make It Count.</h3>
-      <p class="muted">Round deadline: <strong>21st August 2025</strong>. Seats: Only 5 per cohort.</p>
+      <p class="muted">Round 1 deadline: <strong>21st August 2025</strong>. <br>5 Unique Students per cohort.</p>
       <a class="btn" href="https://forms.gle/ofiYEB6YQYCUheLA8" target="_blank">Apply Now</a>
     </div>
   </section>
