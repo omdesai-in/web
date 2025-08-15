@@ -48,18 +48,19 @@
   .trait-icon {font-size:2rem;margin-bottom:10px;}
   .trait-title {font-weight:bold;margin-bottom:8px;}
   .trait-desc {font-size:0.95rem;color:#9aa4b2;}
-/*Testimonials*/
 
-/* Story Cards Testimonials */
+/*================== Testimonials (mobile-safe) ==================*/
 :root {
   --card-max-w: 760px;
   --frame-h: 260px; /* stable height to avoid jitter */
 }
 
-.story-section {
+.testimonialSection {
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center; /* FIX: center column */
+  flex-direction: column; /* FIX: ensure h2 stacks above frame */
   padding: 40px 12px 56px; /* bottom space for progress bar */
   margin-top: 60px;
   overflow: hidden;
@@ -75,7 +76,7 @@
 }
 
 /* Each card fills the frame and centers content */
-.story-card {
+.testimonial-card {
   position: absolute;
   inset: 0; /* fill .story-frame */
   display: flex;
@@ -95,21 +96,22 @@
   opacity: 0;
   transition: opacity 420ms ease;
 
-  /* Long text handling */
+  /* Long text handling (FIX) */
   overflow-y: auto;
   word-wrap: break-word;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
 }
 
-.story-card.show {
+.testimonial-card.show {
   opacity: 1;
   z-index: 2;
 }
 
-.story-card p,
-.story-card { /* allow plain text or <p> */
-  max-width: 46ch;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+.testimonial-card p,
+.testimonial-card {
+  max-width: 46ch; /* nice readable width on wider screens */
   margin: 0 auto;
 }
 
@@ -137,33 +139,27 @@
 @media (max-width: 520px) {
   :root { --frame-h: 300px; }
   .story-section { padding: 24px 12px 48px; }
-  .story-card {
-    padding: 18px;
+  .testimonial-card { /* FIX: mobile-safe paddings & line-height */
+    padding: 16px;
     font-size: 1rem;
     line-height: 1.6;
-    max-height: var(--frame-h);
   }
-  .story-card p, .story-card { max-width: 90%; }
+  .testimonial-card p, .testimonial-card { max-width: 90%; }
 }
 
-/*what to expect*/
+/*================== What to expect ==================*/
   .expect-section {max-width:800px; margin:0 auto; padding:40px 20px;}
   .expect-step {background:#0b1220; padding:20px; border-radius:12px; margin-bottom:20px; opacity:0.5; transition:opacity 0.4s ease, transform 0.4s ease; display:flex; flex-direction:column; gap:10px;}
   .expect-step.active {opacity:1; transform:scale(1.02); background:linear-gradient(90deg,#d96b4b,#f6c85f); color:#071021;}
   .expect-step img {max-width:100%; border-radius:8px; filter:blur(6px);}
   .expect-btn {background:#fff; color:#071021; padding:10px 16px; border:none; border-radius:8px; cursor:pointer; font-weight:600; align-self:flex-start;}
-/*How its different */
-.immersive { margin: 20px auto; border-radius: 16px; overflow: hidden; background: #0b1220; max-width: 900px; }
-.story-hero {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
 
+/*================== How it’s different (images) ==================*/
+.immersive { margin: 20px auto; border-radius: 16px; overflow: hidden; background: #0b1220; max-width: 900px; }
+.story-hero { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
 .story-hero > div {
     width: 100%;
-    max-width: 400px; /* optional: control max width per image box */
+    max-width: 400px;
     border-radius: 10px;
     overflow: hidden;
     background: #071827;
@@ -172,7 +168,6 @@
     justify-content: center;
     height: 260px;
 }
-
 .story-hero img {
     max-width: 100%;
     max-height: 100%;
@@ -181,14 +176,12 @@
     object-fit: contain;
     display: block;
 }
- .progress-fixed { position: sticky; bottom: 0; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,.2); } .progress-fixed .fill { height: 100%; width: 0; background: linear-gradient(90deg, #d96b4b, #f6c85f); transition: width .2s linear; }
-  
- .story-section {
-    padding:40px 20px;
-    max-width:800px;
-    margin:0 auto;
-  }
 
+/*================== Story parts (speech) ==================*/
+ .progress-fixed { position: sticky; bottom: 0; left: 0; width: 100%; height: 6px; background: rgba(255,255,255,.2); }
+ .progress-fixed .fill { height: 100%; width: 0; background: linear-gradient(90deg, #d96b4b, #f6c85f); transition: width .2s linear; }
+  
+ .story-section { padding:40px 20px; max-width:800px; margin:0 auto; }
   .story-card {
     background:#111a2e;
     padding:24px;
@@ -201,10 +194,7 @@
     transform:translateY(20px);
     transition:opacity 0.6s ease, transform 0.6s ease;
   }
-  .story-card.show {
-    opacity:1;
-    transform:translateY(0);
-  }
+  .story-card.show { opacity:1; transform:translateY(0); }
 
   .progress-container {
     position:fixed;
@@ -220,6 +210,7 @@
     width:0%;
     transition:width 0.2s linear;
   }
+
  /* FAQ */
   .accordion{display:grid;gap:8px;margin-top:12px;}
   .acc{background:#0b1220;border-radius:10px;padding:14px;cursor:pointer;transition:background 0.3s ease;}
@@ -242,9 +233,10 @@
       <div class="small-note"> 5 Unique Students per cohort • Deposit-based (₹50 refundable)</div>
     </div>
     <div class="poster">
-      <video  width="500px" controls autoplay muted loop alt="weird video  of me dancing">
-        <source src  ="ailab/media/s1.mp4" type="video/mp4">
-    </video>
+      <!-- FIX: make video fluid -->
+      <video style="width:100%;height:auto;" controls autoplay muted loop aria-label="Intro video">
+        <source src="ailab/media/s1.mp4" type="video/mp4">
+      </video>
     </div>
   </header>
 
@@ -271,67 +263,60 @@
     </div>
   </section>
 
-
-  <section class="story-section">
+  <!-- FIX: single, clean testimonial section with an id -->
+  <section class="testimonialSection" id="testimonialSection">
     <h2 style="margin-bottom:20px;">What Students Say</h2>
-    <body>
-<div class="story-section">
-  <div class="story-frame">
-    <div class="story-card" id="cardA"></div>
-    <div class="story-card" id="cardB"></div>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-</div>
-
+    <div class="story-frame">
+      <div class="testimonial-card" id="cardA"></div>
+      <div class="testimonial-card" id="cardB"></div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="testimonialProgressFill"></div></div>
   </section>
 
   <section class="expect-section">
-    <h2 class="expect-section">What to Expect at AI LABS</h2>
+    <h2>What to Expect at AI LABS</h2>
 
-  <div class="expect-step" data-step>
-    <h3>✅ I've Applied</h3>
-    <p>You’ve taken the first step. Applications are now under review.</p>
-    <button class="expect-btn">Continue</button>
-  </div>
-  <div class="expect-step" data-step>
-    <h3>📄 Offer Letter</h3>
-    <p>If selected, you’ll receive your offer letter on 23rd August. Reply with <strong>"Accepted"</strong> to enroll.</p>
-    
-    <button class="expect-btn">Accepted</button>
-  </div>
-  <div class="expect-step" data-step>
-    <h3>🎯 First Session</h3>
-    <p>Your first session with your cohort will be on <strong>Confidence</strong>.</p>
-    <button class="expect-btn">Continue</button>
-  </div>
-  <div class="expect-step" data-step>
-    <h3>🚀 Modules & Challenges</h3>
-    <p>Complete the three modules & challenges to our benchmark.</p>
-    <button class="expect-btn">Let's Celebrate</button>
-  </div>
-  <div class="expect-step" data-step>
-    <h3>🎓 Convocation</h3>
-    <p>Graduate with recognition and a personalised letter to your parents.</p>
-    
-  </div>
+    <div class="expect-step" data-step>
+      <h3>✅ I've Applied</h3>
+      <p>You’ve taken the first step. Applications are now under review.</p>
+      <button class="expect-btn">Continue</button>
+    </div>
+    <div class="expect-step" data-step>
+      <h3>📄 Offer Letter</h3>
+      <p>If selected, you’ll receive your offer letter on 23rd August. Reply with <strong>"Accepted"</strong> to enroll.</p>
+      <button class="expect-btn">Accepted</button>
+    </div>
+    <div class="expect-step" data-step>
+      <h3>🎯 First Session</h3>
+      <p>Your first session with your cohort will be on <strong>Confidence</strong>.</p>
+      <button class="expect-btn">Continue</button>
+    </div>
+    <div class="expect-step" data-step>
+      <h3>🚀 Modules & Challenges</h3>
+      <p>Complete the three modules & challenges to our benchmark.</p>
+      <button class="expect-btn">Let's Celebrate</button>
+    </div>
+    <div class="expect-step" data-step>
+      <h3>🎓 Convocation</h3>
+      <p>Graduate with recognition and a personalised letter to your parents.</p>
+    </div>
+  </section>
 
   <section class="immersive" id="different">
     <h2 class="immersive">Things that are waiting for you..!!!</h2>
 
-  <div class="story-hero">
-    <div>
-        <img id="image1" src="ailab/media/offer.png" alt=" Offer Letter" class="active">
+    <div class="story-hero">
+      <div>
+          <img id="image1" src="ailab/media/offer.png" alt="Offer Letter" class="active">
+      </div>
+      <div>
+          <img id="image2" src="ailab/media/parent.png" alt="Recognition Of Excellence Letter To Parents">
+      </div>
     </div>
-    <div>
-        <img id="image2" src="ailab/media/parent.png" alt=" Recognition Of Excellence Letter To Parents">
-    </div>
-    
-</div>
 
-<div class="story-section" id="storySection"></div>
-<div class="progress-container"><div class="progress-fill" id="progressFill"></div>
-</div>
-</section>
+    <div class="story-section" id="storySection"></div>
+    <div class="progress-container"><div class="progress-fill" id="storyprogressFill"></div></div>
+  </section>
 
   <section id="faq">
     <h3>FAQ</h3>
@@ -361,7 +346,10 @@
 
   <footer>Ancient Intelligence Labs • ADIT • New V.V. Nagar • Invite-only cohorts</footer>
 </div>
+
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+
   // ---------------- Journey scroll highlight ----------------
   const journeySteps = document.querySelectorAll('.journey-step');
   window.addEventListener('scroll', () => {
@@ -384,70 +372,66 @@
   });
 
   // ---------------- Testimonials story card autoplay ----------------
-(() => {
-  // Keep everything scoped to avoid name clashes with your page
-  const T_LIST = [
-    "If I tell about today’s session, then it was really nice and comfortable for us and also we can find ourselves.",
-    "Honestly, I was expecting some awkward college thing but this turned out to be better. I walked in curious and felt like I got to pause & actually open up with clarity.",
-    "I didn't think I would — but there was something about the way the session went which made all of us introspect positively.",
-    "This session wasn't one of those 'fix-yourself-be-more-disciplined' kind workshops, but more like a mirror. A non-judgy one?",
-    "Attending the session was a genuinely eye-opening experience for me.",
-    "It gave me the feeling of self-awareness and encouraged me to work on the things I've been putting off.",
-    "Overall, I feel safe, and the non-judgmental environment helped me open up more than I expected.",
-    "Session felt more like a gossip with friends. Got a medium to share problems within. It was very interactive.",
-    "Loved the session. It was very interesting. I recalled all my good memories. Would love to have such sessions in future."
-  ];
+  (() => {
+    const T_LIST = [
+      "If I tell about today’s session, then it was really nice and comfortable for us and also we can find ourselves.",
+      "Honestly, I was expecting some awkward college thing but this turned out to be better. I walked in curious and felt like I got to pause & actually open up with clarity.",
+      "I didn't think I would — but there was something about the way the session went which made all of us introspect positively.",
+      "This session wasn't one of those 'fix-yourself-be-more-disciplined' kind workshops, but more like a mirror. A non-judgy one?",
+      "Attending the session was a genuinely eye-opening experience for me.",
+      "It gave me the feeling of self-awareness and encouraged me to work on the things I've been putting off.",
+      "Overall, I feel safe, and the non-judgmental environment helped me open up more than I expected.",
+      "Session felt more like a gossip with friends. Got a medium to share problems within. It was very interactive.",
+      "Loved the session. It was very interesting. I recalled all my good memories. Would love to have such sessions in future."
+    ];
 
-  let tIdx = 0;           // renamed to avoid conflict with existing page vars
-  let tProgress = 0;      // progress percent (0-100)
-  let tAuto = true;       // autoplay toggle
-  let activeCardId = 'A'; // which card is currently on top
+    let tIdx = 0;
+    let tProgress = 0;
+    let tAuto = true;
+    let activeCardId = 'A';
 
-  const cardA = document.getElementById('cardA');
-  const cardB = document.getElementById('cardB');
-  const progressFill = document.getElementById('progressFill');
-  const section = document.getElementById('testimonialSection');
+    const cardA = document.getElementById('cardA');
+    const cardB = document.getElementById('cardB');
+    const testimonialProgressFill = document.getElementById('testimonialProgressFill');
+    const section = document.getElementById('testimonialSection'); // FIX: now exists
 
-  // initial content
-  cardA.textContent = T_LIST[tIdx];
-  cardA.classList.add('show');
+    cardA.textContent = T_LIST[tIdx];
+    cardA.classList.add('show');
 
-  function nextTestimonial() {
-    const nextIdx = (tIdx + 1) % T_LIST.length;
-    const incoming = activeCardId === 'A' ? cardB : cardA;
-    const outgoing = activeCardId === 'A' ? cardA : cardB;
+    function nextTestimonial() {
+      const nextIdx = (tIdx + 1) % T_LIST.length;
+      const incoming = activeCardId === 'A' ? cardB : cardA;
+      const outgoing = activeCardId === 'A' ? cardA : cardB;
 
-    incoming.textContent = T_LIST[nextIdx];
-    incoming.classList.add('show');
-    outgoing.classList.remove('show');
+      incoming.textContent = T_LIST[nextIdx];
+      incoming.classList.add('show');
+      outgoing.classList.remove('show');
 
-    activeCardId = activeCardId === 'A' ? 'B' : 'A';
-    tIdx = nextIdx;
-    tProgress = 0;
-    progressFill.style.width = '0%';
-  }
+      activeCardId = activeCardId === 'A' ? 'B' : 'A';
+      tIdx = nextIdx;
+      tProgress = 0;
+      testimonialProgressFill.style.width = '0%';
+    }
 
-  // One interval only (scoped), avoids duplicates across hot reloads
-  const TICK_MS = 40; // 40ms * 100 = ~4s per testimonial
-  setInterval(() => {
-    if (!tAuto) return;
-    tProgress += 1;
-    if (tProgress > 100) tProgress = 100;
-    progressFill.style.width = tProgress + '%';
-    if (tProgress >= 100) nextTestimonial();
-  }, TICK_MS);
+    const TICK_MS = 40;
+    setInterval(() => {
+      if (!tAuto) return;
+      tProgress += 1;
+      if (tProgress > 100) tProgress = 100;
+      testimonialProgressFill.style.width = tProgress + '%';
+      if (tProgress >= 100) nextTestimonial();
+    }, TICK_MS);
 
-  // Pause on hold/click (desktop + touch)
-  [cardA, cardB, section].forEach(el => {
-    el.addEventListener('mousedown', () => (tAuto = false));
-    el.addEventListener('mouseup',   () => (tAuto = true));
-    el.addEventListener('mouseleave',() => (tAuto = true));
-    el.addEventListener('touchstart',() => (tAuto = false), {passive: true});
-    el.addEventListener('touchend',  () => (tAuto = true));
-  });
-})();
+    [cardA, cardB, section].forEach(el => {
+      el.addEventListener('mousedown', () => (tAuto = false));
+      el.addEventListener('mouseup',   () => (tAuto = true));
+      el.addEventListener('mouseleave',() => (tAuto = true));
+      el.addEventListener('touchstart',() => (tAuto = false), {passive: true});
+      el.addEventListener('touchend',  () => (tAuto = true));
+    });
+  })();
 
-  // ---------------- Expect checklist scroll highlight ----------------
+  // ---------------- Expect checklist (FIX: removed nested DOMContentLoaded) ----------------
   const expectSteps = document.querySelectorAll('.expect-step');
   let currentExpectIndex = 0;
 
@@ -483,6 +467,54 @@
     }
   });
 
+  // ---------------- Story parts autoplay ----------------
+  const storyParts = [
+    "AI labs me humne ek aisa safar pura kiya jo humare andar chuppi creativity,courage aur confidence ko bahar lane ka tha.",
+    "Jab mene AI lab ko join kiya tha honestly mujhe andaza nhi tha ki ye itna transform krne wala experience hoga.mujhe laga tha ke shayad kuch workshops hongi,thodi activities hongi -lekin jo mila wo usse kahi zyada tha.",
+    "Yaha humne sikha ke creativity koi fancy cheez nhi hoti-vo humare har thought me,har idea me,har expression me hoti hai,aur sabse badi baat ye ke hame express karna sikhaya gaya khulkar bina dare.",
+    "Kai baar hum apne ideas bol ne se darte hain sochte hain,kya log judge karenge,kya mai sahi rah pai hu ?lekin is lab mai uss dar ko dheere dheere hataya.yaha kisi ne hamari hasi nahi udayai, balki har kisine hame samjne ki koshish ki.",
+    "Hamne bahut sari crazy,fun aur meaningful activities ki aur har activity ke baad ek chiz andar se badal rahi thi- humara confidence.",
+    "Yaha sirf battein nhi huyi- yaha hamare andar ka artist,speaker,thinker aur creator jaaga.",
+    "Aur honestly kahu toh ye sab akele possible nahi tha-humare mentor,om bhai ne,humare friends ne,ek safe aur supportive space banaya.",
+    "Ek aisa space jaha hum gir skte the,lekin koi hasta nahi tha-sab saath dete the.Aaj hum aise level pe pohogh gye hain,jahan hum apne ideas ke sath proud mehssos karte hain… jaha hum public mein bolne se nahi darte… aur jaha creativity ab humara hissa ban chuki hai.",
+    "Thank you AI labs."
+  ];
+
+  const storySection = document.getElementById('storySection');
+  const storyProgressFill = document.getElementById('storyprogressFill'); // FIX: correct id (lowercase p)
+
+  let currentIndex = 0;
+  let totalParts = storyParts.length;
+  let started = false;
+
+  function showPart(index) {
+    const card = document.createElement('div');
+    card.className = 'story-card';
+    card.textContent = storyParts[index];
+    storySection.appendChild(card);
+    requestAnimationFrame(() => card.classList.add('show'));
+    if (storyProgressFill) {
+      storyProgressFill.style.width = ((index + 1) / totalParts) * 100 + '%';
+    }
+  }
+
+  function nextPart() {
+    if(currentIndex < totalParts) {
+      showPart(currentIndex);
+      currentIndex++;
+      setTimeout(nextPart, 2500);
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    const sectionTop = storySection.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+    if(sectionTop < windowHeight && !started) {
+      started = true;
+      nextPart();
+    }
+  });
+
   // ---------------- FAQ toggle ----------------
   document.querySelectorAll('[data-acc]').forEach(acc => {
     acc.addEventListener('click', () => {
@@ -490,58 +522,7 @@
     });
   });
 
-  // Init
-  showTestimonial(currentTestimonialIndex);
-  startProgress();
-
-  const storyParts = [
-  "AI labs me humne ek aisa safar pura kiya jo humare andar chuppi creativity,courage aur confidence ko bahar lane ka tha.",
-  "Jab mene AI lab ko join kiya tha honestly mujhe andaza nhi tha ki ye itna transform krne wala experience hoga.mujhe laga tha ke shayad kuch workshops hongi,thodi activities hongi -lekin jo mila wo usse kahi zyada tha.",
-  "Yaha humne sikha ke creativity koi fancy cheez nhi hoti-vo humare har thought me,har idea me,har expression me hoti hai,aur sabse badi baat ye ke hame express karna sikhaya gaya khulkar bina dare.",
-  "Kai baar hum apne ideas bol ne se darte hain sochte hain,kya log judge karenge,kya mai sahi rah pai hu ?lekin is lab mai uss dar ko dheere dheere hataya.yaha kisi ne hamari hasi nahi udayai, balki har kisine hame samjne ki koshish ki.",
-  "Hamne bahut sari crazy,fun aur meaningful activities ki aur har activity ke baad ek chiz andar se badal rahi thi- humara confidence.",
-  "Yaha sirf battein nhi huyi- yaha hamare andar ka artist,speaker,thinker aur creator jaaga.",
-  "Aur honestly kahu toh ye sab akele possible nahi tha-humare mentor,om bhai ne,humare friends ne,ek safe aur supportive space banaya.",
-  "Ek aisa space jaha hum gir skte the,lekin koi hasta nahi tha-sab saath dete the.Aaj hum aise level pe pohogh gye hain,jahan hum apne ideas ke sath proud mehssos karte hain… jaha hum public mein bolne se nahi darte… aur jaha creativity ab humara hissa ban chuki hai.",
-  "Thank you AI labs."
-];
-
-const storySection = document.getElementById('storySection');
-const progressFilll = document.getElementById('progressFill');
-
-let currentIndex = 0;
-let totalParts = storyParts.length;
-let started = false; // To ensure it runs only once
-
-function showPart(index) {
-  const card = document.createElement('div');
-  card.className = 'story-card';
-  card.textContent = storyParts[index];
-  storySection.appendChild(card);
-  setTimeout(() => card.classList.add('show'), 100);
-  progressFill.style.width = ((index + 1) / totalParts) * 100 + '%';
-}
-
-function nextPart() {
-  if(currentIndex < totalParts) {
-    showPart(currentIndex);
-    currentIndex++;
-    setTimeout(nextPart, 2500);
-  }
-}
-
-// Detect when user reaches the section
-window.addEventListener('scroll', () => {
-  const sectionTop = storySection.getBoundingClientRect().top;
-  const windowHeight = window.innerHeight;
-
-  if(sectionTop < windowHeight && !started) {
-    started = true;
-    nextPart();
-  }
 });
-
 </script>
-
 </body>
 </html>
