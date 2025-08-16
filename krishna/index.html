@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>When Life Gives You Roses (and Big Questions)</title>
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="A cosmic, animated reading experience about Money, Career, and Love through Krishna's lens — and a ₹20 rose." />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0b1020;          /* deep indigo */
+      --bg-uv: #5a00d0;            /* ultraviolet */
+      --glow-cyan: #00f7ff;        /* electric cyan */
+      --glow-gold: #fdd66b;        /* molten gold */
+      --text: #e6f0ff;             /* soft white */
+      --text-bright: #f8faff;      /* brighter text */
+      --muted: #a8b5d1;            /* improved muted text */
+      --rose: #ff2bd1;             /* cosmic magenta */
+      --card: #1a2142;             /* more solid card */
+      --card-secondary: #0f1629;   /* secondary card */
+      --border: #3b4a73;           /* clearer border */
+      --accent: #7c3aed;           /* purple accent */
+    }
+
+    /* ---------- Base ---------- */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 20% 10%, rgba(106,0,244,0.15), transparent 70%),
+                  radial-gradient(1000px 700px at 80% 80%, rgba(0,247,255,0.12), transparent 70%),
+                  linear-gradient(180deg, #0b1020 0%, #0b1020 60%, #0a0f1e 100%);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    a { 
+      color: var(--glow-cyan); 
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    a:hover { 
+      text-decoration: underline; 
+      color: var(--glow-gold);
+    }
+
+    /* ---------- Starfield Canvas ---------- */
+    #stars {
+      position: fixed; inset: 0; z-index: -2;
+      display: block; width: 100vw; height: 100vh;
+      background: transparent;
+    }
+
+    /* ---------- Cosmic Swirl ---------- */
+    .swirl {
+      position: fixed; inset: -20vh -20vw auto auto; height: 140vh; width: 140vw; z-index: -1;
+      filter: blur(100px) saturate(110%);
+      opacity: 0.08;
+      background: conic-gradient(from 0deg, var(--bg-uv), var(--glow-cyan), var(--bg-deep), var(--rose), var(--bg-uv));
+      animation: spin 180s linear infinite;
+      transform-origin: 50% 50%;
+      mask-image: radial-gradient(circle at 60% 40%, black 20%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at 60% 40%, black 20%, transparent 80%);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ---------- Header / Hero ---------- */
+    header {
+      position: relative;
+      padding: 120px 20px 60px;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin: 0 auto 20px;
+      max-width: 20ch;
+      color: var(--text-bright);
+      text-shadow: 0 0 20px rgba(0,247,255,0.4), 0 0 60px rgba(90,0,208,0.2);
+      font-weight: 700;
+    }
+
+    .subtitle {
+      margin: 0 auto;
+      max-width: 50ch;
+      color: var(--muted);
+      font-size: 1.2rem;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .hero-divider {
+      width: min(600px, 80%);
+      height: 3px; margin: 40px auto 0;
+      background: linear-gradient(90deg, transparent, var(--glow-cyan), var(--glow-gold), transparent);
+      filter: drop-shadow(0 0 20px rgba(253,214,107,0.6));
+      border-radius: 2px;
+    }
+
+    /* ---------- Content Card ---------- */
+    .wrap { 
+      display: grid; 
+      place-items: start center; 
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      width: min(850px, 95vw);
+      padding: clamp(32px, 5vw, 48px);
+      background: linear-gradient(145deg, 
+        rgba(26,33,66,0.95) 0%, 
+        rgba(15,22,41,0.9) 100%);
+      border: 2px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 
+        0 20px 60px rgba(0,0,0,0.4), 
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        0 0 40px rgba(0,247,255,0.05);
+      backdrop-filter: blur(20px) saturate(120%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glow-cyan), transparent);
+      opacity: 0.6;
+    }
+
+    /* ---------- Typography ---------- */
+    .prose {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .prose p { 
+      margin: 0 0 1.4rem; 
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .prose p.lead { 
+      font-size: 1.3rem; 
+      color: var(--text-bright);
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      padding: 24px;
+      background: linear-gradient(135deg, rgba(0,247,255,0.08), rgba(90,0,208,0.08));
+      border-radius: 16px;
+      border: 1px solid rgba(0,247,255,0.15);
+    }
+
+    .prose h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin: 3rem 0 1.2rem;
+      color: var(--text-bright);
+      text-shadow: 0 0 20px rgba(253,214,107,0.4);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .prose h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--glow-cyan), var(--glow-gold));
+      border-radius: 2px;
+    }
+
+    .tagline { 
+      color: var(--muted); 
+      margin-top: -4px; 
+      font-size: 1rem;
+      font-style: italic;
+    }
+
+    blockquote {
+      margin: 2rem 0; 
+      padding: 1.5rem 1.8rem;
+      border-left: 4px solid var(--glow-cyan);
+      background: linear-gradient(135deg, 
+        rgba(0,247,255,0.08), 
+        rgba(0,247,255,0.03));
+      border-radius: 12px;
+      color: var(--text-bright);
+      box-shadow: 
+        inset 0 0 30px rgba(0,247,255,0.05),
+        0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+      font-size: 1.15rem;
+      line-height: 1.7;
+    }
+
+    blockquote::before {
+      content: '"';
+      position: absolute;
+      top: -10px; left: 10px;
+      font-size: 4rem;
+      color: var(--glow-cyan);
+      opacity: 0.3;
+      font-family: serif;
+    }
+
+    ul { 
+      padding-left: 1.5rem; 
+      margin: 1.5rem 0;
+    }
+
+    li { 
+      margin: 0.8rem 0; 
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    strong { 
+      color: var(--glow-gold); 
+      font-weight: 600;
+    }
+
+    em { 
+      color: var(--rose);
+      font-style: italic;
+    }
+
+    hr.glow {
+      height: 2px; border: none; margin: 40px 0;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(0,247,255,0.6), 
+        rgba(253,214,107,0.8), 
+        rgba(0,247,255,0.6),
+        transparent);
+      box-shadow: 0 0 20px rgba(0,247,255,0.3);
+      border-radius: 1px;
+    }
+
+    /* ---------- Enhanced Lists ---------- */
+    .prose ul li {
+      position: relative;
+      padding-left: 0.5rem;
+    }
+
+    .prose ul li::marker {
+      color: var(--glow-cyan);
+    }
+
+    /* ---------- Call-to-action ---------- */
+    .cta {
+      display: inline-flex; 
+      align-items: center; 
+      gap: 12px;
+      padding: 16px 24px; 
+      border-radius: 16px;
+      background: linear-gradient(135deg, 
+        rgba(0,247,255,0.15), 
+        rgba(253,214,107,0.15));
+      border: 2px solid rgba(0,247,255,0.4);
+      box-shadow: 
+        0 8px 32px rgba(0,247,255,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: all 0.3s cubic-bezier(.2,.8,.2,1);
+      will-change: transform;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--text-bright);
+      text-shadow: 0 0 10px rgba(0,247,255,0.5);
+    }
+
+    .cta:hover { 
+      transform: translateY(-3px) scale(1.02); 
+      box-shadow: 
+        0 15px 50px rgba(0,247,255,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+      border-color: var(--glow-gold);
+      text-decoration: none;
+    }
+
+    .cta::after {
+      content: '→';
+      transition: transform 0.2s ease;
+      font-size: 1.2em;
+    }
+
+    .cta:hover::after {
+      transform: translateX(4px);
+    }
+
+    /* ---------- Section Dividers ---------- */
+    .section-number {
+      display: inline-block;
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--glow-cyan), var(--accent));
+      border-radius: 50%;
+      color: var(--bg-deep);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-align: center;
+      line-height: 32px;
+      margin-right: 12px;
+      box-shadow: 0 4px 16px rgba(0,247,255,0.3);
+    }
+
+    /* ---------- Footer ---------- */
+    footer { 
+      text-align: center; 
+      padding: 60px 20px 100px; 
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, 
+        rgba(0,247,255,0.1), 
+        rgba(253,214,107,0.1));
+      border: 1px solid rgba(0,247,255,0.2);
+      color: var(--glow-cyan);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 
+        0 4px 16px rgba(0,0,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px) scale(1.05);
+      background: linear-gradient(135deg, 
+        rgba(0,247,255,0.2), 
+        rgba(253,214,107,0.2));
+      border-color: var(--glow-gold);
+      color: var(--glow-gold);
+      box-shadow: 
+        0 8px 32px rgba(0,247,255,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      text-decoration: none;
+    }
+
+    .social-link svg {
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover svg {
+      filter: drop-shadow(0 0 8px currentColor);
+    }
+
+    /* LinkedIn specific hover effect */
+    .social-link:nth-child(1):hover {
+      background: linear-gradient(135deg, 
+        rgba(0,119,181,0.2), 
+        rgba(0,119,181,0.1));
+      border-color: #0077b5;
+      color: #0077b5;
+      box-shadow: 
+        0 8px 32px rgba(0,119,181,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    /* Instagram specific hover effect */
+    .social-link:nth-child(2):hover {
+      background: linear-gradient(135deg, 
+        rgba(225,48,108,0.2), 
+        rgba(255,220,128,0.2));
+      border-color: #e1306c;
+      color: #e1306c;
+      box-shadow: 
+        0 8px 32px rgba(225,48,108,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    footer p {
+      margin: 0;
+      opacity: 0.8;
+    }
+    /* ---------- Reveal on scroll ---------- */
+    .reveal { 
+      opacity: 0; 
+      transform: translateY(24px); 
+      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), 
+                  transform 1s cubic-bezier(0.4, 0, 0.2, 1); 
+    }
+    .reveal.show { 
+      opacity: 1; 
+      transform: none; 
+    }
+
+    /* ---------- Reading Progress ---------- */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--glow-cyan), var(--glow-gold));
+      z-index: 1000;
+      transition: width 0.1s ease;
+    }
+
+    /* ---------- Floating Navigation ---------- */
+    .floating-nav {
+      position: fixed;
+      right: 30px; top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .floating-nav.show {
+      opacity: 1;
+    }
+
+    .nav-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: rgba(166,179,213,0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .nav-dot.active {
+      background: var(--glow-cyan);
+      box-shadow: 0 0 16px rgba(0,247,255,0.6);
+      transform: scale(1.3);
+    }
+
+    /* ---------- Mobile Responsiveness ---------- */
+    @media (max-width: 768px) {
+      .floating-nav { display: none; }
+      
+      .card {
+        padding: clamp(20px, 4vw, 32px);
+        border-radius: 16px;
+      }
+
+      .prose h2 {
+        font-size: clamp(1.4rem, 4vw, 1.8rem);
+        margin: 2rem 0 1rem;
+      }
+
+      blockquote {
+        padding: 1.2rem 1.4rem;
+        font-size: 1.05rem;
+      }
+
+      .cta {
+        padding: 14px 20px;
+        font-size: 1rem;
+      }
+    }
+
+    /* ---------- Accessibility: reduce motion ---------- */
+    @media (prefers-reduced-motion: reduce) {
+      .swirl { animation: none; }
+      .reveal { transition: none; opacity: 1; transform: none; }
+      .cta { transition: none; }
+      .nav-dot { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ---------- High contrast mode ---------- */
+    @media (prefers-contrast: high) {
+      :root {
+        --text: #ffffff;
+        --text-bright: #ffffff;
+        --muted: #cccccc;
+        --border: #666666;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Reading progress bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Floating navigation -->
+  <nav class="floating-nav" id="floatingNav">
+    <div class="nav-dot" data-section="hero"></div>
+    <div class="nav-dot" data-section="krishna"></div>
+    <div class="nav-dot" data-section="money"></div>
+    <div class="nav-dot" data-section="career"></div>
+    <div class="nav-dot" data-section="love"></div>
+    <div class="nav-dot" data-section="conclusion"></div>
+  </nav>
+
+  <!-- Animated starfield and cosmic swirl background -->
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="swirl" aria-hidden="true"></div>
+
+  <header id="hero">
+    <h1 class="title">When Life Gives You Roses <span style="color:var(--glow-gold)">(and Big Questions)</span></h1>
+    <p class="subtitle">A ₹20 rose, a podium, and three big ideas — Money, Career, and Love — seen through Krishna's lens.</p>
+    <div class="hero-divider"></div>
+  </header>
+
+  <div class="wrap">
+    <article class="card prose">
+
+      <p class="lead reveal">So there I was, Saturday morning, bored out of my mind. Then I hear there's an elocution competition happening nearby. Perfect timepass opportunity, right?</p>
+
+      <p class="reveal">Now, I always carry some random object to make my speeches more concrete. That day? A rose flower.</p>
+
+      <p class="reveal">My plan was simple: talk about life and death, then have a real conversation with the audience. So I get on the podium, show them this rose, and say, <strong>"Look, I bought this rose for ₹20, but I have literally no one to give it to. And honestly? I have no clue how to even earn that ₹20 back. Hell, I don't even know what I'm doing with my life."</strong></p>
+
+      <p class="reveal">Then I dove into my topic about understanding Love, Money, and Career better.</p>
+
+      <p class="reveal">But here's the crazy part—I wasn't there to win. My goal was simpler: make a friend.</p>
+
+      <p class="reveal">When the competition ended and I congratulated the winner, she told me something beautiful: <em>"When you said you had no one to give the flower to, I thought to myself, 'Give it to me!'"</em></p>
+
+      <p class="reveal">So I gave a rose to a girl for the first time in my life.</p>
+
+      <p class="reveal">Now, my friends went crazy after this—pushing me to call her, plan dates, the whole drama. But honestly? I was obsessed with something else entirely: those three big questions about Money, Career, and Love.</p>
+
+      <p class="reveal">And since today is Janmashtami, let's see what Krishna taught us about exactly these things.</p>
+
+      <h2 class="reveal" id="krishna"><span class="section-number">1</span>Who is Krishna, Really?</h2>
+      <p class="reveal">For those who don't know him—he's THE everything. Guru, architect, psychologist, musician, doctor, warrior, king, climatologist, engineer. Fighter, singer, teacher—you name it.</p>
+      <p class="reveal">He's more than god to me. I worship his EXCELLENCE.</p>
+      <blockquote class="reveal">But here's what I've learned: <strong>it's more important to UNDERSTAND God rather than just worship him.</strong></blockquote>
+
+      <h2 class="reveal" id="money"><span class="section-number">2</span>Money: The Foundation Question</h2>
+      <p class="reveal">Look, I haven't made enough money to preach about wealth. But I've gained enough clarity to know this: <strong>HOW you make money matters more than how much you make.</strong></p>
+      <p class="reveal">Because here's the thing—one kind of wealth drags you toward wine and women (and I'm talking about the destructive kind—prostitutes, affairs, the whole mess).</p>
+      <p class="reveal">Another kind of wealth leads you to worship and wisdom.</p>
+      <blockquote class="reveal">There's this Sanskrit saying: <em>अर्थस्य मूलं धर्म।</em><br><strong>The foundation of wealth is ethics.</strong></blockquote>
+      <p class="reveal">Living in a hostel, I love free stuff. Free food? Sign me up. But here's what ancient wisdom taught us about taking and giving:</p>
+      <ul class="reveal">
+        <li><strong>Dakshina (Fees):</strong> You pay for services received.</li>
+        <li><strong>Dan (Donation):</strong> Given as social duty, no strings attached.</li>
+      </ul>
+      <p class="reveal">The rule is simple: when you take something, either pay dakshina for it or make sure it's genuinely given as dan.</p>
+      <p class="reveal">Why? Because everything has value. Every service has value. And taking someone's wealth without paying for it? That's stealing. And stealing someone's wealth ultimately destroys your own.</p>
+
+      <h2 class="reveal" id="career"><span class="section-number">3</span>Career: Finding Your Swadharma</h2>
+      <blockquote class="reveal">Krishna drops this gem in Bhagavad Gita 3.35:<br><strong>"It's far better to do your own duty imperfectly than to do someone else's duty perfectly."</strong></blockquote>
+      <p class="reveal">Ancient wisdom identified four career paths based on your natural tendencies:</p>
+      <ul class="reveal">
+        <li><strong>Educator</strong> (love teaching and guiding)</li>
+        <li><strong>Entrepreneur</strong> (love creating and building)</li>
+        <li><strong>Executive</strong> (love managing and organizing)</li>
+        <li><strong>Employee</strong> (love supporting and executing)</li>
+      </ul>
+      <p class="reveal">Your Swadharma could be any of these or a combination.</p>
+      <p class="reveal">How do you figure out which one? Experiment. Try different things until you know what fits.</p>
+      <p class="reveal"><strong>Quick hack:</strong> What do your friends always ask you for help with? Advice? Event management? Problem-solving? That's probably pointing toward your natural dharma.</p>
+      <p class="reveal">But here's the thing—even after building wealth and climbing career ladders, people still feel empty. Why? Because we're missing the third piece.</p>
+
+      <h2 class="reveal" id="love"><span class="section-number">4</span>Love: Going Beyond Yourself</h2>
+      <p class="reveal">How can you love God without loving his creation—other people?</p>
+      <p class="reveal">There's this story of two young men who went to a monk. The monk asked, "Have you fallen in love?" One said no. The monk replied, <strong>"Go fall in love with a human first. Then you'll understand God."</strong></p>
+      <p class="reveal">Whether you're atheist, scientist, devotee, or just someone figuring life out—think about this: When were you happiest?</p>
+      <p class="reveal">I bet it was when you were working for something bigger than just yourself. That's our foundational nature—to love, to extend beyond our tiny existence.</p>
+      <p class="reveal">Some find this through partners. Others through family. Some through pleasures, others through God.</p>
+      <p class="reveal">But how do you actually love?</p>
+      <p class="reveal">Here's a story that blew my mind: Krishna had wives and a lover named Radha. Once, his wife asked what he liked about Radha. Krishna started crying.</p>
+      <p class="reveal">When they told Radha about this, she got angry at the wife: "How dare you make Krishna cry? Only I have the right to cry thinking of him!" With tears in her own eyes, she said, "Please never mention my name in front of him again."</p>
+      <p class="reveal"><strong>Maybe love is about going beyond your own needs and extending your existence for something greater—whether that's a girl, a goal, or God.</strong></p>
+
+      <h2 class="reveal" id="conclusion"><span class="section-number">5</span>The Bottom Line</h2>
+      <p class="reveal">This is what my little mind understands about Money, Career, and Love. It's messy, it's incomplete, but it's real.</p>
+      <p class="reveal">If you're in ADIT and this perspective resonates with you, I've started something where I don't preach anything but just trying to create safe place to discuss real stuff.</p>
+      <p class="reveal"><a class="cta" href="https://link.henil.dev/fy" target="_blank" rel="noopener">Check it out here</a></p>
+
+      <hr class="glow" />
+
+      <h2 class="reveal">People to <s>blame</s> give credit</h2>
+      <p class="reveal">This idea started a year ago during random  discussion with Krupa about Krishna. My friends Bob, Doreman, Darling, Ducky pumped me up to  write always but its; Sachi and Tanvi—god bless them because they went through my terrible first drafts and helped me make sense of this chaos.</p>
+      <p class="reveal">If you loved or hated this, blame them. 😄</p>
+    </article>
+  </div>
+
+  <footer>Perspective by Om Desai
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/om-desai-954551161/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="currentColor"/>
+        </svg>
+      </a>
+      <a href="https://www.instagram.com/om_desai514" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Starfield ---------- */
+    (function() {
+      const c = document.getElementById('stars');
+      const ctx = c.getContext('2d');
+      let w, h, stars = [], dpr = Math.max(1, window.devicePixelRatio || 1);
+
+      function resize() {
+        w = c.width = Math.floor(innerWidth * dpr);
+        h = c.height = Math.floor(innerHeight * dpr);
+        c.style.width = innerWidth + 'px';
+        c.style.height = innerHeight + 'px';
+        spawn();
+      }
+
+      function spawn() {
+        const count = Math.floor((innerWidth * innerHeight) / 10000);
+        stars = Array.from({ length: count }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          z: Math.random() * 0.8 + 0.2,
+          r: Math.random() * 1.2 + 0.3,
+          vx: (Math.random() - 0.5) * 0.03,
+          vy: (Math.random() - 0.5) * 0.03,
+        }));
+      }
+
+      function tick() {
+        ctx.clearRect(0, 0, w, h);
+        for (let s of stars) {
+          s.x += s.vx; s.y += s.vy;
+          if (s.x < 0) s.x = w; if (s.x > w) s.x = 0;
+          if (s.y < 0) s.y = h; if (s.y > h) s.y = 0;
+          const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 8 * dpr);
+          glow.addColorStop(0, 'rgba(0,247,255,0.8)');
+          glow.addColorStop(0.3, 'rgba(90,0,208,0.4)');
+          glow.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = glow;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r * 2 * dpr, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(tick);
+      }
+
+      resize();
+      addEventListener('resize', resize);
+      tick();
+    })();
+
+    /* ---------- Reading Progress ---------- */
+    (function() {
+      const progressBar = document.getElementById('progressBar');
+      
+      function updateProgress() {
+        const scrolled = window.scrollY;
+        const maxHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrolled / maxHeight) * 100;
+        progressBar.style.width = Math.min(progress, 100) + '%';
+      }
+      
+      window.addEventListener('scroll', updateProgress);
+    })();
+
+    /* ---------- Floating Navigation ---------- */
+    (function() {
+      const nav = document.getElementById('floatingNav');
+      const dots = nav.querySelectorAll('.nav-dot');
+      const sections = ['hero', 'krishna', 'money', 'career', 'love', 'conclusion'];
+      
+      function updateActiveSection() {
+        let currentSection = '';
+        const scrollPos = window.scrollY + 200;
+        
+        sections.forEach(sectionId => {
+          const section = document.getElementById(sectionId);
+          if (section && section.offsetTop <= scrollPos) {
+            currentSection = sectionId;
+          }
+        });
+        
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', sections[index] === currentSection);
+        });
+      }
+      
+      function showNav() {
+        nav.classList.toggle('show', window.scrollY > 300);
+      }
+      
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          const targetSection = document.getElementById(sections[index]);
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+      
+      window.addEventListener('scroll', () => {
+        updateActiveSection();
+        showNav();
+      });
+    })();
+
+    /* ---------- Reveal on scroll ---------- */
+    (function() {
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('show');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(el => io.observe(el));
+    })();
+
+    /* ---------- Enhanced Interactions ---------- */
+    (function() {
+      // Add subtle parallax effect to title
+      const title = document.querySelector('.title');
+      const subtitle = document.querySelector('.subtitle');
+      
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const rate = scrolled * -0.5;
+        
+        if (title) {
+          title.style.transform = `translateY(${rate}px)`;
+        }
+        if (subtitle) {
+          subtitle.style.transform = `translateY(${rate * 0.3}px)`;
+        }
+      });
+      
+      // Add glow effect on scroll for card
+      const card = document.querySelector('.card');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            card.style.boxShadow = `
+              0 20px 60px rgba(0,0,0,0.4), 
+              inset 0 1px 0 rgba(255,255,255,0.1),
+              0 0 60px rgba(0,247,255,0.1)
+            `;
+          }
+        });
+      }, { threshold: 0.3 });
+      
+      if (card) observer.observe(card);
+    })();
+  </script>
+</body>
+</html>
