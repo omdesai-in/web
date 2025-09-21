@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRP: When Silence Becomes the Best Teacher</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.05"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #f7fafc, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            opacity: 0.9;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .content-section {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #718096;
+            font-weight: 300;
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #2d3748;
+        }
+
+        .card-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+
+        .card-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd89b 0%, #19547b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .quote {
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 4rem;
+            color: #667eea;
+            position: absolute;
+            top: -1rem;
+            left: 1rem;
+            opacity: 0.3;
+        }
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .person-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .person-card:hover {
+            transform: scale(1.05) rotate(1deg);
+        }
+
+        .person-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .cta-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: floatShapes 15s ease-in-out infinite;
+        }
+
+        .shape1 {
+            width: 100px;
+            height: 100px;
+            background: #667eea;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            background: #764ba2;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .shape3 {
+            width: 80px;
+            height: 80px;
+            background: #f093fb;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatShapes {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(15px) rotate(240deg); }
+        }
+
+        @media (max-width: 768px) {
+            .story-card {
+                padding: 1.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content fade-in">
+            <h1>QRP: When Silence Becomes the Best Teacher</h1>
+            <p class="subtitle">Quiet: The Art of Shutting Up and Opening Up</p>
+        </div>
+        <div class="scroll-indicator">
+            ↓ Scroll to explore
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Today's Journey</h2>
+            <p class="section-subtitle">Learning through silence and unexpected conversations</p>
+        </div>
+
+        <div class="story-card fade-in">
+            <h3 class="card-title">The Permission to Talk</h3>
+            <div class="card-content">
+                <p>My today's QRP experience wasn't great because I was distracted—couldn't meet my simple benchmark of having one deep conversation with someone. But more than that, I hate this whole concept of being forced to keep quiet.</p>
+                
+                <p>Take me back to 2nd standard. I'm talking to my friend during lecture, and my teacher makes me stand outside the class for "disturbing." Every time we made noise, someone came running, or that chamcha monitor wrote names on the board to keep us quiet.</p>
+                
+                <p>But <span class="highlight">Kush bhai is graceful</span>—not like our school teachers. He gave us permission to talk. (Please sir, keep giving permission, we'll be good students, pakka!) That's how I got to know Sanvi in my first QRP.</p>
+            </div>
+        </div>
+
+        <div class="story-card fade-in">
+            <h3 class="card-title">Meeting Sanvi</h3>
+            <div class="card-content">
+                <p>She's this small, cute girl, and we talked—gossiped, really—a lot about her school life. But what stuck with me wasn't her childishness; it was her smartness.</p>
+                
+                <p>We were discussing how her teacher cut 2 marks for not writing "in parallelogram" and other school drama. Then she shared something that seemed normal to my engineer brain—she'd taken a laptop to school. When her teacher scolded her for it, she told me something that blew my mind: <span class="highlight">she'd earned that laptop herself.</span></p>
+                
+                <p>No, she's not some 13-year-old entrepreneur. She earned it as a reward in a competition.</p>
+                
+                <p>But here's the thing—I only discovered this because I was quiet and actually listening to her. Without that silence, it wouldn't have been possible.</p>
+            </div>
+        </div>
+
+        <div class="quote fade-in">
+            When a child enters your life, it's time to learn, not time to teach.
+        </div>
+
+        <div class="story-card fade-in">
+            <h3 class="card-title">The Art of Listening</h3>
+            <div class="card-content">
+                <p>Here's what we do wrong: when children or people younger than us are around, we immediately want to share our experiences. For God's sake, please don't spoil their learning journey.</p>
+                
+                <p>From now on, whether you're coming to QRP or not, remember this: So shut your mouth and open your eyes and ears. Not only will you learn a lot, but you'll have a great time.</p>
+                
+                <p>Keep quiet when you're with a child. (Shhhhhhh!) Or with aunties and uncles who turn into teenagers during QRP.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Reading: Connecting with _____ Through Pages</h2>
+        </div>
+
+        <div class="story-card fade-in">
+            <h3 class="card-title">A Grandfather's Legacy</h3>
+            <div class="card-content">
+                <p>I wasn't a reader as a child. Instead, I was that notorious kid who'd broken 3 bicycles in less than 2 years and did endless mischief with my grandfather.</p>
+                
+                <p>But here's our ritual: when he'd sit on his bed watching the same news for the 447th time that day, I'd go to him and force him to read me stories from my storybooks.</p>
+                
+                <p>One day, I came home from school wanting to continue a story, but he wasn't there. He was no more—dead.</p>
+                
+                <p>After things got normal, I wanted to stay connected with him but didn't know how. Then I opened the last book he'd read to me and tried reading it like him, copying his style.</p>
+                
+                <p><span class="highlight">It's been 11 years since he passed away, but whenever I read any book, he's with me.</span> That's my reason for reading.</p>
+            </div>
+        </div>
+
+        <div class="quote fade-in">
+            How much of the day is spent doing things out of obligation rather than out of interest?  - Naval
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Party: The People Who Make It Worth It</h2>
+            <p class="section-subtitle">What makes any party great? The people at that party.</p>
+        </div>
+
+        <div class="people-grid">
+            <div class="person-card fade-in">
+                <div class="person-name">Sanvi</div>
+                <p>Glad to see her back after 2 weeks. Although we didn't have a great conversation like previous ones, it was nice to meet her.</p>
+            </div>
+        </div>
+
+        <div class="story-card fade-in">
+            <div class="card-content">
+                <p>I guess God knows what I need. First, he surrounded me with my friends (or janwars, as I call them). Today I met animal's doctor hope they share a tip with me in how to handle animals.</p>
+            </div>
+        </div>
+            
+        <div class="people-grid">
+            <div class="person-card fade-in">
+                <div class="person-name">New Connections</div>
+                <p>Today I met Martina and her fellow students: Yuvraj, Diya, and Marina. Gave a high-five to Jiya and a girl who was reading "The Art of Letting Go."</p>
+            </div>
+        </div>
+
+        <div class="story-card fade-in">
+            <div class="card-content">
+                <p>I actually love writing about people.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="fade-in">
+            <h2 class="cta-title">Would SBC (Silent Book Club) like to hire me as a writer?</h2>
+            <p style="font-size: 1.3rem; margin: 1rem 0; opacity: 0.9;">Who writes about people?</p>
+            <p style="font-size: 1.1rem; margin: 2rem 0; opacity: 0.8;">(Make your choice wisely as I've very premium price - price is quality conversations)</p>
+            <div class="cta-buttons">
+                <button class="cta-btn" onclick="window.open('https://omdesai.in', '_blank')">Yes, but want to know more about you</button>
+                <button class="cta-btn" onclick="window.open('https://omdesai.in/cth', '_blank')">No, show me your work about how you write about people</button>
+            </div>
+            <p style="margin-top: 2rem; font-size: 1.1rem; opacity: 0.9;">The choice is yours. Either way, there are stories waiting to be told.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Join Our QRP Community</h2>
+        </div>
+        
+        <div class="story-card fade-in" style="text-align: center; padding: 3rem;">
+            <div style="margin-bottom: 2rem;">
+                <img src="qrp5th.jpg" alt="QRP Group Photo" style="width: 100%; max-width: 600px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);" />
+            </div>
+            <h3 class="card-title">Our Beautiful QRP Family</h3>
+            <div class="card-content">
+                <p>Every gathering brings together amazing souls who find joy in silent reading and meaningful conversations.</p>
+                <div style="margin-top: 2rem;">
+                    <button class="cta-btn" onclick="window.open('https://www.instagram.com/anandsilentbookclub?igsh=eXRzcmFiZjIweWFp', '_blank')" style="background: linear-gradient(45deg, #405de6, #5b51d8, #833ab4, #c13584, #e1306c, #fd1d1d); border: none;">
+                        Follow us on Instagram
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Fade in animation
+        function fadeInElements() {
+            const elements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // CTA button interactions
+        function showChoice(choice) {
+            if (choice === 'creative') {
+                alert('Great choice! Stories about creative minds coming soon... 🎨');
+            } else {
+                alert('Awesome! Personal stories and deeper insights coming up... 📖');
+            }
+        }
+
+        // New hire choice function
+        function showHireChoice(choice) {
+            if (choice === 'yes') {
+                alert('Excellent choice! Get ready for premium storytelling about people! 🎭✨');
+            } else {
+                alert('Fair question! Premium price = Deep conversations + Authentic stories + Human connections that matter 💫');
+            }
+        }
+
+        // Smooth scrolling for scroll indicator
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.querySelector('.content-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            fadeInElements();
+        });
+
+        // Add parallax effect to floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.floating-shape');
+            shapes.forEach((shape, index) => {
+                const speed = 0.5 + (index * 0.1);
+                shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>

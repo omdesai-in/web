@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Talent Hunt - ADIT's Amazing Artists</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 25%, #45b7d1 50%, #96ceb4 75%, #feca57 100%);
+            background-size: 300% 300%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .artistic-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatArt 15s ease-in-out infinite;
+        }
+
+        .brush { width: 40px; height: 40px; background: #fff; border-radius: 50% 0 50% 0; top: 10%; left: 10%; }
+        .palette { width: 60px; height: 60px; background: #fff; border-radius: 50% 50% 0 50%; top: 70%; right: 15%; animation-delay: 3s; }
+        .note { width: 30px; height: 30px; background: #fff; border-radius: 50% 0; top: 40%; right: 20%; animation-delay: 6s; }
+        .star { width: 50px; height: 50px; background: #fff; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); bottom: 20%; left: 20%; animation-delay: 9s; }
+
+        @keyframes floatArt {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            letter-spacing: -1px;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            opacity: 0.95;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .organizers {
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: rgba(255,255,255,0.2);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .content-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .art-category {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2d3748;
+            position: relative;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
+        }
+
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .artist-card {
+            background: white;
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border-top: 5px solid transparent;
+        }
+
+        .artist-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+            background-size: 300% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .artist-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+        }
+
+        .artist-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .art-emoji {
+            font-size: 1.5rem;
+        }
+
+        .artist-story {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #4a5568;
+        }
+
+        .artist-story p {
+            margin-bottom: 1rem;
+        }
+
+        .wisdom-quote {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            border-left: 4px solid #ff6b6b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+            font-style: italic;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .organizers-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            border-radius: 30px;
+            color: white;
+        }
+
+        .organizers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .organizer-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .organizer-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .personal-section {
+            background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
+            padding: 4rem 2rem;
+            border-radius: 30px;
+            text-align: center;
+            color: white;
+            margin: 4rem 0;
+        }
+
+        .personal-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .personal-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin: 0.5rem;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .artists-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .artist-card {
+                padding: 1.5rem;
+            }
+            
+            .organizers {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="artistic-shapes">
+            <div class="shape brush"></div>
+            <div class="shape palette"></div>
+            <div class="shape note"></div>
+            <div class="shape star"></div>
+        </div>
+        
+        <div class="hero-content fade-in">
+            <h1>Creative Talent Hunt</h1>
+            <p class="subtitle">Discovering ADIT's Amazing Artists</p>
+            <div class="organizers">
+                Organized by Krisha Shah & Vaishanavi Tiwari
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="art-category fade-in">
+            <h2 class="category-title">🎭 Shayari & Poetry</h2>
+            
+            <div class="artists-grid">
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">✨</span> Aysha</h3>
+                    <div class="artist-story">
+                        <p>I found Aysha in my quest for Finding Gems of ADIT. What got her selected wasn't that she's brilliant in something specific - she was honest with herself. She's like "I feel things very deeply but don't necessarily express it."</p>
+                        <p>Often times I'm not able to express to a person how important they are - be it parents, gandu (my sister) or my friends. What's worse? Losing a friend without telling them how important they were.</p>
+                        <p>But Aysha brought up a solution. If you listen to her "shabd" (word) carefully, you'll feel the 'shiddat' behind it. Her emotions aren't just emotions anymore - it's the creative energy behind everything.</p>
+                        <div class="wisdom-quote">Make your emotions your driving force.</div>
+                    </div>
+                </div>
+
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">🎪</span> James</h3>
+                    <div class="artist-story">
+                        <p>While you'll feel the shiddat behind Aysha's words, James brought in the Shayar's Soul.</p>
+                        <p>I learned the structure of storytelling, and there's a certain way to do something. James does shayari in a way that looks exactly like a shayar's style of doing shayari.</p>
+                        <div class="wisdom-quote">Do the art in a way that it should happen.</div>
+                    </div>
+                </div>
+
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">🎭</span> Ayan</h3>
+                    <div class="artist-story">
+                        <p>What we like the most? Surprises.</p>
+                        <p>The vibe of the event was swung by Ayan's performance. He brought surprises - Mirza Ghalib's sher, but presented in his own style, teaching us an important principle of creativity.</p>
+                        <div class="wisdom-quote">"Great artists don't copy, they steal."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="art-category fade-in">
+            <h2 class="category-title">🎨 Visual Arts & Drawing</h2>
+            
+            <div class="artists-grid">
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">🖌️</span> Vinit</h3>
+                    <div class="artist-story">
+                        <p>If somebody asks me to define art in a sentence, I would say it's an honest form of self-expression.</p>
+                        <p>The way this boy has expressed himself - minute details, choice of paintings not limited to one genre. He's drawing on many different themes. Vinit didn't think about what's interesting to others; he's thinking about what's interesting to him.</p>
+                        <div class="wisdom-quote">When we create things we are obsessed about and not to get likes from others, the people who like us are truly our audience - they're liking our authentic form, not our masked version.</div>
+                    </div>
+                </div>
+
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">🦸</span> Manav</h3>
+                    <div class="artist-story">
+                        <p>He's like Batman - finding his own way of doing things, doesn't care about the traditional way.</p>
+                        <p>I never knew that painting could be done with a pen. Thanks man for enlightening me!</p>
+                    </div>
+                </div>
+
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">🎨</span> Suja Patel</h3>
+                    <div class="artist-story">
+                        <p>Two paintings with great drawing style but missed one thing: color.</p>
+                        <p>For the longest period of my life, I was a person who doesn't celebrate much - whatever festivals or even my wins - because I thought of "what next" always.</p>
+                        <p>But recently, while reading Inner Engineering by Sadhguru, he made me realize: if you're thirsty, you have to drink water, not see it. The only way to feel water is to drink water.</p>
+                        <div class="wisdom-quote">The only way to live life is to celebrate it.</div>
+                    </div>
+                </div>
+
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">🌬️</span> Prati</h3>
+                    <div class="artist-story">
+                        <p>Will you agree that we all love to travel? I travel every day from my bus pickup point to college. The most thrilling experience is to be like a conductor - not to check tickets, but to feel the wind.</p>
+                        <p>Prati's drawing could be felt. There's something behind it - she's gone an extra mile to make that effect. I don't understand drawing much, but it's great. Simply too good.</p>
+                        <div class="wisdom-quote">Go an extra mile whenever you do something. Don't just create, be obsessed.</div>
+                    </div>
+                </div>
+
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">🏃</span> Raghav</h3>
+                    <div class="artist-story">
+                        <p>One thing I remember from Raghav is he's not a very disciplined artist, but that's the way art works.</p>
+                        <p>It's not about working daily - it's about running sprints. Whenever emotions are high, we get triggered, create art, then rest, get bored, and again create something.</p>
+                        <div class="wisdom-quote">The whole pursuit of discipline should be to include more triggers in life rather than making calendars or planning.</div>
+                    </div>
+                </div>
+
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">👁️</span> Rutva</h3>
+                    <div class="artist-story">
+                        <p>I have a habit - I go to the garden, walk, and try to look at what's happening. When you pause and see, it looks really beautiful how nature works.</p>
+                        <p>Richard Feynman said: "You see and I observe."</p>
+                        <p>I observe, but more than me, I found Rutva very observational - be it starting her presentation with Ganesh ji painting or the eyes she made, but more than that, the insights she shared simultaneously.</p>
+                        <div class="wisdom-quote">Share your observations more often, Rutva!</div>
+                    </div>
+                </div>
+
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">✍️</span> Meera</h3>
+                    <div class="artist-story">
+                        <p>She's the girl whose response was the most funny and honest, having daddy as the main character.</p>
+                        <p>She creates amazing drawings and signs them using "Meera" - her legal name might be Mithali. This brings me to a very important insight about creativity.</p>
+                        <div class="wisdom-quote">"The artist must disappear" - You should own your art by putting your signature on it, but if you're willing to disappear as a performer, something divine happens. You go into flow state because now you're not concerned about impressing others; you're expressing yourself.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="art-category fade-in">
+            <h2 class="category-title">💃 Dance</h2>
+            
+            <div class="artists-grid">
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">💫</span> Jainee</h3>
+                    <div class="artist-story">
+                        <p>What I liked about dance is how it's coordinated - music, steps, from eye movement to hands to legs, everything should be in sync to create a good piece of dance. And Jainee created a good one.</p>
+                        <p>The remix tells us that life is full of ups and downs anyway - just make your move and let's dance!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="art-category fade-in">
+            <h2 class="category-title">🎵 Music</h2>
+            
+            <div class="artists-grid">
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">🎶</span> Yashvi Christian</h3>
+                    <div class="artist-story">
+                        <p>She's the one girl I know a bit from bridge course days but never imagined she's such an amazing flute artist.</p>
+                        <p>When she started playing, she didn't give us a song name, but we all started singing because her art was so perfect that we all could recognize it.</p>
+                        <div class="wisdom-quote">Just like we can listen to flute music and understand what she's playing, can we understand what another person is trying to say when they're silent? Can we read between the lines? Can we understand the intent behind every action?</div>
+                    </div>
+                </div>
+
+                <div class="artist-card fade-in">
+                    <h3 class="artist-name"><span class="art-emoji">🎤</span> Krisha Patel</h3>
+                    <div class="artist-story">
+                        <p>First, Yashvi and Krisha were playing the music of "pehle aap pehle aap" - I understand social anxiety is there, but girls & guys, go and perform! Your art forms are amazing.</p>
+                        <p>She was singing a song, but the audience was getting mood swings - sometimes giving good background music by clapping, sometimes not. It looks like life where we know we have to complete the song (life) - sometimes people will appreciate us, sometimes they'll ignore us.</p>
+                        <div class="wisdom-quote">Nothing to take personally - when they're clapping, it's not because your art was great, it's due to dopamine hitting internally. Same way, if reactions aren't good, it's their cortisol.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="organizers-section fade-in">
+        <div class="content-section">
+            <h2 class="section-title" style="color: white; text-align: center;">The Avengers Behind It All</h2>
+            
+            <div class="organizers-grid">
+                <div class="organizer-card">
+                    <h3 class="organizer-name">🌟 Krisha Shah</h3>
+                    <p>It's just 1.5 months, but she has mastered the art of "udta teer lene ka." What I found most fascinating about Krisha is her sense of ambition - she's doing a lot: painting, Bharatanatyam, dance, about to start piano, amazing in academics, but at the same time, she's willing to take a back seat and create a platform for people to showcase.</p>
+                </div>
+                
+                <div class="organizer-card">
+                    <h3 class="organizer-name">🎭 Vaishanavi Tiwari</h3>
+                    <p>An amazing anchor - maybe people from North have something in their water; they just seem great in communication. Without script, conducting events, telling the audience to clap, encouraging them while dealing with her own internal dilemma.</p>
+                </div>
+            </div>
+            
+            <div class="artist-card" style="margin-top: 2rem; background: rgba(255,255,255,0.1); color: white;">
+                <h3 class="artist-name" style="color: white;"><span class="art-emoji">⚡</span> Bhakti - The Catalyst</h3>
+                <div class="artist-story" style="color: rgba(255,255,255,0.9);">
+                    <p>In chemical reactions, there's a catalyst that makes things faster. Bhakti was that catalyst in the event - calling participants, audience, circulating drawings, etc.</p>
+                    <div class="wisdom-quote" style="background: rgba(255,255,255,0.1); border-left-color: #feca57; color: white;">It takes guts.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="personal-section fade-in">
+        <h2 class="personal-title">What's My Art? 🎨</h2>
+        <div class="personal-content">
+            <p>Someone asked me what my creativity is. Well, definitely I'm not close to Ayan's delivery or Vinit's detailed work or Prati's effects or Rutva's observations or Yashvi's flute.</p>
+            <br>
+            <p style="font-size: 1.4rem; font-weight: 700;">But in one line: My art is to make you realize your own uniqueness, worth, and potential so that you see it by yourself.</p>
+            <br>
+            <p>Because I have so many people who communicated my potential to me. I have people who believed in me more than I believe in myself.</p>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="fade-in">
+            <h2 class="cta-title">To All Artists Mentioned & Unmentioned</h2>
+            <p style="font-size: 1.3rem; margin: 2rem 0;">Just express yourself. Be your authentic version.</p>
+            <a href="https://walnut-vinca-462.notion.site/Inner-Ayodhya-1-1d4981cdd5fb8046b4b0c03b69f2a241" target="_blank" class="cta-btn">Want to know what's  inner Ayodhya?</a>
+            
+        </div>
+    </section>
+
+    <script>
+        // Fade in animation
+        function fadeInElements() {
+            const elements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            fadeInElements();
+        });
+
+        // Add parallax effect to artistic shapes
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.shape');
+            shapes.forEach((shape, index) => {
+                const speed = 0.3 + (index * 0.1);
+                shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.05}deg)`;
+            });
+        });
+
+        // Add hover effect to artist cards
+        document.querySelectorAll('.artist-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02) rotate(1deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1) rotate(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>
