@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISTE ADIT — Club SOP</title>
+<style>
+:root {
+  --sidebar-bg: #0F172A;
+  --page-bg: #F1F5F9;
+  --card-bg: #FFFFFF;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --accent: #7C3AED;
+  --accent-light: #EDE9FE;
+  --leader: #F59E0B;
+  --leader-light: #FEF3C7;
+  --manager: #0EA5E9;
+  --manager-light: #E0F2FE;
+  --doer: #10B981;
+  --doer-light: #D1FAE5;
+  --checkpoint-bg: #DCFCE7;
+  --checkpoint-border: #16A34A;
+  --ownership-bg: #EDE9FE;
+  --ownership-border: #6D28D9;
+  --habits-bg: #FEF9C3;
+  --habits-border: #D97706;
+  --border: #E2E8F0;
+  --sidebar-width: 268px;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--page-bg);color:var(--text-primary);display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-width);background:var(--sidebar-bg);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column;}
+.sidebar-header{padding:24px 20px 18px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.club-name{font-size:17px;font-weight:800;color:#fff;letter-spacing:-0.3px;}
+.club-sub{font-size:11px;color:#94A3B8;margin-top:3px;}
+.sidebar-search{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.sidebar-search input{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;color:#fff;font-size:13px;outline:none;}
+.sidebar-search input::placeholder{color:rgba(255,255,255,0.3);}
+.sidebar-search input:focus{border-color:var(--accent);background:rgba(124,58,237,0.18);}
+.sidebar-section{padding:14px 16px 4px;}
+.sidebar-section-label{font-size:10px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px;}
+.sidebar-link{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;color:#CBD5E1;text-decoration:none;font-size:13px;cursor:pointer;transition:background 0.15s,color 0.15s;margin-bottom:1px;}
+.sidebar-link:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.phase-num{width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.tier-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.tier-dot.leader{background:var(--leader);}
+.tier-dot.manager{background:var(--manager);}
+.tier-dot.doer{background:var(--doer);}
+.sidebar-spacer{height:24px;}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-width);flex:1;min-height:100vh;}
+
+/* HERO */
+.hero{background:linear-gradient(140deg,#0F172A 0%,#1E1B4B 55%,#0F172A 100%);padding:52px 48px 48px;color:#fff;}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#A78BFA;margin-bottom:14px;}
+.hero-title{font-size:44px;font-weight:900;letter-spacing:-1.5px;line-height:1.05;margin-bottom:14px;}
+.hero-vision{font-size:15px;color:rgba(255,255,255,0.55);max-width:560px;line-height:1.75;margin-bottom:36px;}
+.entry-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:680px;}
+.entry-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.11);border-radius:12px;padding:18px 20px;cursor:pointer;transition:background 0.2s,border-color 0.2s,transform 0.15s;text-decoration:none;display:block;}
+.entry-card:hover{background:rgba(255,255,255,0.13);border-color:rgba(255,255,255,0.22);transform:translateY(-2px);}
+.entry-card-emoji{font-size:26px;margin-bottom:10px;}
+.entry-card-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:5px;}
+.entry-card-desc{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5;}
+
+/* CONTENT */
+.content{padding:44px 48px;}
+.search-banner{background:var(--accent-light);border:1px solid #C4B5FD;border-radius:var(--radius-sm);padding:11px 16px;margin-bottom:24px;font-size:13px;color:var(--accent);font-weight:600;display:none;}
+.section-header{margin-bottom:30px;}
+.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+.section-title{font-size:26px;font-weight:800;letter-spacing:-0.5px;}
+.section-desc{font-size:14px;color:var(--text-secondary);margin-top:6px;line-height:1.6;}
+
+/* PHASE TIMELINE */
+.phase-timeline{display:flex;align-items:flex-start;margin-bottom:40px;overflow-x:auto;padding-bottom:4px;gap:0;}
+.phase-step{display:flex;align-items:flex-start;flex-shrink:0;}
+.phase-node{display:flex;flex-direction:column;align-items:center;cursor:pointer;gap:6px;}
+.phase-node-circle{width:46px;height:46px;border-radius:50%;background:var(--card-bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;transition:border-color 0.2s,transform 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.phase-node:hover .phase-node-circle{border-color:var(--accent);transform:scale(1.1);}
+.phase-node-label{font-size:10px;font-weight:600;color:var(--text-muted);text-align:center;max-width:64px;line-height:1.3;}
+.phase-connector{width:28px;height:2px;background:var(--border);margin-top:22px;flex-shrink:0;}
+
+/* PHASE CARDS */
+.phases-grid{display:grid;gap:12px;margin-bottom:56px;}
+.phase-card{background:var(--card-bg);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;}
+.phase-card-header{display:flex;align-items:center;gap:16px;padding:18px 22px;cursor:pointer;user-select:none;transition:background 0.15s;}
+.phase-card-header:hover{background:#FAFBFF;}
+.phase-badge{width:46px;height:46px;border-radius:12px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.phase-card-meta{flex:1;}
+.phase-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:2px;}
+.phase-card-title{font-size:16px;font-weight:700;}
+.phase-card-desc{font-size:12px;color:var(--text-secondary);margin-top:2px;line-height:1.4;}
+.phase-toggle{font-size:16px;color:var(--text-muted);transition:transform 0.2s;flex-shrink:0;}
+.phase-card.open .phase-toggle{transform:rotate(180deg);}
+.phase-card-body{display:none;border-top:1px solid var(--border);padding:20px 22px;}
+.phase-card.open .phase-card-body{display:block;}
+.activities-title{font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.activity-sub{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 6px;padding:4px 0;border-bottom:1px solid var(--border);}
+.activity-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;font-size:13px;color:var(--text-secondary);border-bottom:1px dashed var(--border);line-height:1.5;}
+.activity-item:last-child{border-bottom:none;}
+.activity-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px;}
+.callout{border-radius:var(--radius-sm);padding:13px 15px;margin:10px 0;display:flex;gap:12px;align-items:flex-start;}
+.callout-checkpoint{background:var(--checkpoint-bg);border-left:3px solid var(--checkpoint-border);}
+.callout-ownership{background:var(--ownership-bg);border-left:3px solid var(--ownership-border);}
+.callout-habits{background:var(--habits-bg);border-left:3px solid var(--habits-border);}
+.callout-label{font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;}
+.callout-checkpoint .callout-label{color:#15803D;}
+.callout-ownership .callout-label{color:#6D28D9;}
+.callout-habits .callout-label{color:#B45309;}
+.callout-text{font-size:13px;line-height:1.65;color:var(--text-primary);}
+
+/* TEAM STRUCTURE */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:40px;}
+.tier-card{border-radius:var(--radius);padding:18px 20px;border:1px solid transparent;}
+.tier-card.leader{background:var(--leader-light);border-color:#FCD34D;}
+.tier-card.manager{background:var(--manager-light);border-color:#7DD3FC;}
+.tier-card.doer{background:var(--doer-light);border-color:#6EE7B7;}
+.tier-card-emoji{font-size:26px;margin-bottom:10px;}
+.tier-card-name{font-size:15px;font-weight:800;margin-bottom:3px;}
+.tier-card.leader .tier-card-name{color:#92400E;}
+.tier-card.manager .tier-card-name{color:#075985;}
+.tier-card.doer .tier-card-name{color:#065F46;}
+.tier-card-who{font-size:11px;color:var(--text-secondary);margin-bottom:7px;}
+.tier-card-function{font-size:12px;line-height:1.5;}
+.tier-card.leader .tier-card-function{color:#78350F;}
+.tier-card.manager .tier-card-function{color:#0C4A6E;}
+.tier-card.doer .tier-card-function{color:#064E3B;}
+
+/* TIER SECTION HEADERS */
+.tier-section-header{display:flex;align-items:center;gap:12px;margin:44px 0 20px;}
+.tier-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:100px;font-size:12px;font-weight:700;white-space:nowrap;}
+.tier-badge.leader{background:var(--leader-light);color:#92400E;}
+.tier-badge.manager{background:var(--manager-light);color:#075985;}
+.tier-badge.doer{background:var(--doer-light);color:#065F46;}
+.tier-section-line{flex:1;height:1px;background:var(--border);}
+
+/* ROLE CARDS */
+.role-card{background:var(--card-bg);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:14px;overflow:hidden;}
+.role-card-header{display:flex;align-items:stretch;}
+.role-tier-strip{width:5px;flex-shrink:0;}
+.role-tier-strip.leader{background:var(--leader);}
+.role-tier-strip.manager{background:var(--manager);}
+.role-tier-strip.doer{background:var(--doer);}
+.role-card-meta{flex:1;padding:18px 20px;display:flex;align-items:center;gap:16px;}
+.role-info{flex:1;}
+.role-breadcrumb{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);margin-bottom:3px;}
+.role-name{font-size:17px;font-weight:800;letter-spacing:-0.3px;}
+.role-expand-btn{padding:8px 16px;border:1px solid var(--border);border-radius:8px;background:transparent;font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:background 0.15s,color 0.15s;white-space:nowrap;flex-shrink:0;}
+.role-expand-btn:hover{background:var(--page-bg);color:var(--text-primary);}
+
+/* LAYERS */
+.role-layers{border-top:1px solid var(--border);}
+.layer-tabs{display:flex;border-bottom:1px solid var(--border);background:#FAFBFF;}
+.layer-tab{padding:11px 20px;font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;user-select:none;}
+.layer-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.layer-tab:hover:not(.active){color:var(--text-primary);}
+.layer-content{display:none;padding:22px;}
+.layer-content.active{display:block;}
+.layer1-text{font-size:14px;line-height:1.85;color:var(--text-secondary);}
+
+/* CHECKLIST */
+.checklist-group{margin-bottom:20px;}
+.checklist-group-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.checklist-item{display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:13px;color:var(--text-secondary);line-height:1.5;}
+.checklist-item:last-child{border-bottom:none;}
+.check-box{width:18px;height:18px;border:2px solid var(--border);border-radius:5px;flex-shrink:0;margin-top:1px;cursor:pointer;transition:border-color 0.15s,background 0.15s;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.check-box.checked{background:var(--doer);border-color:var(--doer);color:#fff;}
+
+/* LAYER 3 */
+.l3-section{margin-bottom:22px;}
+.l3-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);margin-bottom:10px;}
+.l3-list{list-style:none;}
+.l3-list li{display:flex;align-items:flex-start;gap:10px;padding:7px 0;font-size:13px;color:var(--text-secondary);border-bottom:1px dashed var(--border);line-height:1.5;}
+.l3-list li:last-child{border-bottom:none;}
+.l3-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--text-muted);flex-shrink:0;margin-top:6px;}
+.l3-actions li::before{background:var(--accent);}
+.habits-box{background:var(--habits-bg);border-left:3px solid var(--habits-border);border-radius:var(--radius-sm);padding:13px 15px;}
+.habits-box .l3-list li::before{background:var(--habits-border);}
+
+/* DIVIDER */
+.section-divider{height:1px;background:var(--border);margin:44px 0;}
+
+/* FOOTER */
+.footer{padding:28px 48px;border-top:1px solid var(--border);text-align:center;font-size:11px;color:var(--text-muted);}
+
+/* MOBILE HEADER */
+.mobile-header{display:none;position:fixed;top:0;left:0;right:0;height:54px;background:var(--sidebar-bg);z-index:200;align-items:center;padding:0 16px;gap:12px;}
+.hamburger{background:none;border:none;cursor:pointer;color:#fff;font-size:22px;padding:4px;line-height:1;}
+.mobile-logo{font-size:15px;font-weight:700;color:#fff;}
+
+.hidden{display:none!important;}
+
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);transition:transform 0.3s;}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;padding-top:54px;}
+  .mobile-header{display:flex;}
+  .hero{padding:28px 18px 32px;}
+  .hero-title{font-size:28px;}
+  .entry-cards{grid-template-columns:1fr;}
+  .content{padding:24px 16px;}
+  .tier-grid{grid-template-columns:1fr;}
+  .phase-timeline{gap:0;}
+}
+</style>
+</head>
+<body>
+
+<div class="mobile-header">
+  <button class="hamburger" onclick="toggleSidebar()">☰</button>
+  <span class="mobile-logo">ISTE ADIT — SOP</span>
+</div>
+
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="club-name">ISTE ADIT</div>
+    <div class="club-sub">Club Standard Operating Procedures</div>
+  </div>
+  <div class="sidebar-search">
+    <input type="text" id="search-input" placeholder="Search roles, phases, tasks..." oninput="handleSearch(this.value)">
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Workflow</div>
+    <div id="sb-phases"></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">👑 Leaders</div>
+    <div id="sb-leaders"></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">🎯 Managers</div>
+    <div id="sb-managers"></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">⚡ Doers</div>
+    <div id="sb-doers"></div>
+  </div>
+  <div class="sidebar-spacer"></div>
+</nav>
+
+<main class="main">
+  <section class="hero">
+    <div class="hero-eyebrow">ISTE | ADIT Engineering College</div>
+    <h1 class="hero-title">Club SOP</h1>
+    <p class="hero-vision">Create beautiful memories for participants, generate proof-of-work they can add to their resumes, and deliver experiences that make students want to come back.</p>
+    <div class="entry-cards">
+      <a class="entry-card" onclick="scrollToSection('workflow')">
+        <div class="entry-card-emoji">🗺️</div>
+        <div class="entry-card-title">I'm new here</div>
+        <div class="entry-card-desc">Read the 7-phase master workflow end-to-end first.</div>
+      </a>
+      <a class="entry-card" onclick="scrollToSection('roles')">
+        <div class="entry-card-emoji">🎭</div>
+        <div class="entry-card-title">Find my role</div>
+        <div class="entry-card-desc">Jump to your role and open Layer 1 to get started.</div>
+      </a>
+      <a class="entry-card" onclick="openAllL2()">
+        <div class="entry-card-emoji">⚡</div>
+        <div class="entry-card-title">Event day mode</div>
+        <div class="entry-card-desc">Open all Layer 2 checklists — your live reference.</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="content">
+    <div class="search-banner" id="search-banner"></div>
+
+    <!-- PART 1 -->
+    <div id="workflow">
+      <div class="section-header">
+        <div class="section-eyebrow">Part 1</div>
+        <h2 class="section-title">Master Event Workflow</h2>
+        <p class="section-desc">Applies to all event types: workshops, seminars, competitions, and social events. Every phase must be completed before moving to the next.</p>
+      </div>
+      <div class="phase-timeline" id="phase-timeline"></div>
+      <div class="phases-grid" id="phases-grid"></div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- PART 2 -->
+    <div id="roles">
+      <div class="section-header">
+        <div class="section-eyebrow">Part 2</div>
+        <h2 class="section-title">Role SOPs</h2>
+        <p class="section-desc">Each role has three layers. Layer 1 is your starting point. Layer 2 is your event-day checklist. Layer 3 is the full reference.</p>
+      </div>
+      <div class="tier-grid">
+        <div class="tier-card leader">
+          <div class="tier-card-emoji">👑</div>
+          <div class="tier-card-name">Leaders</div>
+          <div class="tier-card-who">Club Secretary, General Secretary, Event Lead</div>
+          <div class="tier-card-function">Decide what runs, who joins, and how the club evolves.</div>
+        </div>
+        <div class="tier-card manager">
+          <div class="tier-card-emoji">🎯</div>
+          <div class="tier-card-name">Managers</div>
+          <div class="tier-card-who">Team Leads for Facilitation, Logistics, Marketing</div>
+          <div class="tier-card-function">Keep their teams accountable and on schedule.</div>
+        </div>
+        <div class="tier-card doer">
+          <div class="tier-card-emoji">⚡</div>
+          <div class="tier-card-name">Doers</div>
+          <div class="tier-card-who">All functional role-holders below</div>
+          <div class="tier-card-function">Execute specific tasks and deliver outputs.</div>
+        </div>
+      </div>
+      <div id="roles-list"></div>
+    </div>
+  </div>
+
+  <div class="footer">ISTE ADIT Club SOP — Document version: June 2025. Maintained by Club Secretary. Last reviewed: [update each semester.]</div>
+</main>
+
+<script>
+const phases=[{id:'phase-1',num:1,emoji:'💡',title:'Ideation & Selection',desc:'Generate event ideas, evaluate them against club goals, and commit to one.',activities:[{label:null,items:['Brainstorm event concepts across formats (workshop, seminar, competition, social)','Evaluate each idea against expected participation, feasibility, and alignment with club vision','Select one idea and assign an Event Lead','Assemble the core event team across all three functions: Facilitation, Logistics, Marketing']}],ownership:'Leaders decide. Managers shortlist. Doers are informed.',checkpoint:'One event is selected, an Event Lead is named, and the team roster is confirmed.'},{id:'phase-2',num:2,emoji:'📋',title:'Official Approvals',desc:'Get the event formally approved by the Principal before anything is communicated publicly.',activities:[{label:null,items:['Draft a formal event proposal (title, objective, date, venue, target audience, expected outcomes)','Submit proposal to the Principal for written approval','File the signed approval for records']}],ownership:'Documentation Lead (Doer) drafts. Club Secretary or General Secretary (Manager/Leader) reviews and submits.',checkpoint:'Written principal approval is in hand. Nothing is announced publicly until this is done.'},{id:'phase-3',num:3,emoji:'🔨',title:'Pre-Event Production',desc:'Build everything the event needs to run — curriculum, registration, posters, and logistics.',activities:[{label:'Facilitation Team',items:['Design the core event curriculum and session plan','Define activities once participation numbers are confirmed']},{label:'Logistics Team',items:['Create the registration Google Form','Set up the live participant tracking sheet (shared with Facilitation and Marketing)','Prepare the before-event checklist (printed modules, attendance sheets, activity items, stationery, water)','Draft the anchoring script','Coordinate with Documentation Lead to prepare Thank You Letters and Resource Person Certificates for any external speaker, professional, or alumnus (printed on institute letterhead, signed by Principal and Faculty Coordinator — collect letterhead from department or reception at the Principal\'s office)']},{label:'Marketing Team',items:['Review curriculum for engagement quality; provide feedback','Oversee poster creation; review and send corrections to Logistics','Draft WhatsApp messages, classroom announcements, and faculty messages for distribution','Draft five LinkedIn certificate-sharing templates for participants']}],ownership:'All Doers execute within their function. Managers track deadlines and flag delays.',checkpoint:'Registration form is live. Posters are approved. Curriculum is finalized. Participant tracking sheet is shared. All print materials are ready. Thank You Letters and Resource Person Certificates printed and ready to hand over on event day (if applicable).'},{id:'phase-4',num:4,emoji:'📣',title:'Distribution & Registration Drive',desc:'Get the word out systematically and hit registration targets.',activities:[{label:null,items:['Send posters and registration links to classroom groups, mega groups (e.g., Half Senior Full Fun), and official faculty channels','Have Classroom Representatives make in-person announcements between lectures','Activate "Secret Battamkul" — seed informal buzz before the official announcement drops','Community Manager monitors the participant sheet every two hours','If registration targets are not being met, Marketing adjusts promotional strategy immediately']}],ownership:'Distribution Coordinator and Community Manager (Doers) execute. Marketing Manager (Manager) monitors and triggers strategy changes.',checkpoint:'Registration targets are confirmed. Participant tracking sheet reflects accurate headcount. Reminder messages are scheduled.'},{id:'phase-5',num:5,emoji:'🎉',title:'Day-of Execution',desc:'Run the event cleanly, on time, and according to plan.',activities:[{label:null,items:['Set up venue: seating, stationery, water, printed materials','Anchor welcomes participants using the prepared script','Facilitators run sessions according to the curriculum','Co-Facilitators deliver their specific modules and observe participants','Logistics team manages real-time needs (tech, printing, attendance)','Feedback Designer facilitates gratitude and evaluation feedback during the session','Media team captures unscripted reels and photography']}],ownership:'All Doers execute live. Managers troubleshoot and escalate. Lead Facilitator holds final authority on session flow.',checkpoint:'All sessions completed. Attendance sheet collected and signed. Feedback forms physically collected and filed in folder. At least one reel captured.'},{id:'phase-6',num:6,emoji:'📦',title:'Post-Event Wrap',desc:'Close the loop — documentation, certificates, social media, team review, and official institute reporting.',activities:[{label:null,items:['Analyst collects and synthesises all feedback (participant, team, facilitator)','Certificates generated for participants, coordinators, volunteers, faculty coordinator, and resource person','Documentation Lead drafts all post-event emails (Emails 2–6); Faculty Coordinator sends them from the official account','Participants sent their LinkedIn certificate-sharing template; encouraged to tag ISTE and ADIT','Post-event social media content published: feedback testimonial posts (name + photo + experience + proof of work for technical events)','Team conducts internal debrief: what worked, what didn\'t, what to change','Documentation Lead formalises the session report into the Official Event Report and drafts Email 6 for Faculty Coordinator to send to the institute email ID and to [Institute Event Coordinator — name/designation to be filled]','All soft-copy documentation (attendance, feedback, certificates, event report, email drafts) filed centrally']}],ownership:'Logistics Doers handle certificates and filing. Marketing Doers handle social posts. Analyst synthesises. Documentation Lead owns the Event Report. Leaders review debrief output.',checkpoint:'All five certificate types dispatched (participant, coordinator/volunteer, faculty coordinator, resource person). All six email drafts completed and sent by Faculty Coordinator. At least one testimonial post published per participant willing to share. Feedback report submitted to Leaders. Official Event Report submitted to institute. All files stored in the central folder.'},{id:'phase-7',num:7,emoji:'🌱',title:'Team Reflection & Growth',desc:'Recognise effort, evaluate performance, and plan the next cycle.',activities:[{label:null,items:['Each team member completes a personal self-evaluation form','Monthly one-on-ones between team leads and their direct reports (personal and professional check-in, not just task review)','Monthly team celebration: achievements, upskilling wins, honest review of what didn\'t land','Leaders update KPIs and identify skill or knowledge gaps per member','Quarterly trip or outing for team bonding']}],ownership:'Leaders own the evaluation framework. Managers conduct one-on-ones. Doers complete self-evaluations.',checkpoint:'Self-evaluations submitted. One-on-ones completed. Performance gaps documented and a plan is in place.'}];
+
+const roles=[{id:'event-lead',tier:'leader',name:'Event Lead',l1:'The Event Lead is the person ultimately responsible for a single event from idea to post-event wrap. They don\'t manage every small task — they make the big calls: which event to run, who leads each team, and what the experience should feel like for a participant. If something is going wrong that a Manager can\'t solve, the Event Lead steps in. Think of them as the director of the film — everything passes through their vision.',l2:{before:['Event idea confirmed and team assembled','Principal approval received and filed','Curriculum reviewed and signed off','Registration target set and communicated to Marketing Manager','All teams have confirmed their checklists are complete'],during:['Available on-call for escalations — not on the floor managing tasks','Brief check-in with Lead Facilitator before sessions begin','Confirm attendance sheet is being filled'],after:['Debrief conducted with all Managers','Feedback report reviewed','Team performance notes recorded for one-on-ones']},l3:{actions:['Propose and evaluate event ideas with the team during the Ideation phase','Select the event and assign team roles','Review and sign off on the event curriculum before production begins','Ensure principal approval is actively being pursued — don\'t wait passively','Set the registration target; hold Marketing accountable to it','Conduct a final all-team check 24 hours before the event','During the event, stay available for decisions, not execution','After the event, lead the debrief and extract learnings','Conduct or oversee monthly one-on-ones with direct reports','Evaluate team performance quarterly using evidence-based KPIs'],skills:['Decision-making under ambiguity','Knowing when to delegate and when to step in','Giving direct, constructive feedback'],knowledge:['Full understanding of the Master Event Workflow','Awareness of each role\'s responsibilities so you can spot gaps','Understanding of what "great participant experience" looks like in practice'],habits:['Read event post-mortems from other clubs and organisations','Keep a running note of team members\' strengths and gaps','Attend at least one external event per semester to observe how others operate'],systems:['Central folder structure: Approvals / Curriculum / Registration / Media / Feedback / Certificates','Monthly one-on-one template (see Team Growth module)','Quarterly KPI tracker per team member']}},{id:'club-secretary',tier:'leader',name:'Club Secretary / General Secretary',l1:'The Secretary is the institutional backbone of the club. They handle the formal, official side of things — getting approvals, maintaining documentation, and representing the club to faculty and administration. While the Event Lead focuses on one event at a time, the Secretary keeps the entire club\'s operations running properly across all events. New recruits should know: this is not a writing-only role. It requires judgment, relationships with faculty, and the ability to get things done through official channels.',l2:{before:['Formal proposal drafted and reviewed','Proposal submitted to Principal','Approval received, scanned, and filed','Faculty Advisors briefed on the event for official group distribution'],during:['Available if any official intervention is needed','Ensure faculty advisor has sent the official communication'],after:['All official documentation filed centrally','Debrief notes saved for club records']},l3:{actions:['Draft the formal event proposal: title, objective, date, venue, audience, expected outcomes','Review draft with Event Lead before submission','Submit proposal and follow up until written approval is received','File signed approval in the central folder','Brief Faculty Advisors on the event and coordinate official communication','Maintain a running archive of all approvals, proposals, and official correspondence','Participate in post-event debrief and document institutional learnings'],skills:['Formal English writing — proposals, letters, official emails','Relationship management with faculty and administration','Attention to detail in documentation'],knowledge:['Institute\'s formal proposal format and expectations','Chain of approval at ADIT (department → HOD → Principal)','How to write a compelling but factual proposal that reduces pushback'],habits:['Read at least three pages of well-written formal English daily (reports, articles, proposals)','Maintain a personal template library of approved proposal formats','Build genuine relationships with faculty — not just transactional asks'],systems:['AI-integrated template database for proposal drafting','Central folder: Official Documents > Proposals > [Event Name]','A shared checklist with the Event Lead for approval status tracking']}},{id:'facilitation-lead',tier:'manager',name:'Facilitation Team Lead',l1:'The Facilitation Team Lead makes sure every session the club runs is well-designed and well-delivered. They don\'t necessarily run every session themselves — they oversee the people who do. Their job is to make sure the curriculum is solid before the event and that the Lead Facilitator and Co-Facilitators are prepared. If a co-facilitator drops out last minute, they have a plan. Think of them as the quality controller for the participant experience inside the room.',l2:{before:['Curriculum finalized and shared with all facilitators','Co-facilitators briefed on their specific modules','Contingency plan documented for facilitator no-shows','Session run-through completed at least once'],during:['Confirm all facilitators are present and ready before start','Monitor session flow — step in only if something goes off-track','Brief check-in with co-facilitators between modules'],after:['Collect facilitator feedback','Note what worked and what didn\'t in the curriculum','Pass learnings to the Researcher for the next iteration']},l3:{actions:['Receive the approved event concept and design the session structure','Assign modules to Co-Facilitators based on their strengths','Run at least one rehearsal/walkthrough before the event','Prepare a written contingency plan: if a co-facilitator is unavailable, who covers their module?','On event day, do a 15-minute team huddle before participants arrive','After the event, compile facilitation-specific learnings and share with the Researcher'],skills:['Session design and instructional planning','People management — motivating facilitators, managing nerves','Real-time decision-making during live sessions'],knowledge:['Dan Heath\'s "Epic" and "Success" frameworks for session structure','What a judgment-free learning environment looks like and how to set one up','How adult/peer learning works in a college context'],habits:['Watch at least one facilitation or teaching video per week','Attend offline events, workshops, and talks outside the club','Keep a personal library of facilitation techniques'],systems:['Session run sheet template (time blocks, module owner, transition cues)','Contingency decision tree for facilitator drop-outs','Post-event facilitation debrief template']}},{id:'logistics-lead',tier:'manager',name:'Logistics Team Lead',l1:'The Logistics Team Lead makes sure everything physical and operational is in place for the event to run smoothly. Registration forms, attendance sheets, printed materials, stationery, venue setup, anchoring scripts — all of this is their territory. They don\'t do everything themselves, but they are accountable for all of it. If anything is missing on event day, it\'s on them to have caught it earlier.',l2:{before:['Google Form live and tested','Participant tracking sheet shared with Facilitation and Marketing','Before-event checklist completed (see items below)','Anchoring script drafted and reviewed','All print materials ready (modules, attendance sheets, feedback forms)','Printed learning modules','Attendance sheets','Activity items (as per curriculum)','Blank paper and pens','Water bottles','Any mock-ups or props required','Thank You Letter printed and ready to hand to speaker (if applicable)','Resource Person Certificate printed and ready to hand to speaker (if applicable)'],during:['Venue set up before participants arrive','Anchor has the script','Registration/check-in process running smoothly','Real-time logistics support (printing, tech, materials) available'],after:['All feedback forms physically collected and placed in folder','Soft-copy attendance sheet updated and filed','Certificates generated and dispatched','Confirm Documentation Lead has received all session data needed for the Event Report']},l3:{actions:['Create the event registration Google Form; test it before going live','Set up the live participant response sheet; share with Facilitation and Marketing Leads','Draft the before-event checklist specific to this event\'s needs','Oversee all printing: modules, attendance sheets, feedback forms','Prepare the anchoring script in coordination with the Content Writer','Set up the venue on event day','After the event, collect all physical feedback forms and file them','Generate and dispatch participant certificates','File soft copies of attendance sheets and response data centrally'],skills:['Organised, checklist-driven execution','Google Forms and Google Sheets proficiency','Calm under pressure on event day'],knowledge:['The full event run-of-show so logistics support aligns with facilitation needs','How to set up a live-updating Google Sheet that multiple teams can reference','Certificate generation process (template + mail merge or equivalent)'],habits:['Always work from a written checklist — never rely on memory for logistics','Do a venue walkthrough the day before if possible','Build relationships with the printing vendor and faculty who manage venues'],systems:['Master Logistics Checklist template (customised per event)','Google Form + response sheet setup guide','Certificate generation template']}},{id:'marketing-lead',tier:'manager',name:'Marketing Team Lead',l1:'The Marketing Team Lead is responsible for getting the right number of participants to register and show up. They oversee posters, WhatsApp distribution, classroom announcements, LinkedIn activity, and social media content — before, during, and after the event. They also watch the registration numbers in real time and adjust strategy if things aren\'t moving. This is a high-accountability role: if targets aren\'t met, it\'s on them to catch it early, not explain it after.',l2:{before:['Registration target confirmed with Event Lead','Posters reviewed and approved','Distribution messages drafted and verified by a second person per branch','"Secret Battamkul" buzz initiated before official announcement','Faculty advisor has sent the official message in official groups'],during:['Participant sheet checked every two hours','If behind target: alternative promotional action taken immediately'],after:['Testimonial posts published (name + photo + experience + proof of work if applicable)','All participants sent LinkedIn certificate-sharing template','Post-event reel published']},l3:{actions:['Set the registration target with the Event Lead at the start of Pre-Event Production','Review event curriculum for engagement quality; give actionable feedback to Facilitation Lead','Oversee poster creation; review design; send specific corrections to Logistics','Draft WhatsApp messages for all distribution channels','Coordinate the "Secret Battamkul" strategy — informal buzz before official announcement','Brief Distribution Coordinators on where and how to send messages; verify delivery','Monitor participant tracking sheet every two hours during registration drive','If numbers are behind: activate backup channels, brief Classroom Representatives, escalate to Event Lead if needed','After the event: publish testimonial posts, send LinkedIn templates, publish post-event reel'],skills:['Copywriting for social media and WhatsApp','Data monitoring — reading a spreadsheet and translating it to action','Managing multiple Doers simultaneously'],knowledge:['All distribution channels available: classroom groups, mega groups, official faculty channels','What makes a registration message compelling vs ignorable','LinkedIn post best practices for student certificates'],habits:['Maintain a swipe file of effective WhatsApp messages and social posts','Check the participant sheet proactively — don\'t wait for someone to tell you numbers are low','Build relationships with Classroom Representatives across branches'],systems:['Five LinkedIn certificate-sharing templates (rotated to avoid repetition)','Distribution verification checklist (message sent + confirmed by second contact)','Participant tracking dashboard (Google Sheet, shared live)']}},{id:'documentation-lead',tier:'doer',name:'Documentation Lead / Proposal Writer',l1:'The Documentation Lead writes all the formal documents and emails the club needs to run events officially. This covers the event proposal to the Principal, all six standard emails, the Thank You Letter and Resource Person Certificate for external speakers, and the Official Event Report submitted to the institute. You draft everything — the Faculty Coordinator then sends it from their official account. Your work goes to the Principal, faculty, and institute administration. You don\'t need to be a creative writer, but you must be clear, accurate, and formal every single time.',l2:{before:['Event proposal drafted using approved template','Proposal reviewed by Club Secretary before submission','Proposal submitted with enough lead time (minimum 1 week before the event)','Follow-up done if approval is delayed beyond 48 hours','Signed approval received and filed','Email 1 drafted: Event Poster email — formal email with poster attached, for Faculty Coordinator to send to graphic design faculty coordinator and relevant mailing lists','Thank You Letter drafted (if event has an external speaker, professional, or alumnus)','Resource Person Certificate drafted','Both documents reviewed, printed on institute letterhead, and signed by Principal + Faculty Coordinator — ready before event day'],during:['Thank You Letter and Resource Person Certificate handed to speaker at close of event'],after:['Email 2 drafted: Participant Certificates email','Email 3 drafted: Event Coordinators and Volunteers Certificates email','Email 4 drafted: Faculty Coordinator Certificate email','Email 5 drafted: Resource Person Certificate email (if applicable)','Email 6 drafted: Final Event Report email — for Faculty Coordinator to send to institute email ID','All six email drafts reviewed by Club Secretary; shared with Faculty Coordinator for sending','Session data collected from Student Coordinator / Event Lead','Official Event Report drafted and quality-checked','All documents filed in the central folder: Official Documents > [Event Name]']},l3:{actions:['Receive event brief from Event Lead (title, objective, date, venue, audience)','Draft the formal proposal using the club\'s approved template','Review draft with Club Secretary; incorporate feedback','Submit to Principal through the correct channel','Follow up if no response within 48 hours','Receive signed approval and file digitally in: Central Folder > Official Documents > [Event Name]','Notify Event Lead and Club Secretary once approval is confirmed','Draft Email 1 — Event Poster: formal email body with event poster attached','If the event has an external speaker — draft the Thank You Letter and Resource Person Certificate','Get both documents reviewed, printed on institute letterhead, signed before event day','Hand both documents to the speaker at the close of the event','After the event, collect all session details from the Student Coordinator or Event Lead','Draft Emails 2 through 6 as detailed in the email template library','Formalise session notes into the Official Event Report; quality-check for accuracy of names, dates, participant count, and outcomes','Share all six email drafts with Club Secretary for review; pass to Faculty Coordinator for sending','File all documents and email drafts centrally'],skills:['Formal English writing — clear, error-free, appropriately structured','Attention to detail — names, dates, designations must all be accurate','Persistence in follow-up without being irritating'],knowledge:['Institute\'s preferred proposal format','Correct titles and designations for faculty and administration','How formal approval chains work at ADIT'],habits:['Read three pages of well-written formal English daily — reports, official letters, good journalism','Maintain a personal file of approved proposals as reference for future drafts','Use AI tools to draft a first pass, then edit for accuracy and tone'],systems:['AI-integrated template database for proposal drafting','Thank You Letter template (editable: speaker name, event name, date, designation)','Resource Person Certificate template','Official Event Report template: event overview, objectives, activities, participant count, outcomes, photos, feedback summary','Email template library — six standard drafts (Email 1 through Email 6)','Central folder filing system: Proposals / Approvals / Thank You Letters / Certificates / Event Reports / Email Drafts']}},{id:'curriculum-researcher',tier:'doer',name:'Curriculum Researcher',l1:'The Curriculum Researcher makes sure the content of the club\'s events is actually good. Before every event, they research the topic, review what the club has done before, and help improve the curriculum. This is not an on-the-ground role — it\'s a thinking role. You\'ll spend time reading, watching, and synthesising so that the people who actually run sessions have strong material to work with.',l2:{before:['Existing curriculum reviewed for gaps and outdated content','Research completed on the event topic (at least 3 credible sources)','Refined curriculum submitted to Facilitation Team Lead for review','AI prompts used to stress-test curriculum clarity and completeness'],during:['Observe participant engagement — note what lands and what doesn\'t'],after:['Incorporate feedback into the curriculum document','Update the club\'s curriculum archive with the revised version']},l3:{actions:['Review the existing curriculum for the event type being planned','Research the topic: read articles, watch courses, skim relevant books','Identify gaps, outdated content, or activities that have not worked previously','Draft an improved or updated version','Submit revised curriculum to the Facilitation Team Lead','Observe the event to see what lands and what doesn\'t','Integrate post-event feedback into the curriculum archive'],skills:['Rapid research — knowing how to skim effectively and find signal in noise','Synthesis — combining information from multiple sources into something coherent','Clear writing — the curriculum must be easy for facilitators to follow'],knowledge:['How to use AI tools for research (summarisation, gap analysis, source evaluation)','How to skim academic and non-academic material quickly','Basic understanding of how people learn in peer/workshop settings'],habits:['Read regularly — books, articles, course notes','Watch at least one online course or video on facilitation or the event topic before each event','Maintain a mindset of always learning — every event is a source of curriculum data'],systems:['AI research prompt library (topic analysis, gap-finding, simplification)','Curriculum archive in the central folder','Post-event feedback integration checklist']}},{id:'lead-facilitator',tier:'doer',name:'Lead Facilitator',l1:'The Lead Facilitator runs the event sessions. You are on stage (or at the front of the room) for the entire duration. You open the event, guide participants through the agenda, introduce modules, and close the session. You\'re also responsible for making sure your co-facilitators are ready and have a backup plan if someone can\'t show up. You don\'t need to be a polished speaker — you need to be clear, warm, and structured.',l2:{before:['Full session structure memorised or on a run sheet','Co-facilitators briefed and assigned to their modules','Contingency confirmed: who covers which module if someone drops out?','Run-through completed at least once'],during:['Open session, set the tone, establish a safe environment','Introduce each module clearly before handing over to co-facilitators','Monitor energy — adjust pacing if needed','Close session properly: recap, thank-yous, next steps'],after:['Brief debrief with co-facilitators','Submit notes on what worked and what didn\'t to the Facilitation Team Lead']},l3:{actions:['Receive the finalised session structure from the Facilitation Team Lead','Assign co-facilitators to specific modules; communicate expectations clearly','Write out or review the contingency plan: if X is absent, Y covers their module','Conduct at least one full rehearsal','On event day: open session, set tone, run transitions between modules','Monitor participant energy throughout — shorten, extend, or skip activities as needed','Close session with a clear recap and participant next steps','After the event, share written notes on session performance with the Facilitation Team Lead'],skills:['Public speaking — clear delivery, not necessarily polished performance','Active listening — reading the room and adjusting','Time management during live sessions'],knowledge:['Dan Heath\'s "Epic" and "Success" frameworks — how to structure moments that stick','How to open a session in a way that earns participant trust quickly','How to close a session so participants leave with clarity, not confusion'],habits:['Watch relevant YouTube talks, TED presentations, and facilitation videos regularly','Attend offline events, talks, and workshops to observe other facilitators','Debrief after every session — write three things that worked and one to fix'],systems:['Session run sheet template (time blocks, module owner, transitions)','Contingency decision tree','Dan Heath\'s frameworks (Epic and Success) as session design checklists']}},{id:'co-facilitator',tier:'doer',name:'Co-Facilitator',l1:'A Co-Facilitator delivers one or more specific modules within an event session. You don\'t run the whole event — you own your piece of it. Your job is to understand your module deeply, deliver it clearly, and pay close attention to participants while you\'re doing it. You don\'t need advanced public speaking skills. You need to be clear, present, and genuinely non-judgmental. Participants should feel safe speaking in front of you.',l2:{before:['Module objectives understood fully','Module walkthrough completed with Lead Facilitator','Can explain the module in one sentence to a stranger'],during:['Deliver module exactly as designed — don\'t improvise the structure','Create a judgment-free environment from the first moment','Actively observe participants — note anyone who shows exceptional engagement or talent','After delivering: listen, summarise what was said, ask one good question'],after:['Share talent observations with Lead Facilitator (any participants worth recruiting?)','Note one thing to improve in your delivery next time']},l3:{actions:['Read and re-read your assigned module until the objective is crystal clear','Attend the pre-event briefing and rehearsal','On event day: deliver the module as designed — structure is not optional','During the module, use the Listen–Summarise–Question loop to engage participants','Observe participants during your module: who is engaged, thoughtful, or showing leadership potential?','After your module, note talent observations and pass them to the Lead Facilitator','After the event, write one improvement note for your own delivery'],skills:['Listening — genuinely paying attention, not waiting for your turn to speak','Simple, clear delivery — no jargon, no over-complication','Creating psychological safety in a room'],knowledge:['What a judgment-free environment means and how to actively create one (no interrupting, no evaluating responses as right/wrong, body language matters)','The Listen–Summarise–Question facilitation technique','Your module\'s learning objective — why does this activity exist?'],habits:['Practice listening without interrupting in everyday conversations','Attend other club events as a participant to see facilitation from the other side'],systems:['Module delivery card (1-page brief: objective, steps, timing, what good looks like)','Listen–Summarise–Question prompt card']}},{id:'feedback-designer',tier:'doer',name:'Feedback Designer',l1:'The Feedback Designer makes sure the club actually learns from every event it runs. You create three types of feedback tools — gratitude (what participants appreciated), evaluation (ratings and checkboxes), and open criticism (a Google Form for honest post-event thoughts). You also run the live feedback activities during the session itself. Without you, the club would be guessing what worked.',l2:{before:['Gratitude feedback sheet designed and printed','Evaluation feedback sheet designed and printed (checkboxes/ratings)','Google Form for post-event open criticism drafted and link-ready'],during:['Facilitate gratitude feedback activity at the right moment in the session','Distribute and collect evaluation sheets','Share Google Form link with participants before they leave'],after:['All physical feedback forms collected and placed in folder','Google Form responses shared with Analyst']},l3:{actions:['Design the gratitude feedback sheet: a structured way for participants to note what they appreciated','Design the evaluation feedback sheet: checkbox or rating-based, covering session quality, facilitator clarity, activity usefulness','Create the post-event open criticism Google Form: open text fields for honest reflection','During the event, facilitate the gratitude feedback activity as part of the session (not as an afterthought)','Distribute evaluation sheets during the session; collect every single one before anyone leaves','Share the Google Form link via QR code or WhatsApp before the session ends','After the event, file all physical forms in the central folder and share Google Form link with the Analyst'],skills:['Form and sheet design — clean, easy to fill, not overwhelming','Facilitation — running the gratitude activity smoothly within the session','Organisation — making sure no form goes uncollected'],knowledge:['The difference between gratitude feedback (emotional), evaluation feedback (structured), and criticism feedback (open-ended) — and why all three matter','How to design questions that give actionable data, not vague responses'],habits:['Study feedback forms from other events and courses — what makes a question useful vs useless?','Always collect feedback forms before participants leave — never rely on them to do it voluntarily later'],systems:['Three feedback template files (gratitude sheet, evaluation sheet, Google Form draft)','QR code generator for quick Google Form sharing']}},{id:'analyst',tier:'doer',name:'Analyst',l1:'The Analyst reads all the feedback the club collected and turns it into clear, useful insights. You\'re not just summarising — you\'re identifying patterns, surfacing what worked, flagging what didn\'t, and giving the leadership team something concrete to act on. This is a post-event role, but it\'s one of the most important ones: without good analysis, the club repeats its mistakes.',l2:{before:['Understand what feedback is being collected and how'],during:['No live responsibilities during the event'],after:['All three feedback sources received: gratitude sheets, evaluation sheets, Google Form responses','Analysis completed within 48 hours of the event','Insights report submitted to Leaders and Facilitation Team Lead','Key improvement recommendations clearly stated (not buried in data)']},l3:{actions:['Receive all three feedback inputs from the Feedback Designer','Read through every piece of qualitative feedback (do not skim)','Tabulate the quantitative evaluation data (ratings, checkboxes)','Identify the top 3 things that worked and the top 3 things to improve','Write a concise insights report: findings + specific recommendations','Submit report to Event Lead and Facilitation Team Lead within 48 hours','Archive the report in the central folder under the event name'],skills:['Pattern recognition — seeing what multiple people are saying in different ways','Clear writing — insights must be actionable, not academic','Objectivity — report what the data says, not what you hoped it would say'],knowledge:['How to read both quantitative (ratings) and qualitative (written) feedback','The difference between an insight and a data point — insights have implications'],habits:['Read each feedback form completely before drawing any conclusions','Separate "nice to know" from "need to act on" when writing the report'],systems:['Insights report template: What Worked / What Didn\'t / What To Do Next Time','Spreadsheet for tabulating evaluation ratings']}},{id:'community-manager',tier:'doer',name:'Community Manager',l1:'The Community Manager keeps participants engaged and informed through the club\'s WhatsApp groups. You create the group, draft the messages, send reminders, and manage membership. The most important part of this role: if someone goes quiet or wants to leave, you find out why before removing them. Your goal is a group that feels alive and worth being in — not a broadcast channel that people mute.',l2:{before:['WhatsApp group created with a clear name','Registration link and event details pinned','Reminder messages scheduled for T-3 days, T-1 day, and morning of event'],during:['Responding to queries within 1 hour (excluding lecture hours)','Re-engaging silent participants: ask why before removing'],after:['Post-event message sent (certificate link, LinkedIn template, testimonial post)','Inactive members followed up with personally; remove only after no response']},l3:{actions:['Create the WhatsApp group after registration is live; set a clear group name and description','Draft compelling registration and reminder messages — these should feel human, not copy-pasted','Pin important information (form link, date, time, venue)','Send reminders on a schedule: 3 days before, 1 day before, morning of','Respond to all queries within 1 hour during non-lecture hours','Monitor group for inactivity; before removing anyone, privately ask what\'s making them uninterested','After the event, send the certificate link, LinkedIn template, and a personal note'],skills:['WhatsApp usage and group management','Writing short, compelling messages that people actually read','Being available and responsive — this is a real-time role'],knowledge:['What makes a WhatsApp message feel personal vs automated','How to write "hooks" — opening lines that make someone want to keep reading','Basic principles of community management: inclusion, responsiveness, value'],habits:['Maintain a swipe file: save good WhatsApp messages, hooks, and community posts you encounter','Check the group at least twice during non-lecture hours','Never send a message without reading it once as if you were the recipient'],systems:['Message templates for: registration announcement, reminders, day-of logistics, post-event wrap','Swipe file folder (Google Keep or Notes app)']}},{id:'distribution-coordinator',tier:'doer',name:'Distribution Coordinator',l1:'The Distribution Coordinator makes sure the event reaches every possible student across campus. You send posters and registration links to classroom groups, college-wide mega groups, and official channels through faculty. The key rule in this role: don\'t just send the message — verify it was actually sent by getting confirmation from a contact in that branch or group. Sending is not the same as reaching.',l2:{before:['"Secret Battamkul" buzz initiated in key groups (post-approval only)','All distribution channels mapped: classroom groups, mega groups, official faculty channels'],during:['Message sent to every classroom group','Mega group messages sent (Half Senior Full Fun, year-specific groups, etc.)','Faculty advisor has sent the message in the two official college groups','Every send verified by a second contact in that branch — don\'t assume'],after:['Classroom Representatives briefed to make in-person announcements between lectures','Final reminder sent to all channels']},l3:{actions:['Map all available distribution channels before the registration drive begins','Once Principal approval is confirmed, draft the official message with Marketing Team Lead','Coordinate "Secret Battamkul" — seed informal rumours of the event in key groups before the official drop','Send messages to all classroom groups; follow up with a contact in each branch to confirm receipt and forwarding','Send to mega groups (college-wide WhatsApp groups)','Coordinate with faculty advisor to send in the two official college channels','Brief Classroom Representatives on in-person announcement timing and talking points','Send a final day-before reminder across all channels'],skills:['Punctuality — distribution has time windows; missing them reduces impact','Relationship building — you need genuine contacts in every branch who will actually verify','Organised tracking — knowing which channels have been covered'],knowledge:['Every distribution channel available at ADIT and who controls each','The "Secret Battamkul" strategy: how it works and when it\'s appropriate (after approval, before official drop)','How to write a message that gets forwarded, not ignored'],habits:['Build and maintain a contact in every branch specifically for distribution verification','Keep an updated channel list — groups change, admins change','Never assume a message was forwarded — always verify'],systems:['Distribution channel map (updated each semester)','Send verification checklist: channel name / sent by / verified by / date-time','Classroom Representative briefing template']}},{id:'content-writer',tier:'doer',name:'Content Writer / Anchor',l1:'The Content Writer writes the anchoring script for the event and any supporting written content (introductions, welcome messages, closing remarks). The anchor is the person who reads this script on the day — sometimes these are the same person, sometimes not. If you\'re also the anchor, you are the first voice participants hear. Your job is to set the right tone from the first sentence: warm, professional, and clear. Elegant writing, not flowery writing.',l2:{before:['Speaker/facilitator LinkedIn researched; intro drafted','Opening script written: sets context, tone, and participant expectations','Anchoring script reviewed by Logistics Team Lead','Anchor has rehearsed — at least once aloud'],during:['Welcome participants; deliver opening script','Introduce facilitators/speakers with the prepared intro','Bridge between modules cleanly','Close the session with clarity'],after:['Script archived in central folder for reference']},l3:{actions:['Research the speaker or facilitator: LinkedIn profile, relevant work, one compelling quote','Draft the anchoring script: welcome → context-setting → facilitator intro → module transitions → closing','Follow the writing principle: elegant, evocative, simple, and clear — not dense, not casual','Submit script to Logistics Team Lead for review','Rehearse the script aloud — once silently is not enough','Deliver the script on event day; adapt if something runs over time','Archive the final script in the central folder'],skills:['Writing for speech, not for reading — they are different','Research — finding a genuinely good quote or fact about a speaker, not just generic praise','Delivery — confident, warm, measured pace'],knowledge:['The Institute or club\'s preferred tone and register for official events','How to write an introduction that makes participants interested in the speaker before they speak','The difference between anchoring a workshop and anchoring a competition — different registers'],habits:['Read good speeches and scripts — TED Talk transcripts, award ceremony scripts, event openings','Practice speaking aloud regularly, not just writing','Build a personal swipe file of good openings, transitions, and closings'],systems:['Anchoring script template: [Welcome] → [Context] → [Speaker Intro] → [Module Transitions] → [Closing]','Facilitator research checklist: LinkedIn link, role, notable work, good quote']}},{id:'form-creator',tier:'doer',name:'Google Form Creator / Registration Manager',l1:'The Google Form Creator builds and manages the event registration system. You create the form, make sure it collects the right information, share the live response sheet with the relevant teams, and print the attendance sheet on event day. You\'re also the person who handles any last-minute additions or changes to the registration list. It\'s a behind-the-scenes role, but if the form is broken or the data is messy, the whole event check-in falls apart.',l2:{before:['Google Form created with all required fields','Form tested end-to-end (submit a dummy response)','Response sheet shared with Facilitation and Marketing Team Leads (view access minimum)','Attendance sheet printed on event day morning'],during:['Handle walk-in registrations manually (add to sheet)','Confirm attendance against the printed sheet'],after:['Final attendance sheet updated and filed','Form closed or marked inactive']},l3:{actions:['Create the registration Google Form: name, branch, year, contact number, email (minimum fields)','Add any event-specific questions per the Facilitation Team Lead\'s brief','Test the form by submitting a response and checking the sheet populates correctly','Share the live response sheet with Logistics, Facilitation, and Marketing Leads','Optionally create a simple landing page if the Event Lead has approved it','Print the attendance sheet on the morning of the event','During the event, handle walk-in additions manually in the sheet','After the event, close the form and file the final attendance data'],skills:['Google Forms and Google Sheets proficiency','Accuracy — wrong fields or broken logic in a form causes cascading problems','Quick problem-solving if something breaks on event day'],knowledge:['How to link a Google Form to a Google Sheet and share it with editing/view permissions','What information is actually needed for registration vs what is nice-to-have','How to print a formatted attendance sheet from a Google Sheet'],habits:['Always test forms before sharing the link — never assume it works','Keep a backup paper sign-in sheet at the venue in case of tech failure'],systems:['Registration form field checklist (standard + event-specific)','Shared response sheet with colour-coded attendance column']}},{id:'media-creator',tier:'doer',name:'Media Creator',l1:'The Media Creator captures the event as it happens and creates the content that goes out after. This includes reels, pre-event teaser posts, and post-event testimonial content. The key principle here: content should feel real, not staged. Unscripted reels perform better than rehearsed ones. Testimonial posts should include the participant\'s photo, their name, their experience in their own words, and — for technical events — proof of what they actually built or learned.',l2:{before:['Pre-event teaser content planned (platform: Instagram/LinkedIn)','Equipment ready: phone charged, storage cleared'],during:['Capture unscripted reels — candid moments, activities, reactions','Photograph participants (with implicit or explicit consent)','Note 2–3 participants willing to give a testimonial post'],after:['Post-event reel edited and published within 48 hours','Testimonial posts created for willing participants (name + photo + quote + proof of work)','Five LinkedIn certificate-sharing templates sent to all participants via Community Manager']},l3:{actions:['Plan a pre-event teaser post — intriguing, not over-explained','On event day, capture candid moments: people working, laughing, presenting, discussing','Avoid staging shots — real moments are more compelling','Identify 2–3 participants willing to do a testimonial post during the event','Edit and publish the post-event reel within 48 hours','Create testimonial posts: participant photo + name + experience quote + proof of work (for technical events)','Coordinate with Community Manager to send LinkedIn certificate templates to all participants'],skills:['Basic video editing on mobile (Reels-length content)','An eye for authentic moments — when to press record','Writing short, intriguing captions'],knowledge:['What makes a Reel perform: hook in the first 2 seconds, visual variety, good audio','The difference between pre-event content (intrigue, FOMO) and post-event content (proof, validation)','LinkedIn certificate post etiquette for students'],habits:['Study the reels of other college clubs that perform well — reverse-engineer what makes them work','Always capture more than you think you need — you can cut in editing, you can\'t go back','Maintain a visual swipe file of good reel formats and caption hooks'],systems:['Five LinkedIn certificate-sharing templates (variety in format and tone)','Caption formula for testimonial posts: [Name] + [what they made/learned] + [one sentence in their words]']}},{id:'talent-scout',tier:'doer',name:'Talent Scout & Hiring Coordinator',l1:'The Talent Scout watches for strong potential members at events — both club events and other college events — and starts the process of bringing them in. This isn\'t cold recruiting. You observe first, give them a small task, get to know them, and only then introduce them to the culture. The goal is not to fill positions — it\'s to find people who genuinely fit.',l2:{before:[],during:['Actively watch for standout participants: engagement, creativity, reliability, communication','Note names and what specifically impressed you'],after:['Reach out informally — ask if they\'re interested, don\'t pitch aggressively','Assign a small, low-stakes task','Evaluate task output honestly','If output is good: schedule a proper get-to-know conversation','Assess cultural fit','Give the formal assignment/simulation for the role they\'d fill','If they pass: onboard and let them choose their function and team']},l3:{actions:['Attend ISTE events, other club events, and department events as a talent observer','Identify potential recruits based on specific observed behaviours — not just enthusiasm','Reach out personally and informally; mention what you noticed','Assign a small task relevant to the role you think they\'d fit','Review the task output honestly; if it meets the bar, move forward','Have a longer conversation: know them beyond their tasks','If the cultural fit feels right, give them the formal role simulation','After a successful simulation, onboard them; let them choose their preferred function and team','Introduce them to the relevant team lead'],skills:['Observation — noticing specific behaviours, not just general impressions','Judgment — distinguishing between someone who is enthusiastic and someone who is capable','Relationship building — making the process feel personal, not transactional'],knowledge:['What each club role actually requires — so you can spot the right fit','The five-stage hiring process (Observe → Small Task → Know Them → Simulation → Onboard)','What "culture fit" means for this club specifically'],habits:['Attend at least two non-ISTE events per semester with a talent-observation mindset','Keep a running note of people you\'ve flagged — even if timing isn\'t right now','Never recruit under pressure — quality of fit matters more than speed of hiring'],systems:['Talent observation note template: name, event, what was observed, follow-up action','Five-stage hiring checklist','Onboarding brief for new members (role, team, first task)']}}];
+
+function renderSidebar(){
+  const ph=document.getElementById('sb-phases');
+  phases.forEach(p=>{
+    const a=document.createElement('a');
+    a.className='sidebar-link';
+    a.innerHTML=`<span class="phase-num">${p.num}</span><span>${p.title}</span>`;
+    a.onclick=()=>{scrollToId(p.id);closeSidebar();};
+    ph.appendChild(a);
+  });
+  ['leader','manager','doer'].forEach(tier=>{
+    const el=document.getElementById('sb-'+tier+'s');
+    roles.filter(r=>r.tier===tier).forEach(r=>{
+      const a=document.createElement('a');
+      a.className='sidebar-link';
+      a.innerHTML=`<span class="tier-dot ${tier}"></span><span>${r.name}</span>`;
+      a.onclick=()=>{scrollToId(r.id);closeSidebar();};
+      el.appendChild(a);
+    });
+  });
+}
+
+function renderTimeline(){
+  const el=document.getElementById('phase-timeline');
+  phases.forEach((p,i)=>{
+    if(i>0){const c=document.createElement('div');c.className='phase-connector';el.appendChild(c);}
+    const d=document.createElement('div');
+    d.className='phase-step';
+    d.innerHTML=`<div class="phase-node" onclick="scrollToId('${p.id}')"><div class="phase-node-circle">${p.emoji}</div><div class="phase-node-label">Phase ${p.num}</div></div>`;
+    el.appendChild(d);
+  });
+}
+
+function renderPhases(){
+  const el=document.getElementById('phases-grid');
+  phases.forEach(p=>{
+    let actHtml='';
+    p.activities.forEach(g=>{
+      if(g.label) actHtml+=`<div class="activity-sub">${g.label}</div>`;
+      g.items.forEach(item=>{ actHtml+=`<div class="activity-item"><span class="activity-dot"></span><span>${item}</span></div>`; });
+    });
+    const card=document.createElement('div');
+    card.className='phase-card';
+    card.id=p.id;
+    card.innerHTML=`
+      <div class="phase-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="phase-badge">${p.emoji}</div>
+        <div class="phase-card-meta">
+          <div class="phase-label">Phase ${p.num}</div>
+          <div class="phase-card-title">${p.title}</div>
+          <div class="phase-card-desc">${p.desc}</div>
+        </div>
+        <div class="phase-toggle">⌄</div>
+      </div>
+      <div class="phase-card-body">
+        <div class="activities-title">Key Activities</div>
+        ${actHtml}
+        <div class="callout callout-ownership" style="margin-top:16px;">
+          <div><div class="callout-label">👤 Ownership</div><div class="callout-text">${p.ownership}</div></div>
+        </div>
+        <div class="callout callout-checkpoint">
+          <div><div class="callout-label">✅ Success Checkpoint</div><div class="callout-text">${p.checkpoint}</div></div>
+        </div>
+      </div>`;
+    el.appendChild(card);
+  });
+}
+
+function renderRoles(){
+  const el=document.getElementById('roles-list');
+  const tiers=[{k:'leader',l:'Leaders',e:'👑'},{k:'manager',l:'Managers',e:'🎯'},{k:'doer',l:'Doers',e:'⚡'}];
+  tiers.forEach(tier=>{
+    const hdr=document.createElement('div');
+    hdr.className='tier-section-header';
+    hdr.innerHTML=`<span class="tier-badge ${tier.k}">${tier.e} ${tier.l}</span><div class="tier-section-line"></div>`;
+    el.appendChild(hdr);
+
+    roles.filter(r=>r.tier===tier.k).forEach(role=>{
+      const sections=[
+        {t:'🔷 Before Event',items:role.l2.before},
+        {t:'⚡ During Event',items:role.l2.during},
+        {t:'📋 After Event',items:role.l2.after}
+      ].filter(s=>s.items&&s.items.length>0);
+
+      const chkHtml=sections.map(s=>`
+        <div class="checklist-group">
+          <div class="checklist-group-title">${s.t}</div>
+          ${s.items.map((item,idx)=>`
+            <div class="checklist-item">
+              <div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':'';" ></div>
+              <span>${item}</span>
+            </div>`).join('')}
+        </div>`).join('');
+
+      const l3Html=[
+        {k:'actions',l:'🎯 Actions',hab:false,act:true},
+        {k:'skills',l:'💪 Skills',hab:false,act:false},
+        {k:'knowledge',l:'🧠 Knowledge',hab:false,act:false},
+        {k:'habits',l:'💡 Habits',hab:true,act:false},
+        {k:'systems',l:'🔧 Systems',hab:false,act:false}
+      ].map(s=>{
+        const items=role.l3[s.k];
+        if(!items||!items.length) return '';
+        const lis=items.map(i=>`<li>${i}</li>`).join('');
+        const inner=s.hab?`<div class="habits-box"><ul class="l3-list">${lis}</ul></div>`:`<ul class="l3-list${s.act?' l3-actions':''}">${lis}</ul>`;
+        return `<div class="l3-section"><div class="l3-section-title">${s.l}</div>${inner}</div>`;
+      }).join('');
+
+      const card=document.createElement('div');
+      card.className='role-card';
+      card.id=role.id;
+      card.innerHTML=`
+        <div class="role-card-header">
+          <div class="role-tier-strip ${role.tier}"></div>
+          <div class="role-card-meta">
+            <div class="role-info">
+              <div class="role-breadcrumb">Part 2 / ${role.tier==='leader'?'Leaders':role.tier==='manager'?'Managers':'Doers'}</div>
+              <div class="role-name">${role.name}</div>
+            </div>
+            <button class="role-expand-btn" onclick="toggleRole(this.closest('.role-card'))">View Layers</button>
+          </div>
+        </div>
+        <div class="role-layers" style="display:none;">
+          <div class="layer-tabs">
+            <div class="layer-tab active" onclick="switchLayer(this,'${role.id}-l1')">Layer 1 — Overview</div>
+            <div class="layer-tab" onclick="switchLayer(this,'${role.id}-l2')">Layer 2 — Checklist</div>
+            <div class="layer-tab" onclick="switchLayer(this,'${role.id}-l3')">Layer 3 — Full Reference</div>
+          </div>
+          <div id="${role.id}-l1" class="layer-content active"><p class="layer1-text">${role.l1}</p></div>
+          <div id="${role.id}-l2" class="layer-content">${chkHtml}</div>
+          <div id="${role.id}-l3" class="layer-content">${l3Html}</div>
+        </div>`;
+      el.appendChild(card);
+    });
+  });
+}
+
+function toggleRole(card){
+  const layers=card.querySelector('.role-layers');
+  const btn=card.querySelector('.role-expand-btn');
+  const isOpen=layers.style.display!=='none';
+  layers.style.display=isOpen?'none':'block';
+  btn.textContent=isOpen?'View Layers':'Collapse';
+}
+
+function switchLayer(tab,contentId){
+  const tabs=tab.parentElement.querySelectorAll('.layer-tab');
+  tabs.forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  const card=tab.closest('.role-card');
+  card.querySelectorAll('.layer-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById(contentId).classList.add('active');
+}
+
+function scrollToSection(id){
+  const el=document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function scrollToId(id){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+  if(el.classList.contains('role-card')){
+    const layers=el.querySelector('.role-layers');
+    const btn=el.querySelector('.role-expand-btn');
+    if(layers&&layers.style.display==='none'){layers.style.display='block';btn.textContent='Collapse';}
+  }
+  if(el.classList.contains('phase-card')) el.classList.add('open');
+}
+
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');}
+
+function openAllL2(){
+  scrollToSection('roles');
+  setTimeout(()=>{
+    document.querySelectorAll('.role-card').forEach(card=>{
+      const layers=card.querySelector('.role-layers');
+      const btn=card.querySelector('.role-expand-btn');
+      layers.style.display='block';
+      btn.textContent='Collapse';
+      const tabs=card.querySelectorAll('.layer-tab');
+      const contents=card.querySelectorAll('.layer-content');
+      tabs.forEach(t=>t.classList.remove('active'));
+      contents.forEach(c=>c.classList.remove('active'));
+      tabs[1].classList.add('active');
+      contents[1].classList.add('active');
+    });
+  },400);
+}
+
+function handleSearch(q){
+  const banner=document.getElementById('search-banner');
+  q=q.trim().toLowerCase();
+  if(!q){
+    banner.style.display='none';
+    document.querySelectorAll('.phase-card,.role-card').forEach(el=>el.classList.remove('hidden'));
+    return;
+  }
+  let count=0;
+  document.querySelectorAll('.phase-card').forEach(card=>{
+    const match=card.textContent.toLowerCase().includes(q);
+    card.classList.toggle('hidden',!match);
+    if(match){card.classList.add('open');count++;}
+  });
+  document.querySelectorAll('.role-card').forEach(card=>{
+    const match=card.textContent.toLowerCase().includes(q);
+    card.classList.toggle('hidden',!match);
+    if(match){
+      const layers=card.querySelector('.role-layers');
+      const btn=card.querySelector('.role-expand-btn');
+      layers.style.display='block';btn.textContent='Collapse';count++;
+    }
+  });
+  banner.style.display='block';
+  banner.textContent=`${count} result${count!==1?'s':''} found for "${q}"`;
+}
+
+renderSidebar();
+renderTimeline();
+renderPhases();
+renderRoles();
+</script>
+</body>
+</html>
