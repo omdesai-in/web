@@ -109,12 +109,6 @@
   }
   .gate-field input.err{ border-color:var(--danger); }
   .gate-field-error{ display:none; font-size:11px; color:var(--danger); margin-top:3px; }
-  .wa-confirm-btn{
-    display:block; width:100%; text-align:center; text-decoration:none; padding:10px; border-radius:8px;
-    border:1px solid var(--brand-teal); color:var(--brand-teal); font-size:12.5px; font-weight:600; margin-bottom:12px;
-    font-family:'Poppins',sans-serif;
-  }
-  .wa-confirm-btn:hover{ background:var(--brand-teal-tint); }
   .gate-continue-btn{
     display:block; width:100%; background:var(--accent); color:#fff; border:none; padding:11px; border-radius:8px;
     font-family:'Poppins',sans-serif; font-weight:600; font-size:13px; cursor:pointer;
@@ -173,32 +167,6 @@
   .reg-disabled{ color:var(--text-muted); font-size:11.5px; }
   .num-value{ font-weight:600; text-align:right; display:block; }
   .muted{ color:var(--text-muted); }
-
-  /* ---- lead form ---- */
-  .lead-block{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:22px; }
-  .lead-kicker{ display:inline-block; background:var(--accent-tint); color:var(--accent); font-size:10.5px; font-weight:600; padding:3px 9px; border-radius:10px; text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px; }
-  .lead-block h3{ font-size:17px; margin:2px 0 4px; }
-  .lead-block p.small{ font-size:12px; color:var(--text-secondary); margin:0 0 14px; }
-  .lead-error-banner{ display:none; background:var(--danger-tint); color:var(--danger); border-radius:8px; padding:8px 10px; font-size:12px; margin-bottom:10px; }
-  .lead-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
-  .lead-grid .full{ grid-column:1/-1; }
-  .lead-field label{ display:block; font-size:11px; font-weight:600; color:var(--text-secondary); margin-bottom:5px; }
-  .lead-field input{
-    width:100%; padding:10px 11px; border:1px solid var(--border); border-radius:7px; font-size:13px;
-    font-family:'Poppins',sans-serif; background:var(--background); color:var(--text-primary);
-  }
-  .lead-field input:focus{ outline:none; border-color:var(--brand-teal); }
-  .lead-field input.err{ border-color:var(--danger); }
-  .lead-field-error{ display:none; font-size:11px; color:var(--danger); margin-top:3px; }
-  .lead-submit{
-    background:var(--accent); color:#fff; border:none; padding:11px 22px; border-radius:8px;
-    font-family:'Poppins',sans-serif; font-weight:600; font-size:13px; cursor:pointer;
-  }
-  .lead-submit:disabled{ opacity:.6; }
-  .lead-note{ font-size:11px; color:var(--text-muted); margin-top:8px; }
-  .lead-success{ display:none; text-align:center; padding:16px; }
-  .lead-success b{ display:block; font-size:15px; margin-bottom:4px; }
-  @media (max-width:520px){ .lead-grid{ grid-template-columns:1fr; } }
 
   /* ---- calendar ---- */
   .drive-section{ background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:14px; overflow:hidden; }
@@ -297,7 +265,7 @@
         <span id="auth-btn-icon">🔒</span><span id="auth-btn-text">Sign in</span>
       </button>
       <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
-      <button class="icon-btn" id="refresh-btn" onclick="fetchData()" title="Refresh">↻</button>
+      <button class="icon-btn" id="refresh-btn" onclick="fetchAllData()" title="Refresh">↻</button>
     </div>
   </div>
   <div class="tabbar">
@@ -338,44 +306,6 @@
         <tr><td colspan="11" class="muted">Loading placement data…</td></tr>
       </tbody>
     </table>
-  </div>
-
-  <div class="lead-block">
-    <span class="lead-kicker">Crack Your First Job</span>
-    <h3>Take charge of your placements</h3>
-    <p class="small">Don't just sit in placements → get selected. Tailored prompts, JD breakdowns, and insider content, straight to your inbox every Friday.</p>
-    <div class="lead-error-banner" id="lead-error-banner">⚠ Please fix the highlighted fields.</div>
-
-    <form id="lead-form" action="https://docs.google.com/forms/d/e/1FAIpQLSdKkvzzxEgbySnjOgdOjCexTfF9-c5bsCq6VYDT4JrHofzxsQ/formResponse" method="POST" target="lead_hidden_iframe" onsubmit="return handleLeadSubmit(event)" novalidate>
-      <div id="lead-fields">
-        <div class="lead-grid">
-          <div class="lead-field">
-            <label for="lead-name">Name</label>
-            <input type="text" id="lead-name" name="entry.1850589114" placeholder="e.g. Rahul Sharma" autocomplete="name" />
-            <div class="lead-field-error" id="lead-name-error">Please enter your name.</div>
-          </div>
-          <div class="lead-field">
-            <label for="lead-whatsapp">WhatsApp Number</label>
-            <input type="tel" id="lead-whatsapp" name="entry.2130846960" placeholder="e.g. 9876543210" maxlength="15" autocomplete="tel" />
-            <div class="lead-field-error" id="lead-whatsapp-error">Please enter a valid WhatsApp number.</div>
-          </div>
-          <div class="lead-field full">
-            <label for="lead-email">Email ID</label>
-            <input type="email" id="lead-email" name="entry.1071716175" placeholder="e.g. rahul@gmail.com" autocomplete="email" />
-            <div class="lead-field-error" id="lead-email-error">Please enter a valid email address.</div>
-          </div>
-        </div>
-        <button class="lead-submit" id="lead-submit" type="submit">
-          <span id="lead-submit-text">Send me drive updates</span>
-        </button>
-        <p class="lead-note">Only valuable insights and insider information in your inbox.</p>
-      </div>
-      <div class="lead-success" id="lead-success">
-        <b>You're in.</b>
-        <span class="muted">Check your inbox every Friday and two days before your placement drive.</span>
-      </div>
-    </form>
-    <iframe name="lead_hidden_iframe" id="lead_hidden_iframe" style="display:none;" onload="handleLeadIframeLoad()"></iframe>
   </div>
 </div>
 
@@ -677,15 +607,24 @@
      TRACKER — fetch / render / sort, functionally unchanged
      ============================================================ */
   const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzRrCh1w2ARurK1-wAq658krKZaImjjb58Izioid95jzRoDxwWKyh0LQkIr6j9qGvK5_w/exec';
+  const CALENDAR_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxIOAfa0vJVD13npzXCxyGAMrqIsnZGRMJ0gITAZCQ9VPCq7sWHoL33VhLcwx0gq-GQ/exec';
   const REFRESH_MS  = 3 * 60 * 1000;
   let previousCount = 0;
   let currentData = [];
+  let calendarIntelData = {};
   let sortKey = null;
   let sortAsc = true;
 
-  async function fetchData(){
+  async function fetchAllData(){
     const btn = document.getElementById('refresh-btn');
     btn.textContent = '⏳'; btn.disabled = true;
+    const results = await Promise.allSettled([fetchData(), fetchCalendarData()]);
+    const failed = results.some(r => r.status === 'rejected');
+    if(failed) console.warn('One or more refresh jobs failed', results);
+    btn.textContent = '↻'; btn.disabled = false;
+  }
+
+  async function fetchData(){
     try{
       const res = await fetch(WEB_APP_URL + '?t=' + Date.now());
       const data = await res.json();
@@ -694,8 +633,7 @@
     }catch(err){
       console.error(err);
       document.getElementById('last-updated').textContent = '⚠️ Fetch failed — retrying soon';
-    }finally{
-      btn.textContent = '↻'; btn.disabled = false;
+      throw err;
     }
   }
 
@@ -772,108 +710,76 @@
   });
 
   /* ============================================================
-     LEAD FORM — real Google Form submission, restored for final build.
-     Flagged: this is now LIVE, unlike the earlier mockup stub.
+     CALENDAR — live Google Sheet sync
      ============================================================ */
-  let leadSubmitted = false;
-  let leadSubmitTimer = null;
-
-  function handleLeadSubmit(event){
-    clearLeadErrors();
-    const name = document.getElementById('lead-name').value.trim();
-    const whatsapp = document.getElementById('lead-whatsapp').value.trim();
-    const email = document.getElementById('lead-email').value.trim();
-    let valid = true;
-    if(!name){ showFieldError('lead-name','lead-name-error'); valid = false; }
-    if(!whatsapp || !/^\+?[\d\s\-]{10,15}$/.test(whatsapp)){ showFieldError('lead-whatsapp','lead-whatsapp-error'); valid = false; }
-    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showFieldError('lead-email','lead-email-error'); valid = false; }
-    if(!valid){ document.getElementById('lead-error-banner').style.display = 'block'; event.preventDefault(); return false; }
-
-    leadSubmitted = true;
-    setLeadLoading(true);
-    clearTimeout(leadSubmitTimer);
-    leadSubmitTimer = setTimeout(() => { if(leadSubmitted) showLeadSuccess(); }, 6000);
-    return true;
-  }
-  function handleLeadIframeLoad(){ if(!leadSubmitted) return; showLeadSuccess(); }
-  function showLeadSuccess(){
-    leadSubmitted = false;
-    clearTimeout(leadSubmitTimer);
-    document.getElementById('lead-fields').style.display = 'none';
-    document.getElementById('lead-success').style.display = 'block';
-    document.getElementById('lead-error-banner').style.display = 'none';
-    setLeadLoading(false);
-  }
-  function setLeadLoading(on){
-    const btn = document.getElementById('lead-submit');
-    btn.disabled = on;
-    document.getElementById('lead-submit-text').textContent = on ? 'Submitting…' : 'Send me drive updates';
-  }
-  function showFieldError(inputId, errorId){
-    document.getElementById(inputId).classList.add('err');
-    document.getElementById(errorId).style.display = 'block';
-  }
-  function clearLeadErrors(){
-    ['lead-name','lead-whatsapp','lead-email'].forEach(id => document.getElementById(id).classList.remove('err'));
-    ['lead-name-error','lead-whatsapp-error','lead-email-error'].forEach(id => document.getElementById(id).style.display = 'none');
-    document.getElementById('lead-error-banner').style.display = 'none';
+  async function fetchCalendarData(){
+    try{
+      const res = await fetch(CALENDAR_WEB_APP_URL + '?t=' + Date.now());
+      const data = await res.json();
+      if(!data.success) throw new Error(data.error || 'Calendar fetch failed');
+      renderDrives(data.calendar || {});
+    }catch(err){
+      console.error(err);
+      ['offline','online','hybrid'].forEach(sec => {
+        document.getElementById('count-' + sec).textContent = '';
+        document.getElementById('rows-' + sec).innerHTML = '<div class="drive-row muted">Calendar sync failed. Please refresh again.</div>';
+      });
+      throw err;
+    }
   }
 
-  /* ============================================================
-     CALENDAR — real 22-drive dataset, classification confirmed
-     ============================================================ */
-  const DRIVES = [
-    { name:'BOSLEO', branch:'IT/CP/CSD/AI/IOT', loc:'Virtual', date:'29 Jun 2026', section:'online' },
-    { name:'Synoverge Technologies', branch:'IT/CP/CSD/AI/IOT/EC', loc:'ADIT', date:'30 Jun 2026', section:'offline' },
-    { name:'ERUDITE WORKS', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'02 Jul 2026', section:'offline' },
-    { name:'NJ Group', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'04 Jul (Online) → 10 Jul (Interview)', section:'hybrid' },
-    { name:'Casepoint', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'06 Jul 2026', section:'offline', intelKey:'casepoint' },
-    { name:'Instance IT Solutions', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'07 Jul 2026', section:'offline', intelKey:'instanceit' },
-    { name:'Meditab', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'08 Jul 2026', section:'offline', intelKey:'meditab' },
-    { name:'Declone Labs Pvt. Ltd', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'11 Jul 2026', section:'offline', intelKey:'declone' },
-    { name:'Alpha-e Barcode Solutions', branch:'IT/CP/CSD/AI/IOT', loc:'MBIT', date:'13 Jul 2026', section:'offline' },
-    { name:'IAMOPS', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'15 Jul 2026', section:'offline' },
-    { name:'EMGAGE', branch:'IT/CP/CSD/AI/IOT', loc:'MBIT', date:'17 Jul 2026', section:'offline' },
-    { name:'EnactOn Technologies', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'13 Jul (11:00–11:30) → 18 Jul (Online) → 22 Jul (Interview)', section:'hybrid' },
-    { name:'Streebo', branch:'IT/CP/CSD/AI/IOT', loc:'Virtual', date:'20 Jul 2026', section:'online' },
-    { name:'E-Infochips', branch:'IT/CP/CSD/AI/IOT/EC', loc:'GCET', date:'21 Jul 2026', section:'offline' },
-    { name:'Medkart', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'23 Jul 2026', section:'offline' },
-    { name:'Inkey IT Solutions', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'24 Jul 2026', section:'offline' },
-    { name:'Brainybeam', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'27 Jul 2026', section:'offline' },
-    { name:'Leons Integrations Pvt. Ltd.', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'29 Jul 2026', section:'offline' },
-    { name:'GD Waldner', branch:'ME/EE/CI/MC', loc:'ADIT', date:'30 Jul 2026', section:'offline' },
-    { name:'Webdesk', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'30–31 Jul (Online) → 01 Aug (Interview)', section:'hybrid' },
-    { name:'FiscalOx', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'03–04 Aug 2026', section:'offline' },
-    { name:'LaunchEd Global', branch:'All', loc:'Virtual', date:'06 Aug 2026', section:'online' }
-  ];
-
-  function renderDrives(){
-    const bySection = { offline:[], online:[], hybrid:[] };
-    DRIVES.forEach(d => bySection[d.section].push(d));
+  function renderDrives(calendar){
+    calendarIntelData = {};
     ['offline','online','hybrid'].forEach(sec => {
-      const list = bySection[sec];
+      const section = calendar[sec] || {};
+      const list = Array.isArray(section.drives) ? section.drives : [];
       document.getElementById('count-' + sec).textContent = list.length + (list.length === 1 ? ' drive' : ' drives');
       const container = document.getElementById('rows-' + sec);
       if(list.length === 0){ container.innerHTML = '<div class="drive-row muted">None in this category.</div>'; return; }
-      container.innerHTML = list.map(d => `
-        <div class="drive-row">
-          <span class="dname">${escHtml(d.name)}</span>
-          <span class="ddate">${escHtml(d.date)}</span>
-          <span class="dloc"><span class="loc-chip">${escHtml(d.loc)}</span> <span class="muted">· ${escHtml(d.branch)}</span></span>
-          <span class="dactions"><button onclick="openIntel('${d.intelKey || 'none'}')">View Intel</button></span>
-        </div>
-      `).join('');
+      container.innerHTML = list.map(d => {
+        const key = d.intelKey || makeClientIntelKey(d.name);
+        const intel = normalizeIntelData(d, key, sec);
+        calendarIntelData[key] = intel;
+        return `
+          <div class="drive-row">
+            <span class="dname">${escHtml(intel.name)}</span>
+            <span class="ddate">${escHtml(intel.date)}</span>
+            <span class="dloc">${intel.location ? `<span class="loc-chip">${escHtml(intel.location)}</span>` : '<span class="muted">—</span>'}</span>
+            <span class="dactions"><button onclick="openIntel('${key}')">View Intel</button></span>
+          </div>
+        `;
+      }).join('');
     });
   }
 
+  function normalizeIntelData(d, key, section){
+    const embedUrl = extractIframeSrc(d.embedUrl || d.notionIframe || '');
+    const notionUrl = (d.notionUrl || '').toString().trim();
+    return {
+      key: key,
+      section: section,
+      name: (d.name || '').toString().trim(),
+      date: (d.date || '').toString().trim(),
+      location: (d.location || d.loc || '').toString().trim(),
+      embedUrl: embedUrl,
+      notionUrl: notionUrl,
+      hasIntel: Boolean(embedUrl || notionUrl)
+    };
+  }
+
+  function extractIframeSrc(value){
+    const text = (value || '').toString().trim();
+    const match = text.match(/src=["']([^"']+)["']/i);
+    return match ? match[1] : text;
+  }
+
+  function makeClientIntelKey(name){
+    return (name || '').toString().toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'');
+  }
+
   /* ============================================================
-     AUTH GATE — Google Sign-In required, then a one-time WhatsApp
-     capture (with WhatsApp click-to-verify) before Intel Cards unlock.
-     WhatsApp-captured state is tracked per-uid in localStorage —
-     a known limitation: a new browser/device asks again. Acceptable
-     for v1; a real backend check can replace this later.
+     AUTH GATE — Google Sign-In required before Intel Cards unlock.
      ============================================================ */
-  const VERIFY_WHATSAPP_NUMBER = '918980850095';
   let pendingIntelKey = null;
 
   function updateAuthUI(user){
@@ -901,18 +807,10 @@
     }
   }
 
-  function hasWhatsapp(uid){
-    try{ return localStorage.getItem('cyfj_wa_' + uid) === '1'; }catch(e){ return false; }
-  }
-  function markWhatsapp(uid){
-    try{ localStorage.setItem('cyfj_wa_' + uid, '1'); }catch(e){}
-  }
-
   function openIntel(key){
     pendingIntelKey = key;
     const user = window.cyfjAuth && window.cyfjAuth.user;
     if(!user){ renderAuthGate(); }
-    else if(!hasWhatsapp(user.uid)){ renderWhatsappGate(user); }
     else { renderIntelCard(key); }
     document.getElementById('intel-modal').classList.add('on');
   }
@@ -925,7 +823,7 @@
       <div class="gate-step">
         <div class="gate-icon">🎟️</div>
         <h3>Sign in to unlock Intel Cards</h3>
-        <p>One tap with Google. This also lets us send you drive-specific updates.</p>
+        <p>Use Google sign-in to access company-specific preparation notes.</p>
         <button class="google-btn" onclick="gateSignIn()">
           <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.5-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.1 18.9 12 24 12c3.1 0 5.8 1.1 8 3l6-6C34.6 5.1 29.6 3 24 3c-7.6 0-14.1 4.3-17.7 10.7z"/><path fill="#4CAF50" d="M24 45c5.5 0 10.4-1.9 14.2-5.1l-6.6-5.4C29.6 36.4 26.9 37.4 24 37.4c-5.2 0-9.6-3.3-11.2-7.9l-6.6 5.1C9.8 40.6 16.3 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.6 5.4C41.6 35.9 45 30.4 45 24c0-1.4-.1-2.5-1.4-3.5z"/></svg>
           Sign in with Google
@@ -936,79 +834,14 @@
 
   function gateSignIn(){
     window.cyfjAuth.signIn().then(function(user){
-      if(!hasWhatsapp(user.uid)){ renderWhatsappGate(user); }
-      else { renderIntelCard(pendingIntelKey); }
+      renderIntelCard(pendingIntelKey);
     }).catch(function(){});
   }
 
-  function renderWhatsappGate(user){
-    const waLink = 'https://wa.me/' + VERIFY_WHATSAPP_NUMBER + '?text=' + encodeURIComponent('CYFJ verify: ' + (user.email || ''));
-    const modalCard = document.getElementById('intel-card-content');
-    modalCard.classList.remove('wide');
-    modalCard.innerHTML = `
-      <button class="modal-close" onclick="closeIntel()">×</button>
-      <div class="gate-step">
-        <div class="gate-icon">📱</div>
-        <h3>One last step</h3>
-        <p>Signed in as <b>${escHtml(user.email || '')}</b>. Add your WhatsApp number so drive alerts reach you.</p>
-        <div class="gate-field" style="text-align:left;">
-          <label for="gate-whatsapp">WhatsApp Number</label>
-          <input type="tel" id="gate-whatsapp" placeholder="e.g. 9876543210" maxlength="15" />
-          <div class="gate-field-error" id="gate-whatsapp-error">Enter a valid 10-digit number.</div>
-        </div>
-        <a class="wa-confirm-btn" href="${waLink}" target="_blank" onclick="markWaClicked()">Confirm via WhatsApp →</a>
-        <button class="gate-continue-btn" onclick="submitWhatsappGate()">Continue</button>
-      </div>
-    `;
-  }
-
-  let waClicked = false;
-  function markWaClicked(){ waClicked = true; }
-
-  function submitWhatsappGate(){
-    const input = document.getElementById('gate-whatsapp');
-    const errEl = document.getElementById('gate-whatsapp-error');
-    const val = input.value.trim();
-    if(!/^\+?[\d\s\-]{10,15}$/.test(val)){
-      input.classList.add('err'); errEl.style.display = 'block'; return;
-    }
-    if(!waClicked && !confirm("You haven't tapped \"Confirm via WhatsApp\" yet — continue anyway?")) return;
-
-    const user = window.cyfjAuth.user;
-    markWhatsapp(user.uid);
-
-    // Mirror into the existing Google Form / Sheet pipeline — untouched downstream.
-    try{
-      const iframe = document.getElementById('lead_hidden_iframe');
-      const form = document.createElement('form');
-      form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSdKkvzzxEgbySnjOgdOjCexTfF9-c5bsCq6VYDT4JrHofzxsQ/formResponse';
-      form.method = 'POST';
-      form.target = 'lead_hidden_iframe';
-      form.style.display = 'none';
-      [['entry.1850589114', user.displayName || ''], ['entry.2130846960', val], ['entry.1071716175', user.email || '']].forEach(function(pair){
-        const inp = document.createElement('input');
-        inp.name = pair[0]; inp.value = pair[1];
-        form.appendChild(inp);
-      });
-      document.body.appendChild(form);
-      form.submit();
-      setTimeout(function(){ document.body.removeChild(form); }, 2000);
-    }catch(e){ console.error('Background form mirror failed', e); }
-
-    renderIntelCard(pendingIntelKey);
-  }
-
-  const INTEL_DATA = {
-    casepoint: { name:'Casepoint', location:'ADIT', notionUrl:'https://walnut-vinca-462.notion.site/Casepoint-391981cdd5fb80bd950fd8a5e4dd28e0?source=copy_link' },
-    instanceit: { name:'Instance IT Solutions', location:'ADIT', notionUrl:'https://walnut-vinca-462.notion.site/Instance-IT-Solutions-391981cdd5fb80a494d8e328fe4697ea?source=copy_link' },
-    meditab: { name:'Meditab', location:'GCET', notionUrl:'https://walnut-vinca-462.notion.site/Meditab-391981cdd5fb8054bd1ddc733fb96c63?source=copy_link' },
-    declone: { name:'Declone Labs Pvt. Ltd', location:'GCET', notionUrl:'https://walnut-vinca-462.notion.site/Declone-Labs-Pvt-Ltd-391981cdd5fb80359e65ca0b1419021c?source=copy_link' }
-  };
-
   function renderIntelCard(key){
     const modalCard = document.getElementById('intel-card-content');
-    const data = INTEL_DATA[key];
-    if(!data){
+    const data = calendarIntelData[key];
+    if(!data || !data.hasIntel){
       modalCard.classList.remove('wide');
       modalCard.innerHTML = `
         <button class="modal-close" onclick="closeIntel()">×</button>
@@ -1017,30 +850,31 @@
       `;
     } else {
       modalCard.classList.add('wide');
+      const iframeUrl = data.embedUrl || data.notionUrl;
+      const fallbackUrl = data.notionUrl || data.embedUrl;
       modalCard.innerHTML = `
         <button class="modal-close" onclick="closeIntel()">×</button>
         <div class="intel-embed-head">
           <h3 class="occasion">${escHtml(data.name)}</h3>
           <p class="loc">${escHtml(data.location)}</p>
         </div>
-        <iframe class="intel-iframe" src="${data.notionUrl}" loading="lazy" title="${escHtml(data.name)} Intel Card"></iframe>
-        <a class="intel-fallback-link" href="${data.notionUrl}" target="_blank" rel="noopener noreferrer">Not loading? Open in a new tab →</a>
+        <iframe class="intel-iframe" src="${escHtml(iframeUrl)}" loading="lazy" title="${escHtml(data.name)} Intel Card"></iframe>
+        <a class="intel-fallback-link" href="${escHtml(fallbackUrl)}" target="_blank" rel="noopener noreferrer">Not loading? Open in a new tab →</a>
       `;
     }
   }
   function closeIntel(){
     document.getElementById('intel-modal').classList.remove('on');
     document.getElementById('intel-card-content').classList.remove('wide');
-    pendingIntelKey = null; waClicked = false;
+    pendingIntelKey = null;
   }
 
   /* ============================================================
      BOOT
      ============================================================ */
   initTheme();
-  renderDrives();
-  fetchData();
-  setInterval(fetchData, REFRESH_MS);
+  fetchAllData();
+  setInterval(fetchAllData, REFRESH_MS);
 </script>
 </body>
 </html>
