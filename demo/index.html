@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CYFJ — Crack Your First Job</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --background:#FBF8F3; --surface:#FFFFFF; --surface-muted:#F3EEE3; --border:#E4DCC9;
+    --text-primary:#221F1A; --text-secondary:#6B6354; --text-muted:#948C7C;
+    --brand-teal:#0B6F68; --brand-teal-tint:#E4F1EF;
+    --accent:#A8502F; --accent-tint:#F5E4DB;
+    --success:#1F7A4E; --success-tint:#E1F3EA;
+    --danger:#A83B2E; --danger-tint:#F4E2DE;
+  }
+  [data-theme="dark"]{
+    --background:#15130F; --surface:#1E1B15; --surface-muted:#262119; --border:#332E24;
+    --text-primary:#F4EFE4; --text-secondary:#B9AE9C; --text-muted:#8A8071;
+    --brand-teal:#4FD6C7; --brand-teal-tint:#123331;
+    --accent:#D97A54; --accent-tint:#3A2412;
+    --success:#6FE3A0; --success-tint:#17301F;
+    --danger:#F1897A; --danger-tint:#35201B;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--background); color:var(--text-primary);
+    font-family:'Poppins',sans-serif; font-size:14px; line-height:1.55;
+    transition:background-color .2s ease, color .2s ease;
+  }
+  .occasion{ font-family:'Lora',serif; font-weight:600; }
+
+  /* ---- header / tabs ---- */
+  header{
+    position:sticky; top:0; z-index:100; background:var(--surface);
+    border-bottom:1px solid var(--border);
+  }
+  .header-top{ display:flex; align-items:center; justify-content:space-between; padding:12px 18px; }
+  .wordmark{ font-family:'Lora',serif; font-weight:700; font-size:16px; color:var(--brand-teal); }
+  .header-actions{ display:flex; align-items:center; gap:10px; }
+  #last-updated{ font-size:11px; color:var(--text-muted); }
+  .icon-btn{
+    width:32px; height:32px; border-radius:8px; border:1px solid var(--border); background:var(--surface);
+    color:var(--text-secondary); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:14px;
+  }
+  .icon-btn:hover{ background:var(--surface-muted); }
+
+  .tabbar{ display:flex; }
+  .tabbar button{
+    flex:1; padding:12px 6px; background:none; border:none; border-bottom:2.5px solid transparent;
+    font-family:'Poppins',sans-serif; font-weight:500; font-size:13px; color:var(--text-secondary); cursor:pointer;
+  }
+  .tabbar button.active{ color:var(--brand-teal); border-bottom-color:var(--brand-teal); font-weight:600; }
+
+  .notice-banner{
+    margin:14px 16px 0; padding:10px 13px; background:var(--accent-tint); border:1px solid var(--accent);
+    border-radius:8px; color:var(--accent); font-size:12px; display:flex; gap:8px; align-items:flex-start;
+  }
+
+  .view{ display:none; padding:16px; max-width:900px; margin:0 auto; }
+  .view.active{ display:block; }
+
+  /* ---- stats ---- */
+  .stats-row{ display:flex; gap:10px; margin:14px 0; flex-wrap:wrap; }
+  .stat-chip{
+    background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 14px;
+    font-size:12px; color:var(--text-secondary);
+  }
+  .stat-chip strong{ color:var(--text-primary); font-size:15px; display:block; }
+
+  /* ---- table ---- */
+  .table-scroll{ overflow-x:auto; border:1px solid var(--border); border-radius:10px; background:var(--surface); }
+  table{ width:100%; border-collapse:collapse; min-width:900px; font-size:12.5px; }
+  th, td{ padding:10px 12px; border-bottom:1px solid var(--border); text-align:left; white-space:nowrap; }
+  th{
+    background:var(--surface-muted); font-size:10.5px; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--text-secondary); cursor:pointer; user-select:none; font-weight:600;
+  }
+  th:hover{ color:var(--brand-teal); }
+  th.sorted::after{ content:" \25BC"; font-size:8px; }
+  th.sorted.asc::after{ content:" \25B2"; font-size:8px; }
+  tbody tr:hover{ background:var(--surface-muted); }
+
+  .status-word{ font-weight:600; font-size:11px; padding:2px 8px; border-radius:10px; margin-right:6px; }
+  .status-open{ background:var(--success-tint); color:var(--success); }
+  .status-closed{ background:var(--danger-tint); color:var(--danger); }
+  .deadline-date{ color:var(--text-secondary); }
+
+  .chip{ display:inline-block; background:var(--surface-muted); color:var(--text-secondary); border-radius:12px; padding:2px 9px; font-size:11px; margin:1px; }
+  .loc-chip{ background:var(--brand-teal-tint); color:var(--brand-teal); border-radius:12px; padding:2px 9px; font-size:11px; }
+  .reg-btn{
+    background:var(--accent); color:#fff; padding:6px 13px; border-radius:6px; text-decoration:none;
+    font-size:12px; font-weight:600;
+  }
+  .reg-btn:hover{ opacity:.9; }
+  .reg-disabled{ color:var(--text-muted); font-size:11.5px; }
+  .num-value{ font-weight:600; text-align:right; display:block; }
+  .muted{ color:var(--text-muted); }
+
+  /* ---- lead form ---- */
+  .lead-block{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:22px; }
+  .lead-kicker{ display:inline-block; background:var(--accent-tint); color:var(--accent); font-size:10.5px; font-weight:600; padding:3px 9px; border-radius:10px; text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px; }
+  .lead-block h3{ font-size:17px; margin:2px 0 4px; }
+  .lead-block p.small{ font-size:12px; color:var(--text-secondary); margin:0 0 14px; }
+  .lead-error-banner{ display:none; background:var(--danger-tint); color:var(--danger); border-radius:8px; padding:8px 10px; font-size:12px; margin-bottom:10px; }
+  .lead-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+  .lead-grid .full{ grid-column:1/-1; }
+  .lead-field label{ display:block; font-size:11px; font-weight:600; color:var(--text-secondary); margin-bottom:5px; }
+  .lead-field input{
+    width:100%; padding:10px 11px; border:1px solid var(--border); border-radius:7px; font-size:13px;
+    font-family:'Poppins',sans-serif; background:var(--background); color:var(--text-primary);
+  }
+  .lead-field input:focus{ outline:none; border-color:var(--brand-teal); }
+  .lead-field input.err{ border-color:var(--danger); }
+  .lead-field-error{ display:none; font-size:11px; color:var(--danger); margin-top:3px; }
+  .lead-submit{
+    background:var(--accent); color:#fff; border:none; padding:11px 22px; border-radius:8px;
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:13px; cursor:pointer;
+  }
+  .lead-submit:disabled{ opacity:.6; }
+  .lead-note{ font-size:11px; color:var(--text-muted); margin-top:8px; }
+  .lead-success{ display:none; text-align:center; padding:16px; }
+  .lead-success b{ display:block; font-size:15px; margin-bottom:4px; }
+  @media (max-width:520px){ .lead-grid{ grid-template-columns:1fr; } }
+
+  /* ---- calendar ---- */
+  .drive-section{ background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:14px; overflow:hidden; }
+  .drive-section > .head{
+    padding:11px 14px; background:var(--surface-muted); font-weight:600; font-size:12.5px;
+    display:flex; justify-content:space-between; align-items:center; color:var(--text-primary);
+  }
+  .drive-section > .head .count{ font-weight:400; color:var(--text-muted); font-size:11px; }
+  .drive-row{ display:flex; align-items:center; gap:12px; padding:12px 14px; border-top:1px solid var(--border); flex-wrap:wrap; }
+  .drive-row .dname{ font-weight:600; min-width:170px; }
+  .drive-row .ddate{ font-size:12px; color:var(--text-secondary); min-width:140px; }
+  .drive-row .dloc{ font-size:12px; color:var(--text-secondary); flex:1; min-width:100px; }
+  .drive-row .dactions button{
+    background:var(--surface); border:1px solid var(--brand-teal); color:var(--brand-teal);
+    padding:6px 12px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif;
+  }
+  .drive-row .dactions button:hover{ background:var(--brand-teal-tint); }
+
+  /* ---- intel card modal (occasion) ---- */
+  .modal-backdrop{ display:none; position:fixed; inset:0; background:rgba(20,17,12,.45); z-index:200; align-items:center; justify-content:center; padding:20px; }
+  .modal-backdrop.on{ display:flex; }
+  .modal-card{ background:var(--surface); border-radius:14px; max-width:340px; width:100%; padding:22px; position:relative; }
+  .modal-close{ position:absolute; top:10px; right:12px; border:none; background:none; font-size:18px; cursor:pointer; color:var(--text-muted); }
+  .modal-card h3{ font-size:19px; margin:0 0 2px; }
+  .modal-card .loc{ font-size:12.5px; color:var(--text-secondary); margin-bottom:16px; }
+  .intel-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .intel-grid a{
+    text-align:center; text-decoration:none; font-size:11.5px; font-weight:500; padding:12px 4px;
+    border:1px solid var(--border); border-radius:8px; color:var(--text-primary); font-family:'Poppins',sans-serif;
+  }
+  .intel-grid a:hover{ border-color:var(--brand-teal); background:var(--brand-teal-tint); }
+  .intel-grid .fmt-icon{ display:block; font-size:17px; margin-bottom:4px; }
+  .no-intel{ font-size:12.5px; color:var(--text-secondary); padding:14px 0; text-align:center; border:1px dashed var(--border); border-radius:8px; }
+
+  /* ---- boarding pass (occasion tab) ---- */
+  .bp-intro{ text-align:center; padding:6px 0 18px; }
+  .bp-intro .eyebrow{ font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); font-weight:600; }
+  .bp-intro h1{ font-family:'Lora',serif; font-weight:700; font-size:30px; margin:6px 0 8px; }
+  .bp-intro p{ font-size:13px; color:var(--text-secondary); max-width:440px; margin:0 auto; }
+
+  .ticket{ background:var(--surface); border:1px solid var(--border); border-radius:12px; margin-bottom:16px; overflow:hidden; }
+  .ticket__header{ padding:16px 18px 12px; background:var(--brand-teal-tint); }
+  .ticket__checkpoint{
+    font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--brand-teal); margin-bottom:4px;
+  }
+  .ticket__title{ font-family:'Lora',serif; font-weight:600; font-size:21px; color:var(--text-primary); }
+  .ticket__meta{ margin-top:9px; display:flex; gap:6px; flex-wrap:wrap; }
+  .pill{ font-size:10.5px; font-weight:600; border:1px solid var(--brand-teal); color:var(--brand-teal); padding:2px 9px; border-radius:20px; }
+  .perforation{ border-top:2px dashed var(--border); margin:0; }
+  .ticket__body{ padding:16px 18px 18px; }
+  .ticket__body h4{ font-size:11.5px; text-transform:uppercase; letter-spacing:.03em; color:var(--brand-teal); margin:14px 0 7px; font-weight:700; }
+  .ticket__body h4:first-child{ margin-top:0; }
+  .ticket__body h5{ font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); margin:0 0 7px; font-weight:700; }
+  .ticket__body p{ font-size:13px; margin:0 0 8px; }
+  .lede{ color:var(--text-secondary); border-left:3px solid var(--brand-teal); padding-left:11px; margin-bottom:12px; }
+  ul.checks{ list-style:none; margin:0 0 4px; padding:0; }
+  ul.checks li{ position:relative; padding:4px 0 4px 26px; font-size:13px; }
+  ul.checks li::before{ content:""; position:absolute; left:0; top:6px; width:14px; height:14px; border:1.5px solid var(--text-secondary); border-radius:3px; }
+  ul.plain{ margin:0 0 8px; padding-left:18px; font-size:13px; }
+  ul.plain li{ margin-bottom:3px; }
+  .grid2{ display:flex; gap:14px; flex-wrap:wrap; }
+  .grid2 > div{ flex:1; min-width:220px; }
+  .subcard{ background:var(--surface-muted); border-radius:8px; padding:11px 13px; margin-bottom:10px; }
+  .mono-inline{ font-family:monospace; font-size:12px; background:var(--surface-muted); padding:1px 6px; border-radius:4px; }
+  .callout{ border:1px solid var(--accent); background:var(--accent-tint); color:var(--accent); border-radius:8px; padding:9px 13px; font-size:12.5px; font-weight:600; margin:10px 0; display:flex; gap:8px; }
+  .callout b{ display:block; font-size:10px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:2px; }
+  .framework{ border:1px solid var(--border); border-radius:8px; overflow:hidden; margin:8px 0 4px; }
+  .framework__row{ display:flex; border-bottom:1px solid var(--border); }
+  .framework__row:last-child{ border-bottom:none; }
+  .framework__letter{
+    font-family:'Lora',serif; font-weight:700; font-size:18px; color:var(--brand-teal); background:var(--brand-teal-tint);
+    width:42px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  }
+  .framework__content{ padding:8px 13px; flex:1; }
+  .framework__content b{ font-size:12.5px; }
+  .framework__content span{ display:block; font-size:12px; color:var(--text-secondary); margin-top:1px; }
+  .bp-closing{ text-align:center; padding:26px 0 8px; }
+  .bp-closing p{ font-family:'Lora',serif; font-weight:600; font-size:16px; color:var(--text-secondary); }
+
+  footer{ text-align:center; padding:20px; font-size:11px; color:var(--text-muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <span class="wordmark">CYFJ</span>
+    <div class="header-actions">
+      <span id="last-updated">Connecting…</span>
+      <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+      <button class="icon-btn" id="refresh-btn" onclick="fetchData()" title="Refresh">↻</button>
+    </div>
+  </div>
+  <div class="tabbar">
+    <button class="active" data-tab="tracker" onclick="switchTab('tracker')">Tracker</button>
+    <button data-tab="calendar" onclick="switchTab('calendar')">Calendar</button>
+    <button data-tab="boarding" onclick="switchTab('boarding')">Boarding Pass</button>
+  </div>
+</header>
+
+<div class="notice-banner">⚠ Information is manually updated and may be subject to errors. Always cross-check with official college communications.</div>
+
+<!-- ============ TRACKER ============ -->
+<div class="view active" id="view-tracker">
+  <div class="stats-row">
+    <div class="stat-chip">Total<strong id="total-count">—</strong></div>
+    <div class="stat-chip">Open<strong id="open-count">—</strong></div>
+    <div class="stat-chip">Closed<strong id="closed-count">—</strong></div>
+  </div>
+
+  <div class="table-scroll">
+    <table id="placement-table">
+      <thead>
+        <tr>
+          <th data-key="idx">#</th>
+          <th data-key="Company Name">Company</th>
+          <th data-key="Registration Deadline">Deadline</th>
+          <th>Apply</th>
+          <th data-key="Job Profiles">Profiles</th>
+          <th data-key="Company Location">Location</th>
+          <th data-key="Compensation (CTC)">CTC</th>
+          <th data-key="Eligibility">Eligibility</th>
+          <th data-key="Bonds & Conditions">Bond</th>
+          <th data-key="Internship Stipend/Month">Stipend</th>
+          <th data-key="Notes">Notes</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <tr><td colspan="11" class="muted">Loading placement data…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="lead-block">
+    <span class="lead-kicker">Crack Your First Job</span>
+    <h3>Take charge of your placements</h3>
+    <p class="small">Don't just sit in placements → get selected. Tailored prompts, JD breakdowns, and insider content, straight to your inbox every Friday.</p>
+    <div class="lead-error-banner" id="lead-error-banner">⚠ Please fix the highlighted fields.</div>
+
+    <form id="lead-form" action="https://docs.google.com/forms/d/e/1FAIpQLSdKkvzzxEgbySnjOgdOjCexTfF9-c5bsCq6VYDT4JrHofzxsQ/formResponse" method="POST" target="lead_hidden_iframe" onsubmit="return handleLeadSubmit(event)" novalidate>
+      <div id="lead-fields">
+        <div class="lead-grid">
+          <div class="lead-field">
+            <label for="lead-name">Name</label>
+            <input type="text" id="lead-name" name="entry.1850589114" placeholder="e.g. Rahul Sharma" autocomplete="name" />
+            <div class="lead-field-error" id="lead-name-error">Please enter your name.</div>
+          </div>
+          <div class="lead-field">
+            <label for="lead-whatsapp">WhatsApp Number</label>
+            <input type="tel" id="lead-whatsapp" name="entry.2130846960" placeholder="e.g. 9876543210" maxlength="15" autocomplete="tel" />
+            <div class="lead-field-error" id="lead-whatsapp-error">Please enter a valid WhatsApp number.</div>
+          </div>
+          <div class="lead-field full">
+            <label for="lead-email">Email ID</label>
+            <input type="email" id="lead-email" name="entry.1071716175" placeholder="e.g. rahul@gmail.com" autocomplete="email" />
+            <div class="lead-field-error" id="lead-email-error">Please enter a valid email address.</div>
+          </div>
+        </div>
+        <button class="lead-submit" id="lead-submit" type="submit">
+          <span id="lead-submit-text">Send me drive updates</span>
+        </button>
+        <p class="lead-note">Only valuable insights and insider information in your inbox.</p>
+      </div>
+      <div class="lead-success" id="lead-success">
+        <b>You're in.</b>
+        <span class="muted">Check your inbox every Friday and two days before your placement drive.</span>
+      </div>
+    </form>
+    <iframe name="lead_hidden_iframe" id="lead_hidden_iframe" style="display:none;" onload="handleLeadIframeLoad()"></iframe>
+  </div>
+</div>
+
+<!-- ============ CALENDAR ============ -->
+<div class="view" id="view-calendar">
+  <div class="drive-section">
+    <div class="head"><span>Offline Drives</span><span class="count" id="count-offline"></span></div>
+    <div id="rows-offline"></div>
+  </div>
+  <div class="drive-section">
+    <div class="head"><span>Online Drives</span><span class="count" id="count-online"></span></div>
+    <div id="rows-online"></div>
+  </div>
+  <div class="drive-section">
+    <div class="head"><span>Hybrid Drives</span><span class="count" id="count-hybrid"></span></div>
+    <div id="rows-hybrid"></div>
+  </div>
+</div>
+
+<!-- ============ BOARDING PASS ============ -->
+<div class="view" id="view-boarding">
+  <div class="bp-intro">
+    <span class="eyebrow">Common to every drive</span>
+    <h1>Boarding Pass</h1>
+    <p>A checkpoint-by-checkpoint guide to showing up sharp — from the moment you leave home to the moment you're cleared.</p>
+  </div>
+
+  <div class="callout">
+    <span>⚠</span>
+    <div><b>Note</b>HR Round is intentionally left out of this edition — content is being built from real inputs and will be added once confirmed.</div>
+  </div>
+
+  <section class="ticket" id="setup">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 00</div>
+      <h2 class="ticket__title">Before You Leave Home</h2>
+      <div class="ticket__meta"><span class="pill">Night Before</span><span class="pill">One-Time Setup</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">Create a drive folder, set sharing to "anyone with the link can view," and connect it to a link shortener. If you ever forget or lose a physical document, you can pull it up and get it printed anywhere.</p>
+      <h4>Documents to upload</h4>
+      <ul class="checks">
+        <li>Resume (updated)</li>
+        <li>Passport size photo</li>
+        <li>10th + 12th marksheets</li>
+        <li>All semester exam marksheets</li>
+        <li>One ID proof (e.g. Aadhar card)</li>
+      </ul>
+      <h4>Shortener</h4>
+      <p>Use bit.ly, or a simple custom tool like <span class="mono-inline">link.henil.dev</span> — gives a clean link such as <span class="mono-inline">link.henil.dev/yourname</span>.</p>
+    </div>
+  </section>
+
+  <section class="ticket" id="talks">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 01</div>
+      <h2 class="ticket__title">Pre-Placement Talk</h2>
+      <div class="ticket__meta"><span class="pill">~60 Min</span><span class="pill">Auditorium</span><span class="pill">100–400 Candidates</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">The company shares the "goody-goody" things — what it's like to work there, the hiring process, the pitch. Walking in already knowing 60–80% of what's said is the difference between nerves and calm, especially when you're one of 100–400 people competing for 5–20 openings.</p>
+      <h4>Before the talk</h4>
+      <ul class="checks">
+        <li>Re-read the company email sent by your placement cell</li>
+        <li>Visit the company website</li>
+        <li>Connect with HR &amp; people in your target domain on LinkedIn</li>
+        <li>Check their Instagram, LinkedIn or other social handles</li>
+      </ul>
+      <h4>Carry &amp; prepare</h4>
+      <div class="grid2">
+        <div class="subcard">
+          <h5>Physically bring</h5>
+          <ul class="plain">
+            <li>Small handheld fan (auditoriums get hot)</li>
+            <li>Notebook / notes app / pen &amp; paper</li>
+          </ul>
+        </div>
+        <div class="subcard">
+          <h5>Have answers ready for</h5>
+          <ul class="plain">
+            <li>"Why do you want to join ___ Company?"</li>
+            <li>"Have you seen our website?"</li>
+            <li>1–2 questions of your own for "Any questions for us?"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticket" id="aptitude">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 02</div>
+      <h2 class="ticket__title">Aptitude Test</h2>
+      <div class="ticket__meta"><span class="pill">~30 Min</span><span class="pill">Pen-Paper or CBT</span><span class="pill">Auditorium / Labs</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">The toughness here is rarely about subject knowledge — it's about how you handle pressure. Questions almost always look easier in hindsight, after the exam.</p>
+      <div class="callout"><span>⚠</span><div><b>Rule</b>Don't keep your mobile phone with you during the test.</div></div>
+      <h4>Carry</h4>
+      <ul class="checks"><li>Rough pages</li><li>Pen</li></ul>
+      <h4>Be psychologically prepared for</h4>
+      <ul class="plain">
+        <li>Internet not working properly</li>
+        <li>Your screen freezing</li>
+        <li>Power going out (if you're on a college PC)</li>
+        <li>All progress lost to a technical glitch</li>
+      </ul>
+      <h4>Practical approach — CBT</h4>
+      <ul class="checks">
+        <li>Write your login credentials (username &amp; password) on paper before starting</li>
+        <li>Copy your username once typed — saves time if the password is wrong the first time</li>
+        <li>Read every instruction carefully before proceeding</li>
+        <li>Write down each question's reference number and your answer on paper — not just "no. &amp; ans," since question order can shuffle on re-entry.</li>
+        <li>Network preference: College LAN &gt;&gt;&gt; College WiFi &gt; your own hotspot</li>
+        <li>Keep your own (or a friend's) hotspot ready as backup — that's on you to have covered, not on anyone else</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ticket" id="digital">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 03</div>
+      <h2 class="ticket__title">Digital Readiness</h2>
+      <div class="ticket__meta"><span class="pill">For Any Online Stage</span><span class="pill">GD / Tech / PI</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">Applies whenever a GD, technical round, or personal interview is conducted online — whether on drive day or scheduled for the next.</p>
+      <div class="grid2">
+        <div class="subcard">
+          <h5>Technical setup</h5>
+          <ul class="plain">
+            <li>Own laptop, fully charged, with charger</li>
+            <li>Wired earphones / headphones — Bluetooth works 95% of the time, plan for the 5%</li>
+            <li>Check audio quality in Zoom / Meet / Teams beforehand</li>
+            <li>Check your webcam is working</li>
+            <li>Keep a backup audio/video setup ready, and all required apps pre-installed</li>
+            <li>Stable internet connection + backup hotspot on standby</li>
+          </ul>
+        </div>
+        <div class="subcard">
+          <h5>Psychological setup</h5>
+          <ul class="plain">
+            <li>Assume the internet won't cooperate and the other person may not hear you clearly</li>
+            <li>Be ready for the worst — audio failing, video or screen-share going blurry</li>
+            <li>While answering, look into your webcam lens, not at the other person's video</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticket" id="gd">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 04</div>
+      <h2 class="ticket__title">Group Discussion</h2>
+      <div class="ticket__meta"><span class="pill">Computer Labs</span><span class="pill">Select Companies</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">Whatever the topic, recruiters are watching three things: how <b>Structured</b> your thoughts are, how much <b>Substance</b> your insight has, and how unique your personal <b>Style</b> is. Remember — it's a discussion, not do-or-die.</p>
+      <div class="framework">
+        <div class="framework__row"><div class="framework__letter">S</div><div class="framework__content"><b>Structured</b><span>Build on top of the existing point. Your turn = Intro → Point → Outro.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">S</div><div class="framework__content"><b>Substance</b><span>Have real perspectives already formed on common topics — AI, startups, work-life balance, social media.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">S</div><div class="framework__content"><b>Style</b><span>Don't fake an accent. Stay calm, composed, courageous. Never finger-point or personally attack anyone.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticket" id="technical">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 05</div>
+      <h2 class="ticket__title">Technical Round</h2>
+      <div class="ticket__meta"><span class="pill">May Run Next Day</span><span class="pill">If Online</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">You're essentially communicating three things: curiosity about the domain, technical agency, and the ability to learn on your own.</p>
+      <h4>Standard flow</h4>
+      <ul class="plain">
+        <li>1. Introduce yourself</li>
+        <li>2. Deep dive into the stack / projects you mentioned</li>
+        <li>3. A problem or simulation to test your programming skills</li>
+      </ul>
+      <h4>Introducing yourself — N.A.M.E.</h4>
+      <div class="framework">
+        <div class="framework__row"><div class="framework__letter">N</div><div class="framework__content"><b>Necessary details</b><span>Only what's actually useful for a technical round.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">A</div><div class="framework__content"><b>Achievements</b><span>Establish trust — give them your credentials.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">M</div><div class="framework__content"><b>Make sense</b><span>Tie in a company project shared on their website or the pre-placement talk.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">E</div><div class="framework__content"><b>Engage</b><span>Close with a line that invites them to ask a question.</span></div></div>
+      </div>
+      <h4>Talking about a project — 5 pillars</h4>
+      <div class="framework">
+        <div class="framework__row"><div class="framework__letter">O</div><div class="framework__content"><b>Objective</b><span>The goal or business need behind the build.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">C</div><div class="framework__content"><b>Context</b><span>Who was it for? Tech stack? Constraints?</span></div></div>
+        <div class="framework__row"><div class="framework__letter">C</div><div class="framework__content"><b>Challenges</b><span>Technical roadblocks or bugs you ran into.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">A</div><div class="framework__content"><b>Action</b><span>The specific steps <i>you</i> took to engineer a solution.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">R</div><div class="framework__content"><b>Result</b><span>A measurable outcome — e.g. "30% load time reduction."</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticket" id="final">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Final Boarding Checklist</div>
+      <h2 class="ticket__title">Pack This Before You Leave</h2>
+      <div class="ticket__meta"><span class="pill">Pre-Departure</span><span class="pill">15 Min Buffer</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <div class="grid2">
+        <div>
+          <h4>Wear &amp; timing</h4>
+          <ul class="checks">
+            <li>Formal attire, ironed and ready</li>
+            <li>Extra pair of formals, inners &amp; socks — in case rain hits mid-drive</li>
+            <li>Leave with a 15-minute buffer — don't be late</li>
+          </ul>
+          <h4>Food &amp; energy</h4>
+          <ul class="checks">
+            <li>Water bottle</li>
+            <li>Snacks — some drives run past midnight</li>
+            <li>Chocolates — quick dopamine boost if you're flagging</li>
+            <li>Timepass food for the waiting stretches</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Documents</h4>
+          <ul class="checks">
+            <li>Resumes — 5 printed copies</li>
+            <li>Marksheets: 10th / 12th / diploma / all semesters</li>
+            <li>Certificates — colour copies</li>
+            <li>Carried in a proper file/folder</li>
+          </ul>
+          <h4>Tech &amp; comfort</h4>
+          <ul class="checks">
+            <li>Notepad / pen &amp; paper</li>
+            <li>Refreshment kit — facewash, mouth freshener</li>
+            <li>Phone, fully charged + power bank</li>
+            <li>Laptop, fully charged</li>
+            <li>Wired earphones</li>
+          </ul>
+        </div>
+      </div>
+      <h4>Before you walk in</h4>
+      <ul class="checks">
+        <li>Go through the company's bonds, conditions and offer terms in full</li>
+        <li>If using your own system for an online round — test mic and camera one more time</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="bp-closing"><p>All the very best for your next placement drive.</p></div>
+</div>
+
+<footer>Auto refreshes every 3 minutes · CYFJ, Ancient Intelligence Labs</footer>
+
+<!-- ============ INTEL CARD MODAL ============ -->
+<div class="modal-backdrop" id="intel-modal" onclick="if(event.target===this) closeIntel()">
+  <div class="modal-card" id="intel-card-content"></div>
+</div>
+
+<script>
+  /* ============================================================
+     THEME — defaults to system preference, manual override persists
+     ============================================================ */
+  const THEME_KEY = 'cyfj_theme';
+  function applyTheme(theme){
+    document.body.setAttribute('data-theme', theme);
+    document.getElementById('theme-toggle').textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+  function toggleTheme(){
+    const current = document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+  }
+  function initTheme(){
+    let stored = null;
+    try{ stored = localStorage.getItem(THEME_KEY); }catch(e){}
+    if(stored === 'dark' || stored === 'light'){ applyTheme(stored); return; }
+    const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(systemDark ? 'dark' : 'light');
+  }
+
+  /* ============================================================
+     TABS
+     ============================================================ */
+  function switchTab(tab){
+    document.querySelectorAll('.tabbar button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + tab).classList.add('active');
+  }
+
+  /* ============================================================
+     TRACKER — fetch / render / sort, functionally unchanged
+     ============================================================ */
+  const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzRrCh1w2ARurK1-wAq658krKZaImjjb58Izioid95jzRoDxwWKyh0LQkIr6j9qGvK5_w/exec';
+  const REFRESH_MS  = 3 * 60 * 1000;
+  let previousCount = 0;
+  let currentData = [];
+  let sortKey = null;
+  let sortAsc = true;
+
+  async function fetchData(){
+    const btn = document.getElementById('refresh-btn');
+    btn.textContent = '⏳'; btn.disabled = true;
+    try{
+      const res = await fetch(WEB_APP_URL + '?t=' + Date.now());
+      const data = await res.json();
+      currentData = data.companies || [];
+      renderTable(currentData, data.lastUpdated);
+    }catch(err){
+      console.error(err);
+      document.getElementById('last-updated').textContent = '⚠️ Fetch failed — retrying soon';
+    }finally{
+      btn.textContent = '↻'; btn.disabled = false;
+    }
+  }
+
+  function escHtml(str){
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderTable(companies, lastUpdated){
+    const tbody = document.getElementById('table-body');
+    tbody.innerHTML = '';
+    if(companies.length === 0){
+      tbody.innerHTML = `<tr><td colspan="11" class="muted">No companies listed yet. Check back soon!</td></tr>`;
+    } else {
+      let openCount = 0, closedCount = 0;
+      companies.forEach((c,i) => {
+        const tr = document.createElement('tr');
+        const deadline = (c['Registration Deadline']||'').toString().trim();
+        const isClosed = deadline.toLowerCase().includes('closed');
+        if(isClosed) closedCount++; else if(deadline) openCount++;
+        const statusHTML = deadline
+          ? `<span class="status-word ${isClosed?'status-closed':'status-open'}">${isClosed?'Closed':'Open'}</span><span class="deadline-date">${escHtml(deadline)}</span>`
+          : '<span class="muted">—</span>';
+
+        const linkData = c['Registration Link'] || {};
+        const regHTML = linkData.url
+          ? `<a class="reg-btn" href="${escHtml(linkData.url)}" target="_blank" rel="noopener noreferrer">Register →</a>`
+          : '<span class="reg-disabled">No link</span>';
+
+        const profiles = (c['Job Profiles']||'').toString();
+        const profileParts = profiles.split(/\|\|/).map(s=>s.trim()).filter(Boolean);
+        const profilesHTML = profileParts.length ? profileParts.map(p=>`<span class="chip">${escHtml(p)}</span>`).join(' ') : '<span class="muted">—</span>';
+
+        const loc = (c['Company Location']||'').toString().trim();
+        const ctc = (c['Compensation (CTC)']||'').toString().trim();
+        const stipend = (c['Internship Stipend/Month']||'').toString().trim();
+
+        tr.innerHTML = `
+          <td>${i+1}</td>
+          <td><b>${escHtml(c['Company Name']||'')}</b></td>
+          <td>${statusHTML}</td>
+          <td>${regHTML}</td>
+          <td>${profilesHTML}</td>
+          <td>${loc ? `<span class="loc-chip">${escHtml(loc)}</span>` : '<span class="muted">—</span>'}</td>
+          <td>${ctc ? `<span class="num-value">${escHtml(ctc)}</span>` : '<span class="muted">—</span>'}</td>
+          <td>${escHtml(c['Eligibility']||'—')}</td>
+          <td>${escHtml(c['Bonds & Conditions']||'—')}</td>
+          <td>${stipend ? `<span class="num-value">₹${escHtml(stipend)}</span>` : '<span class="muted">—</span>'}</td>
+          <td>${escHtml(c['Notes']||'—')}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+      document.getElementById('total-count').textContent = companies.length;
+      document.getElementById('open-count').textContent = openCount;
+      document.getElementById('closed-count').textContent = closedCount;
+    }
+    previousCount = companies.length;
+    const ts = lastUpdated ? new Date(lastUpdated) : new Date();
+    document.getElementById('last-updated').textContent = 'Synced ' + ts.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  }
+
+  document.querySelectorAll('#placement-table th[data-key]').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.getAttribute('data-key');
+      if(sortKey === key) sortAsc = !sortAsc; else { sortKey = key; sortAsc = true; }
+      document.querySelectorAll('#placement-table th').forEach(h=>h.classList.remove('sorted','asc'));
+      th.classList.add('sorted'); if(sortAsc) th.classList.add('asc');
+      const sorted = [...currentData].sort((a,b) => {
+        const av = (a[key]||'').toString().toLowerCase();
+        const bv = (b[key]||'').toString().toLowerCase();
+        return sortAsc ? av.localeCompare(bv) : bv.localeCompare(av);
+      });
+      renderTable(sorted);
+    });
+  });
+
+  /* ============================================================
+     LEAD FORM — real Google Form submission, restored for final build.
+     Flagged: this is now LIVE, unlike the earlier mockup stub.
+     ============================================================ */
+  let leadSubmitted = false;
+  let leadSubmitTimer = null;
+
+  function handleLeadSubmit(event){
+    clearLeadErrors();
+    const name = document.getElementById('lead-name').value.trim();
+    const whatsapp = document.getElementById('lead-whatsapp').value.trim();
+    const email = document.getElementById('lead-email').value.trim();
+    let valid = true;
+    if(!name){ showFieldError('lead-name','lead-name-error'); valid = false; }
+    if(!whatsapp || !/^\+?[\d\s\-]{10,15}$/.test(whatsapp)){ showFieldError('lead-whatsapp','lead-whatsapp-error'); valid = false; }
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showFieldError('lead-email','lead-email-error'); valid = false; }
+    if(!valid){ document.getElementById('lead-error-banner').style.display = 'block'; event.preventDefault(); return false; }
+
+    leadSubmitted = true;
+    setLeadLoading(true);
+    clearTimeout(leadSubmitTimer);
+    leadSubmitTimer = setTimeout(() => { if(leadSubmitted) showLeadSuccess(); }, 6000);
+    return true;
+  }
+  function handleLeadIframeLoad(){ if(!leadSubmitted) return; showLeadSuccess(); }
+  function showLeadSuccess(){
+    leadSubmitted = false;
+    clearTimeout(leadSubmitTimer);
+    document.getElementById('lead-fields').style.display = 'none';
+    document.getElementById('lead-success').style.display = 'block';
+    document.getElementById('lead-error-banner').style.display = 'none';
+    setLeadLoading(false);
+  }
+  function setLeadLoading(on){
+    const btn = document.getElementById('lead-submit');
+    btn.disabled = on;
+    document.getElementById('lead-submit-text').textContent = on ? 'Submitting…' : 'Send me drive updates';
+  }
+  function showFieldError(inputId, errorId){
+    document.getElementById(inputId).classList.add('err');
+    document.getElementById(errorId).style.display = 'block';
+  }
+  function clearLeadErrors(){
+    ['lead-name','lead-whatsapp','lead-email'].forEach(id => document.getElementById(id).classList.remove('err'));
+    ['lead-name-error','lead-whatsapp-error','lead-email-error'].forEach(id => document.getElementById(id).style.display = 'none');
+    document.getElementById('lead-error-banner').style.display = 'none';
+  }
+
+  /* ============================================================
+     CALENDAR — real 22-drive dataset, classification confirmed
+     ============================================================ */
+  const DRIVES = [
+    { name:'BOSLEO', branch:'IT/CP/CSD/AI/IOT', loc:'Virtual', date:'29 Jun 2026', section:'online' },
+    { name:'Synoverge Technologies', branch:'IT/CP/CSD/AI/IOT/EC', loc:'ADIT', date:'30 Jun 2026', section:'offline' },
+    { name:'ERUDITE WORKS', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'02 Jul 2026', section:'offline' },
+    { name:'NJ Group', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'04 Jul (Online) → 10 Jul (Interview)', section:'hybrid' },
+    { name:'Casepoint', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'06 Jul 2026', section:'offline', intelKey:'casepoint' },
+    { name:'Instance IT Solutions', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'07 Jul 2026', section:'offline' },
+    { name:'Meditab', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'08 Jul 2026', section:'offline' },
+    { name:'Declone Labs Pvt. Ltd', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'11 Jul 2026', section:'offline' },
+    { name:'Alpha-e Barcode Solutions', branch:'IT/CP/CSD/AI/IOT', loc:'MBIT', date:'13 Jul 2026', section:'offline' },
+    { name:'IAMOPS', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'15 Jul 2026', section:'offline' },
+    { name:'EMGAGE', branch:'IT/CP/CSD/AI/IOT', loc:'MBIT', date:'17 Jul 2026', section:'offline' },
+    { name:'EnactOn Technologies', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'13 Jul (11:00–11:30) → 18 Jul (Online) → 22 Jul (Interview)', section:'hybrid' },
+    { name:'Streebo', branch:'IT/CP/CSD/AI/IOT', loc:'Virtual', date:'20 Jul 2026', section:'online' },
+    { name:'E-Infochips', branch:'IT/CP/CSD/AI/IOT/EC', loc:'GCET', date:'21 Jul 2026', section:'offline' },
+    { name:'Medkart', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'23 Jul 2026', section:'offline' },
+    { name:'Inkey IT Solutions', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'24 Jul 2026', section:'offline' },
+    { name:'Brainybeam', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'27 Jul 2026', section:'offline' },
+    { name:'Leons Integrations Pvt. Ltd.', branch:'IT/CP/CSD/AI/IOT', loc:'GCET', date:'29 Jul 2026', section:'offline' },
+    { name:'GD Waldner', branch:'ME/EE/CI/MC', loc:'ADIT', date:'30 Jul 2026', section:'offline' },
+    { name:'Webdesk', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'30–31 Jul (Online) → 01 Aug (Interview)', section:'hybrid' },
+    { name:'FiscalOx', branch:'IT/CP/CSD/AI/IOT', loc:'ADIT', date:'03–04 Aug 2026', section:'offline' },
+    { name:'LaunchEd Global', branch:'All', loc:'Virtual', date:'06 Aug 2026', section:'online' }
+  ];
+
+  function renderDrives(){
+    const bySection = { offline:[], online:[], hybrid:[] };
+    DRIVES.forEach(d => bySection[d.section].push(d));
+    ['offline','online','hybrid'].forEach(sec => {
+      const list = bySection[sec];
+      document.getElementById('count-' + sec).textContent = list.length + (list.length === 1 ? ' drive' : ' drives');
+      const container = document.getElementById('rows-' + sec);
+      if(list.length === 0){ container.innerHTML = '<div class="drive-row muted">None in this category.</div>'; return; }
+      container.innerHTML = list.map(d => `
+        <div class="drive-row">
+          <span class="dname">${escHtml(d.name)}</span>
+          <span class="ddate">${escHtml(d.date)}</span>
+          <span class="dloc"><span class="loc-chip">${escHtml(d.loc)}</span> <span class="muted">· ${escHtml(d.branch)}</span></span>
+          <span class="dactions"><button onclick="openIntel('${d.intelKey || 'none'}')">View Intel</button></span>
+        </div>
+      `).join('');
+    });
+  }
+
+  /* ============================================================
+     INTEL CARD — occasion typography (Lora), real Casepoint links
+     ============================================================ */
+  const INTEL_DATA = {
+    casepoint: {
+      name: 'Casepoint', location: 'ADIT',
+      links: {
+        pdfEn: 'https://drive.google.com/file/d/1BmMz5fc--ZuGXwY-LZiojRpe2OxQLaiG/view',
+        pdfHi: 'https://drive.google.com/file/d/1c7pbM89Wj1Gg6s7yej_Jo2aFdH1A-fSL/view',
+        audioEn: 'https://drive.google.com/file/d/1gEj80hdxV-kMleHmI2bXrj6-LxeFSEXH/view',
+        audioHi: 'https://drive.google.com/file/d/1h4KN3Nn3ihVX9xIU-Akj9n2wdBh964Hy/view'
+      }
+    }
+  };
+
+  function openIntel(key){
+    const modal = document.getElementById('intel-modal');
+    const content = document.getElementById('intel-card-content');
+    const data = INTEL_DATA[key];
+    if(!data){
+      content.innerHTML = `
+        <button class="modal-close" onclick="closeIntel()">×</button>
+        <h3 class="occasion">No intel card yet</h3>
+        <div class="no-intel">This company doesn't have an intel card uploaded yet.</div>
+      `;
+    } else {
+      content.innerHTML = `
+        <button class="modal-close" onclick="closeIntel()">×</button>
+        <h3 class="occasion">${escHtml(data.name)}</h3>
+        <div class="loc">${escHtml(data.location)}</div>
+        <div class="intel-grid">
+          <a href="${data.links.pdfEn}" target="_blank"><span class="fmt-icon">📄</span>PDF · EN</a>
+          <a href="${data.links.pdfHi}" target="_blank"><span class="fmt-icon">📄</span>PDF · HI</a>
+          <a href="${data.links.audioEn}" target="_blank"><span class="fmt-icon">🎧</span>Audio · EN</a>
+          <a href="${data.links.audioHi}" target="_blank"><span class="fmt-icon">🎧</span>Audio · HI</a>
+        </div>
+      `;
+    }
+    modal.classList.add('on');
+  }
+  function closeIntel(){ document.getElementById('intel-modal').classList.remove('on'); }
+
+  /* ============================================================
+     BOOT
+     ============================================================ */
+  initTheme();
+  renderDrives();
+  fetchData();
+  setInterval(fetchData, REFRESH_MS);
+</script>
+</body>
+</html>
