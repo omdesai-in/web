@@ -1,1196 +1,953 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<!-- Microsoft Clarity(gtag.js) -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xgi1lverj9");
+</script>
+
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LZK6YSVPZB"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-LZK6YSVPZB');
 </script>
-  
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Placement Tracker</title>
-  <script defer src="https://cdn.vercel-insights.com/v1/script.debug.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 
-  <title>CYFJ Placement Tracker</title>
-
-<meta name="description" content="Take Charge of your Placements. Track placement drives, deadlines, CTC, eligibility, and insider placement updates for ADIT, GCET, and MBIT candidates.">
-
+<meta name="description" content="Take Charge of your Placements. Track placement drives,get access to Intel Card to tailor your preparation for companies and get Boarding Pass as 24 hours Checklist for ADIT, GCET, and MBIT candidates.">
 <link rel="canonical" href="https://omdesai.in/cyfj">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="CYFJ Placement Tracker">
-<meta property="og:description" content="Take Charge of your Placements. Track drives, deadlines, CTC, eligibility, and insider placement updates.">
-<meta property="og:image" content="https://omdesai.in/cyfj/og.jpg">
-<meta property="og:image:secure_url" content="https://omdesai.in/cyfj/og.jpg">
-<meta property="og:image:type" content="image/jpeg">
+<meta property="og:description" content="Take Charge of your Placements. Track placement drives,get access to Intel Card to tailor your preparation for companies and get Boarding Pass as 24 hours Checklist for ADIT, GCET, and MBIT candidates">
+<meta property="og:image" content="https://omdesai.in/cyfj/og.png">
+<meta property="og:image:secure_url" content="https://omdesai.in/cyfj/og.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1536">
 <meta property="og:image:height" content="1024">
 <meta property="og:url" content="https://omdesai.in/cyfj">
 <meta property="og:site_name" content="CYFJ Placement Tracker">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CYFJ Placement Tracker">
+<meta name="twitter:title" content="CYFJ">
 <meta name="twitter:description" content="Take Charge of your Placements. Track drives, deadlines, CTC, eligibility, and insider placement updates.">
-<meta name="twitter:image" content="https://omdesai.in/cyfj/og.jpg">
-  <style>
-    :root {
-      --navy:     #0f1e3d;
-      --navy-mid: #1a3060;
-      --blue:     #4f6ef7;
-      --blue-lt:  #eef0fe;
-      --bg:       #f0f3fa;
-      --surface:  #ffffff;
-      --border:   #e2e8f4;
-      --text:     #1e293b;
-      --muted:    #64748b;
-      --green:    #16a34a;
-      --green-lt: #dcfce7;
-      --red:      #dc2626;
-      --red-lt:   #fee2e2;
-      --amber:    #d97706;
-      --amber-lt: #fef3c7;
-      --purple:   #7c3aed;
-      --purple-lt:#ede9fe;
-      --shadow-soft: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
-      --row-hover: #f8faff;
-      --profile-text: #334155;
-      --location-text: #166534;
-      --ctc-text: #1e3a5f;
-      --lead-card-bg: #ffffff;
-      --lead-form-bg: #fbfcff;
-      --lead-heading: #172033;
-      --lead-label: #27364f;
-      --placeholder: #a7b3c7;
-      --new-row-bg: #d1fae5;
-    }
+<meta name="twitter:image" content="https://omdesai.in/cyfj/og.png">
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<title>CYFJ — Crack Your First Job</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@600;700&display=swap" rel="stylesheet">
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
-    /* ── HEADER ── */
-    header {
-      background: var(--navy);
-      padding: 0 28px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
-    }
+  // Analytics deliberately omitted — not needed for the auth gate, keeps this minimal.
+  const firebaseConfig = {
+    apiKey: "AIzaSyChNQ1T5fOSY_T1_CawSH4Rt4M60ymFmiI",
+    authDomain: "cyfj-placement-hub.firebaseapp.com",
+    projectId: "cyfj-placement-hub",
+    storageBucket: "cyfj-placement-hub.firebasestorage.app",
+    messagingSenderId: "596589652489",
+    appId: "1:596589652489:web:abd0a7f55e518c8e2e26d8"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+  window.cyfjAuth = {
+    user: null,
+    signIn: function(){
+      return signInWithPopup(auth, provider)
+        .then(function(result){ return result.user; })
+        .catch(function(err){
+          console.error('Sign-in failed', err);
+          alert('Sign-in didn\'t go through. Please try again.');
+          throw err;
+        });
+    },
+    signOutUser: function(){ return signOut(auth); }
+  };
 
-    .live-dot {
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 0 0 rgba(34,197,94,0.6);
-      animation: livePulse 1.8s infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes livePulse {
-      0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
-      70%  { box-shadow: 0 0 0 7px rgba(34,197,94,0); }
-      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
-    }
-
-    header h1 {
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    #last-updated {
-      font-size: 0.75rem;
-      color: #94a3c8;
-    }
-
-    #refresh-btn {
-      background: var(--navy-mid);
-      color: #c8d5f5;
-      border: 1px solid #2d4a80;
-      padding: 6px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.75rem;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      transition: background 0.2s;
-    }
-
-    #refresh-btn:hover:not(:disabled) { background: #24408a; }
-    #refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .theme-toggle {
-      width: 34px;
-      height: 32px;
-      border-radius: 8px;
-      border: 1px solid #2d4a80;
-      background: var(--navy-mid);
-      color: #c8d5f5;
-      font-size: 0.95rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.12s, border-color 0.2s;
-    }
-
-    .theme-toggle:hover {
-      background: #24408a;
-      transform: translateY(-1px);
-    }
-    .notice-banner {
-  margin: 16px 28px 0;
-  padding: 11px 14px;
-  background: #fff8e6;
-  border: 1px solid #f7d58a;
-  border-radius: 10px;
-  color: #7a4b00;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  display: flex;
-  align-items: flex-start;
-  gap: 9px;
-}
-
-.notice-banner strong {
-  font-weight: 700;
-}
-
-.notice-icon {
-  font-size: 0.9rem;
-  line-height: 1.4;
-  flex-shrink: 0;
-}
-
-/* Dark mode support */
-body.dark .notice-banner,
-[data-theme="dark"] .notice-banner {
-  background: rgba(245, 166, 35, 0.12);
-  border-color: rgba(245, 166, 35, 0.35);
-  color: #f6d28b;
-}
-
-@media (max-width: 600px) {
-  .notice-banner {
-    margin: 12px 16px 0;
-    font-size: 0.74rem;
+  onAuthStateChanged(auth, function(user){
+    window.cyfjAuth.user = user;
+    if(window.onAuthChanged) window.onAuthChanged(user);
+  });
+</script>
+<style>
+  :root{
+    --background:#FBF8F3; --surface:#FFFFFF; --surface-muted:#F3EEE3; --border:#E4DCC9;
+    --text-primary:#221F1A; --text-secondary:#6B6354; --text-muted:#948C7C;
+    --brand-teal:#0B6F68; --brand-teal-tint:#E4F1EF;
+    --accent:#A8502F; --accent-tint:#F5E4DB;
+    --success:#1F7A4E; --success-tint:#E1F3EA;
+    --danger:#A83B2E; --danger-tint:#F4E2DE;
   }
-}
-
-    /* ── STATS BAR ── */
-    .stats-bar {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 14px 28px;
-    }
-
-    .stat-chip {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 6px 14px;
-      font-size: 0.78rem;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .stat-chip strong { color: var(--text); font-size: 0.9rem; }
-
-    /* ── TABLE WRAPPER ── */
-    .table-wrapper {
-      padding: 0 28px 32px;
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      background: var(--surface);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: var(--shadow-soft);
-      min-width: 1100px;
-    }
-
-    /* ── THEAD ── */
-    thead tr {
-      background: var(--navy);
-    }
-
-    thead th {
-      color: #c8d5f5;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      padding: 13px 14px;
-      white-space: nowrap;
-      border-bottom: 2px solid var(--navy-mid);
-      text-align: left;
-    }
-
-    thead th:first-child { width: 42px; text-align: center; border-radius: 12px 0 0 0; }
-    thead th:last-child  { border-radius: 0 12px 0 0; }
-
-    /* ── TBODY ── */
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.15s;
-    }
-
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: var(--row-hover); }
-
-    tbody td {
-      padding: 11px 14px;
-      font-size: 0.82rem;
-      vertical-align: top;
-      color: var(--text);
-    }
-
-    tbody td:first-child { text-align: center; color: var(--muted); font-size: 0.75rem; }
-
-    /* ── COMPANY NAME ── */
-    .company-name {
-      font-weight: 600;
-      font-size: 0.84rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    /* ── DEADLINE ── */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 3px 9px;
-      border-radius: 20px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .badge-closed { background: var(--red-lt);   color: var(--red);   }
-    .badge-active { background: var(--amber-lt);  color: var(--amber); }
-    .badge-new    { background: var(--green-lt);  color: var(--green); font-size: 0.65rem; }
-
-    /* ── REGISTER BUTTON ── */
-    .reg-btn {
-      display: inline-block;
-      background: var(--blue);
-      color: #fff;
-      padding: 5px 13px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
-      transition: background 0.2s, transform 0.1s;
-    }
-
-    .reg-btn:hover { background: #3a57d4; transform: translateY(-1px); }
-
-    .reg-btn-disabled {
-      display: inline-block;
-      background: #e2e8f0;
-      color: var(--muted);
-      padding: 5px 13px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      cursor: not-allowed;
-    }
-
-    /* ── JOB PROFILES ── */
-    .profiles-cell {
-      max-width: 200px;
-      line-height: 1.5;
-      color: var(--profile-text);
-    }
-
-    .profile-tag {
-      display: inline-block;
-      background: var(--blue-lt);
-      color: var(--blue);
-      border-radius: 4px;
-      padding: 1px 6px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      margin: 1px 2px 1px 0;
-    }
-
-    /* ── LOCATION ── */
-    .location-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: var(--green-lt);
-      color: var(--location-text);
-      padding: 3px 9px;
-      border-radius: 20px;
-      font-size: 0.73rem;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    /* ── CTC ── */
-    .ctc-value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--ctc-text);
-      font-weight: 500;
-    }
-
-    /* ── STIPEND ── */
-    .stipend-value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--purple);
-      font-weight: 600;
-      background: var(--purple-lt);
-      padding: 3px 8px;
-      border-radius: 6px;
-      display: inline-block;
-    }
-
-    /* ── NOTES ── */
-    .notes-cell {
-      font-size: 0.78rem;
-      color: var(--muted);
-      font-style: italic;
-      max-width: 160px;
-    }
-
-    /* ── NEW ROW ANIMATION ── */
-    @keyframes newRowHL {
-      0%   { background: var(--new-row-bg); }
-      80%  { background: var(--new-row-bg); }
-      100% { background: transparent; }
-    }
-
-    .new-row { animation: newRowHL 4s ease-out forwards; }
-
-    /* ── LOADING / ERROR / EMPTY ── */
-    .state-box {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--muted);
-    }
-
-    .state-box .icon { font-size: 2.5rem; margin-bottom: 12px; }
-    .state-box p { font-size: 0.9rem; }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.72rem;
-      color: #94a3b8;
-    }
-
-
-
-    /* ── LEAD CAPTURE / LAYOFFS.FYI-INSPIRED CTA ── */
-    .lead-section {
-      padding: 10px 28px 34px;
-    }
-
-    .lead-card {
-      background: var(--lead-card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 10px 34px rgba(15,30,61,0.06);
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 30px;
-      display: grid;
-      grid-template-columns: 0.95fr 1.25fr;
-      gap: 28px;
-      align-items: start;
-    }
-
-    .lead-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      color: var(--amber);
-      background: var(--amber-lt);
-      border: 1px solid #fde68a;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      margin-bottom: 13px;
-    }
-
-    .lead-copy h2 {
-      color: var(--lead-heading);
-      font-size: 1.45rem;
-      line-height: 1.22;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-    }
-
-    .lead-copy p {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.65;
-      max-width: 430px;
-    }
-
-    .trust-line {
-      margin-top: 20px;
-      color: #94a3b8;
-      font-size: 0.74rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .lead-form-wrap {
-      border: 1px solid var(--border);
-      background: var(--lead-form-bg);
-      border-radius: 13px;
-      padding: 18px;
-    }
-
-    .lead-error-banner {
-      display: none;
-      background: var(--red-lt);
-      border: 1px solid #fecaca;
-      color: var(--red);
-      border-radius: 9px;
-      padding: 9px 11px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      margin-bottom: 14px;
-    }
-
-    .lead-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .lead-field.full { grid-column: 1 / -1; }
-
-    .lead-field label {
-      display: block;
-      color: var(--lead-label);
-      font-size: 0.76rem;
-      font-weight: 700;
-      margin-bottom: 7px;
-    }
-
-    .lead-field input {
-      width: 100%;
-      appearance: none;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: var(--surface);
-      color: var(--text);
-      padding: 11px 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.86rem;
-      outline: none;
-      transition: border-color 0.18s, box-shadow 0.18s;
-    }
-
-    .lead-field input::placeholder { color: var(--placeholder); }
-
-    .lead-field input:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(79,110,247,0.12);
-    }
-
-    .lead-field input.input-error {
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(220,38,38,0.09);
-    }
-
-    .lead-field-error {
-      display: none;
-      color: var(--red);
-      font-size: 0.71rem;
-      margin-top: 5px;
-    }
-
-    .lead-submit {
-      margin-top: 15px;
-      width: 100%;
-      min-height: 43px;
-      border: none;
-      border-radius: 10px;
-      background: var(--blue);
-      color: #ffffff;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
-    }
-
-    .lead-submit:hover:not(:disabled) {
-      background: #3a57d4;
-      transform: translateY(-1px);
-      box-shadow: 0 7px 20px rgba(79,110,247,0.28);
-    }
-
-    .lead-submit:disabled {
-      opacity: 0.66;
-      cursor: wait;
-    }
-
-    .lead-spinner {
-      width: 15px;
-      height: 15px;
-      border: 2px solid rgba(255,255,255,0.35);
-      border-top-color: #fff;
-      border-radius: 50%;
-      display: none;
-      animation: leadSpin 0.7s linear infinite;
-    }
-
-    @keyframes leadSpin { to { transform: rotate(360deg); } }
-
-    .lead-note {
-      margin-top: 12px;
-      color: #94a3b8;
-      font-size: 0.72rem;
-      line-height: 1.5;
-      text-align: center;
-    }
-
-    .lead-success {
-      display: none;
-      text-align: center;
-      padding: 24px 18px;
-    }
-
-    .lead-success-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 999px;
-      background: var(--green-lt);
-      color: var(--green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 14px;
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-
-    .lead-success h3 {
-      color: var(--lead-heading);
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 7px;
-    }
-
-    .lead-success p {
-      color: var(--muted);
-      font-size: 0.84rem;
-      line-height: 1.6;
-      max-width: 460px;
-      margin: 0 auto;
-    }
-
-
-
-    /* ── DARK THEME ── */
-    body[data-theme="dark"] {
-      --navy: #071326;
-      --navy-mid: #111c33;
-      --blue: #6f86ff;
-      --blue-lt: #1d2850;
-      --bg: #0b1220;
-      --surface: #0f172a;
-      --border: #24324a;
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --green: #86efac;
-      --green-lt: #12351f;
-      --red: #fca5a5;
-      --red-lt: #3a161c;
-      --amber: #fbbf24;
-      --amber-lt: #3a2a0d;
-      --purple: #c4b5fd;
-      --purple-lt: #2d214f;
-      --shadow-soft: 0 1px 4px rgba(0,0,0,0.28), 0 14px 36px rgba(0,0,0,0.22);
-      --row-hover: #111d33;
-      --profile-text: #cbd5e1;
-      --location-text: #bbf7d0;
-      --ctc-text: #bfdbfe;
-      --lead-card-bg: #0f172a;
-      --lead-form-bg: #111827;
-      --lead-heading: #f8fafc;
-      --lead-label: #dbe4f0;
-      --placeholder: #64748b;
-      --new-row-bg: #12351f;
-      color-scheme: dark;
-    }
-
-    body,
-    header,
-    table,
-    .stat-chip,
-    .lead-card,
-    .lead-form-wrap,
-    .lead-field input,
-    .reg-btn,
-    .lead-submit {
-      transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-    }
-
-    body[data-theme="dark"] header {
-      box-shadow: 0 2px 16px rgba(0,0,0,0.45);
-    }
-
-    body[data-theme="dark"] #last-updated {
-      color: #9fb1d1;
-    }
-
-    body[data-theme="dark"] #refresh-btn,
-    body[data-theme="dark"] .theme-toggle {
-      background: #101f3a;
-      border-color: #2d4268;
-      color: #d7e3ff;
-    }
-
-    body[data-theme="dark"] #refresh-btn:hover:not(:disabled),
-    body[data-theme="dark"] .theme-toggle:hover {
-      background: #17305a;
-    }
-
-    body[data-theme="dark"] thead th {
-      color: #d7e3ff;
-      border-bottom-color: #253b63;
-    }
-
-    body[data-theme="dark"] tbody tr {
-      border-bottom-color: var(--border);
-    }
-
-    body[data-theme="dark"] .badge-active {
-      background: var(--amber-lt);
-      color: #facc15;
-    }
-
-    body[data-theme="dark"] .badge-closed {
-      background: var(--red-lt);
-      color: #fca5a5;
-    }
-
-    body[data-theme="dark"] .badge-new {
-      background: var(--green-lt);
-      color: #86efac;
-    }
-
-    body[data-theme="dark"] .reg-btn {
-      background: #5b73f7;
-      color: #ffffff;
-    }
-
-    body[data-theme="dark"] .reg-btn:hover {
-      background: #7890ff;
-    }
-
-    body[data-theme="dark"] .reg-btn-disabled {
-      background: #1e293b;
-      color: #94a3b8;
-    }
-
-    body[data-theme="dark"] .profile-tag {
-      background: #1e2a54;
-      color: #aab8ff;
-    }
-
-    body[data-theme="dark"] .location-chip {
-      background: #12351f;
-      color: #bbf7d0;
-    }
-
-    body[data-theme="dark"] .stipend-value {
-      background: var(--purple-lt);
-      color: var(--purple);
-    }
-
-    body[data-theme="dark"] .lead-kicker {
-      background: var(--amber-lt);
-      border-color: #6f4d12;
-      color: #fbbf24;
-    }
-
-    body[data-theme="dark"] .lead-card {
-      box-shadow: 0 1px 4px rgba(0,0,0,0.28), 0 18px 44px rgba(0,0,0,0.30);
-    }
-
-    body[data-theme="dark"] .trust-line,
-    body[data-theme="dark"] .lead-note,
-    body[data-theme="dark"] footer {
-      color: #8ca0bf;
-    }
-
-    body[data-theme="dark"] .lead-field input:focus {
-      border-color: #7f93ff;
-      box-shadow: 0 0 0 3px rgba(111,134,255,0.18);
-    }
-
-    body[data-theme="dark"] .lead-error-banner {
-      background: var(--red-lt);
-      border-color: #7f1d1d;
-      color: #fecaca;
-    }
-
-    body[data-theme="dark"] .lead-success-icon {
-      background: var(--green-lt);
-      color: #86efac;
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width: 820px) {
-      .lead-card {
-        grid-template-columns: 1fr;
-        padding: 24px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      header { padding: 0 16px; height: auto; min-height: 64px; gap: 10px; flex-wrap: wrap; }
-      header h1 { font-size: 0.85rem; }
-      .header-right { gap: 8px; }
-      .stats-bar { padding: 10px 16px; flex-wrap: wrap; gap: 10px; }
-      .table-wrapper { padding: 0 12px 24px; }
-      .lead-section { padding: 4px 12px 28px; }
-      .lead-card { padding: 20px; border-radius: 14px; }
-      .lead-copy h2 { font-size: 1.25rem; }
-      .lead-grid { grid-template-columns: 1fr; }
-      .lead-field.full { grid-column: auto; }
-    }
-  </style>
+  [data-theme="dark"]{
+    --background:#15130F; --surface:#1E1B15; --surface-muted:#262119; --border:#332E24;
+    --text-primary:#F4EFE4; --text-secondary:#B9AE9C; --text-muted:#8A8071;
+    --brand-teal:#4FD6C7; --brand-teal-tint:#123331;
+    --accent:#D97A54; --accent-tint:#3A2412;
+    --success:#6FE3A0; --success-tint:#17301F;
+    --danger:#F1897A; --danger-tint:#35201B;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--background); color:var(--text-primary);
+    font-family:'Poppins',sans-serif; font-size:14px; line-height:1.55;
+    transition:background-color .2s ease, color .2s ease;
+  }
+  .occasion{ font-family:'Lora',serif; font-weight:600; }
+
+  /* ---- header / tabs ---- */
+  header{
+    position:sticky; top:0; z-index:100; background:var(--surface);
+    border-bottom:1px solid var(--border);
+  }
+  .header-top{ display:flex; align-items:center; justify-content:space-between; padding:12px 18px; }
+  .wordmark{ font-family:'Lora',serif; font-weight:700; font-size:16px; color:var(--brand-teal); }
+  .header-actions{ display:flex; align-items:center; gap:10px; }
+  #last-updated{ font-size:11px; color:var(--text-muted); }
+  .icon-btn{
+    width:32px; height:32px; border-radius:8px; border:1px solid var(--border); background:var(--surface);
+    color:var(--text-secondary); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:14px;
+  }
+  .icon-btn:hover{ background:var(--surface-muted); }
+
+  .auth-btn{
+    display:flex; align-items:center; gap:6px; border:1px solid var(--border); background:var(--surface);
+    color:var(--text-secondary); padding:6px 12px; border-radius:20px; font-size:12px; font-weight:600;
+    cursor:pointer; font-family:'Poppins',sans-serif;
+  }
+  .auth-btn:hover{ background:var(--surface-muted); }
+  .auth-btn.signed-in{ color:var(--brand-teal); border-color:var(--brand-teal); }
+
+  .gate-step{ text-align:center; }
+  .gate-step .gate-icon{ font-size:28px; margin-bottom:10px; }
+  .gate-step h3{ font-family:'Lora',serif; font-size:18px; margin:0 0 6px; }
+  .gate-step p{ font-size:12.5px; color:var(--text-secondary); margin:0 0 16px; }
+  .google-btn{
+    display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
+    background:#fff; color:#3c4043; border:1px solid var(--border); padding:11px; border-radius:8px;
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:13px; cursor:pointer;
+  }
+  .google-btn:hover{ background:#f7f7f7; }
+  .gate-field{ text-align:left; margin-bottom:12px; }
+  .gate-field label{ display:block; font-size:11px; font-weight:600; color:var(--text-secondary); margin-bottom:5px; }
+  .gate-field input{
+    width:100%; padding:10px 11px; border:1px solid var(--border); border-radius:7px; font-size:13px;
+    font-family:'Poppins',sans-serif; background:var(--background); color:var(--text-primary);
+  }
+  .gate-field input.err{ border-color:var(--danger); }
+  .gate-field-error{ display:none; font-size:11px; color:var(--danger); margin-top:3px; }
+  .gate-continue-btn{
+    display:block; width:100%; background:var(--accent); color:#fff; border:none; padding:11px; border-radius:8px;
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:13px; cursor:pointer;
+  }
+  .gate-continue-btn:disabled{ opacity:.6; }
+  .gate-user-line{ font-size:11.5px; color:var(--text-muted); margin-bottom:14px; }
+
+  .tabbar{ display:flex; }
+  .tabbar button{
+    flex:1; padding:12px 6px; background:none; border:none; border-bottom:2.5px solid transparent;
+    font-family:'Poppins',sans-serif; font-weight:500; font-size:13px; color:var(--text-secondary); cursor:pointer;
+  }
+  .tabbar button.active{ color:var(--brand-teal); border-bottom-color:var(--brand-teal); font-weight:600; }
+
+  .notice-banner{
+    margin:14px 16px 0; padding:10px 13px; background:var(--accent-tint); border:1px solid var(--accent);
+    border-radius:8px; color:var(--accent); font-size:12px; display:flex; gap:8px; align-items:flex-start;
+  }
+
+  .view{ display:none; padding:16px; max-width:900px; margin:0 auto; }
+  .view.active{ display:block; }
+
+  /* ---- stats ---- */
+  .stats-row{ display:flex; gap:10px; margin:14px 0; flex-wrap:wrap; }
+  .stat-chip{
+    background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 14px;
+    font-size:12px; color:var(--text-secondary);
+  }
+  .stat-chip strong{ color:var(--text-primary); font-size:15px; display:block; }
+
+  /* ---- table ---- */
+  .table-scroll{ overflow-x:auto; border:1px solid var(--border); border-radius:10px; background:var(--surface); }
+  table{ width:100%; border-collapse:collapse; min-width:900px; font-size:12.5px; }
+  th, td{ padding:10px 12px; border-bottom:1px solid var(--border); text-align:left; white-space:nowrap; }
+  th{
+    background:var(--surface-muted); font-size:10.5px; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--text-secondary); cursor:pointer; user-select:none; font-weight:600;
+  }
+  th:hover{ color:var(--brand-teal); }
+  th.sorted::after{ content:" \25BC"; font-size:8px; }
+  th.sorted.asc::after{ content:" \25B2"; font-size:8px; }
+  tbody tr:hover{ background:var(--surface-muted); }
+
+  .status-word{ font-weight:600; font-size:11px; padding:2px 8px; border-radius:10px; margin-right:6px; }
+  .status-open{ background:var(--success-tint); color:var(--success); }
+  .status-closed{ background:var(--danger-tint); color:var(--danger); }
+  .deadline-date{ color:var(--text-secondary); }
+
+  .chip{ display:inline-block; background:var(--surface-muted); color:var(--text-secondary); border-radius:12px; padding:2px 9px; font-size:11px; margin:1px; }
+  .loc-chip{ background:var(--brand-teal-tint); color:var(--brand-teal); border-radius:12px; padding:2px 9px; font-size:11px; }
+  .reg-btn{
+    background:var(--accent); color:#fff; padding:6px 13px; border-radius:6px; text-decoration:none;
+    font-size:12px; font-weight:600;
+  }
+  .reg-btn:hover{ opacity:.9; }
+  .reg-disabled{ color:var(--text-muted); font-size:11.5px; }
+  .num-value{ font-weight:600; text-align:right; display:block; }
+  .muted{ color:var(--text-muted); }
+
+  /* ---- calendar ---- */
+  .drive-section{ background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:14px; overflow:hidden; }
+  .drive-section > .head{
+    padding:11px 14px; background:var(--surface-muted); font-weight:600; font-size:12.5px;
+    display:flex; justify-content:space-between; align-items:center; color:var(--text-primary);
+  }
+  .drive-section > .head .count{ font-weight:400; color:var(--text-muted); font-size:11px; }
+  .drive-row{ display:flex; align-items:center; gap:12px; padding:12px 14px; border-top:1px solid var(--border); flex-wrap:wrap; }
+  .drive-row .dname{ font-weight:600; min-width:170px; }
+  .drive-row .ddate{ font-size:12px; color:var(--text-secondary); min-width:140px; }
+  .drive-row .dloc{ font-size:12px; color:var(--text-secondary); flex:1; min-width:100px; }
+  .drive-row .dactions button{
+    background:var(--surface); border:1px solid var(--brand-teal); color:var(--brand-teal);
+    padding:6px 12px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif;
+  }
+  .drive-row .dactions button:hover{ background:var(--brand-teal-tint); }
+
+  /* ---- intel card modal (occasion) ---- */
+  .modal-backdrop{ display:none; position:fixed; inset:0; background:rgba(20,17,12,.45); z-index:200; align-items:center; justify-content:center; padding:20px; }
+  .modal-backdrop.on{ display:flex; }
+  .modal-card{ background:var(--surface); border-radius:14px; max-width:340px; width:100%; padding:22px; position:relative; transition:max-width .15s ease; }
+  .modal-card.wide{ max-width:720px; padding:18px; }
+  .intel-embed-head{ display:flex; justify-content:space-between; align-items:baseline; margin:0 30px 10px 4px; flex-wrap:wrap; gap:4px; }
+  .intel-embed-head .loc{ font-size:12px; color:var(--text-secondary); margin:0; }
+  .intel-iframe{ width:100%; height:72vh; min-height:420px; border:1px solid var(--border); border-radius:10px; display:block; }
+  .intel-fallback-link{ display:block; text-align:center; margin-top:10px; font-size:11.5px; color:var(--brand-teal); text-decoration:none; }
+  .modal-close{ position:absolute; top:10px; right:12px; border:none; background:none; font-size:18px; cursor:pointer; color:var(--text-muted); }
+  .modal-card h3{ font-size:19px; margin:0 0 2px; }
+  .modal-card .loc{ font-size:12.5px; color:var(--text-secondary); margin-bottom:16px; }
+  .intel-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .intel-grid a{
+    text-align:center; text-decoration:none; font-size:11.5px; font-weight:500; padding:12px 4px;
+    border:1px solid var(--border); border-radius:8px; color:var(--text-primary); font-family:'Poppins',sans-serif;
+  }
+  .intel-grid a:hover{ border-color:var(--brand-teal); background:var(--brand-teal-tint); }
+  .intel-grid .fmt-icon{ display:block; font-size:17px; margin-bottom:4px; }
+  .no-intel{ font-size:12.5px; color:var(--text-secondary); padding:14px 0; text-align:center; border:1px dashed var(--border); border-radius:8px; }
+
+  /* ---- boarding pass (occasion tab) ---- */
+  .bp-intro{ text-align:center; padding:6px 0 18px; }
+  .bp-intro .eyebrow{ font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); font-weight:600; }
+  .bp-intro h1{ font-family:'Lora',serif; font-weight:700; font-size:30px; margin:6px 0 8px; }
+  .bp-intro p{ font-size:13px; color:var(--text-secondary); max-width:440px; margin:0 auto; }
+
+  .ticket{ background:var(--surface); border:1px solid var(--border); border-radius:12px; margin-bottom:16px; overflow:hidden; }
+  .ticket__header{ padding:16px 18px 12px; background:var(--brand-teal-tint); }
+  .ticket__checkpoint{
+    font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--brand-teal); margin-bottom:4px;
+  }
+  .ticket__title{ font-family:'Lora',serif; font-weight:600; font-size:21px; color:var(--text-primary); }
+  .ticket__meta{ margin-top:9px; display:flex; gap:6px; flex-wrap:wrap; }
+  .pill{ font-size:10.5px; font-weight:600; border:1px solid var(--brand-teal); color:var(--brand-teal); padding:2px 9px; border-radius:20px; }
+  .perforation{ border-top:2px dashed var(--border); margin:0; }
+  .ticket__body{ padding:16px 18px 18px; }
+  .ticket__body h4{ font-size:11.5px; text-transform:uppercase; letter-spacing:.03em; color:var(--brand-teal); margin:14px 0 7px; font-weight:700; }
+  .ticket__body h4:first-child{ margin-top:0; }
+  .ticket__body h5{ font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); margin:0 0 7px; font-weight:700; }
+  .ticket__body p{ font-size:13px; margin:0 0 8px; }
+  .lede{ color:var(--text-secondary); border-left:3px solid var(--brand-teal); padding-left:11px; margin-bottom:12px; }
+  ul.checks{ list-style:none; margin:0 0 4px; padding:0; }
+  ul.checks li{ position:relative; padding:4px 0 4px 26px; font-size:13px; }
+  ul.checks li::before{ content:""; position:absolute; left:0; top:6px; width:14px; height:14px; border:1.5px solid var(--text-secondary); border-radius:3px; }
+  ul.plain{ margin:0 0 8px; padding-left:18px; font-size:13px; }
+  ul.plain li{ margin-bottom:3px; }
+  .grid2{ display:flex; gap:14px; flex-wrap:wrap; }
+  .grid2 > div{ flex:1; min-width:220px; }
+  .subcard{ background:var(--surface-muted); border-radius:8px; padding:11px 13px; margin-bottom:10px; }
+  .mono-inline{ font-family:monospace; font-size:12px; background:var(--surface-muted); padding:1px 6px; border-radius:4px; }
+  .callout{ border:1px solid var(--accent); background:var(--accent-tint); color:var(--accent); border-radius:8px; padding:9px 13px; font-size:12.5px; font-weight:600; margin:10px 0; display:flex; gap:8px; }
+  .callout b{ display:block; font-size:10px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:2px; }
+  .framework{ border:1px solid var(--border); border-radius:8px; overflow:hidden; margin:8px 0 4px; }
+  .framework__row{ display:flex; border-bottom:1px solid var(--border); }
+  .framework__row:last-child{ border-bottom:none; }
+  .framework__letter{
+    font-family:'Lora',serif; font-weight:700; font-size:18px; color:var(--brand-teal); background:var(--brand-teal-tint);
+    width:42px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  }
+  .framework__content{ padding:8px 13px; flex:1; }
+  .framework__content b{ font-size:12.5px; }
+  .framework__content span{ display:block; font-size:12px; color:var(--text-secondary); margin-top:1px; }
+  .bp-closing{ text-align:center; padding:26px 0 8px; }
+  .bp-closing p{ font-family:'Lora',serif; font-weight:600; font-size:16px; color:var(--text-secondary); }
+
+  /* ---- personal note (Om) ---- */
+  .om-note{
+    display:flex; gap:20px; align-items:flex-start; max-width:640px; margin:8px auto 4px;
+    padding:26px 6px 4px; border-top:1px solid var(--border);
+  }
+  .om-note__photo{
+    width:100px; height:100px; border-radius:50%; object-fit:cover; flex-shrink:0;
+    border:2px solid var(--brand-teal-tint);
+  }
+  .om-note__text p{ font-size:13px; color:var(--text-secondary); margin:0 0 10px; }
+  .om-note__quote{
+    font-family:'Lora',serif; font-weight:600; font-style:italic; font-size:15px;
+    color:var(--text-primary); margin:0 0 12px;
+  }
+  .om-note__sign{ margin-top:14px !important; color:var(--text-primary) !important; }
+  .om-note__sign b{ font-family:'Lora',serif; font-size:14px; }
+  @media (max-width:520px){
+    .om-note{ flex-direction:column; align-items:center; text-align:left; }
+    .om-note__photo{ margin-bottom:6px; }
+  }
+
+  footer{ text-align:center; padding:20px; font-size:11px; color:var(--text-muted); }
+</style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-  <div class="header-left">
-    <span class="live-dot"></span>
-    <h1>📋 Placement Tracker</h1>
+  <div class="header-top">
+    <span class="wordmark">CYFJ</span>
+    <div class="header-actions">
+      <span id="last-updated">Connecting…</span>
+      <button class="auth-btn" id="auth-btn" onclick="handleAuthBtnClick()">
+        <span id="auth-btn-icon">🔒</span><span id="auth-btn-text">Sign in</span>
+      </button>
+      <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+      <button class="icon-btn" id="refresh-btn" onclick="fetchAllData()" title="Refresh">↻</button>
+    </div>
   </div>
-  <div class="header-right">
-    <span id="last-updated">Connecting…</span>
-    <button class="theme-toggle" id="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Switch to dark theme" title="Switch to dark theme"><span id="theme-icon">🌙</span></button>
-    <button id="refresh-btn" onclick="fetchData()">↻ Refresh</button>
+  <div class="tabbar">
+    <button class="active" data-tab="tracker" onclick="switchTab('tracker')">Tracker</button>
+    <button data-tab="calendar" onclick="switchTab('calendar')">Calendar</button>
+    <button data-tab="boarding" onclick="switchTab('boarding')">Boarding Pass</button>
   </div>
 </header>
 
-<div class="notice-banner">
-  <span class="notice-icon">⚠️</span>
-  <span>
-    <strong>Note:</strong> Information is manually updated and may be subject to errors. Always cross-check with official college communications before applying.
-  </span>
+<div class="notice-banner">⚠ Information is manually updated and may be subject to errors. Always cross-check with official college communications.</div>
+
+<!-- ============ TRACKER ============ -->
+<div class="view active" id="view-tracker">
+  <div class="stats-row">
+    <div class="stat-chip">Total<strong id="total-count">—</strong></div>
+    <div class="stat-chip">Open<strong id="open-count">—</strong></div>
+    <div class="stat-chip">Closed<strong id="closed-count">—</strong></div>
+  </div>
+
+  <div class="table-scroll">
+    <table id="placement-table">
+      <thead>
+        <tr>
+          <th data-key="idx">#</th>
+          <th data-key="Company Name">Company</th>
+          <th data-key="Registration Deadline">Deadline</th>
+          <th>Apply</th>
+          <th data-key="Job Profiles">Profiles</th>
+          <th data-key="Company Location">Location</th>
+          <th data-key="Compensation (CTC)">CTC</th>
+          <th data-key="Eligibility">Eligibility</th>
+          <th data-key="Bonds & Conditions">Bond</th>
+          <th data-key="Internship Stipend/Month">Stipend</th>
+          <th data-key="Notes">Notes</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <tr><td colspan="11" class="muted">Loading placement data…</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stat-chip">Total Companies <strong id="total-count">—</strong></div>
-  <div class="stat-chip">Open Registrations <strong id="open-count">—</strong></div>
-  <div class="stat-chip">Closed <strong id="closed-count">—</strong></div>
+<!-- ============ CALENDAR ============ -->
+<div class="view" id="view-calendar">
+  <div class="drive-section">
+    <div class="head"><span>Offline Drives</span><span class="count" id="count-offline"></span></div>
+    <div id="rows-offline"></div>
+  </div>
+  <div class="drive-section">
+    <div class="head"><span>Online Drives</span><span class="count" id="count-online"></span></div>
+    <div id="rows-online"></div>
+  </div>
+  <div class="drive-section">
+    <div class="head"><span>Hybrid Drives</span><span class="count" id="count-hybrid"></span></div>
+    <div id="rows-hybrid"></div>
+  </div>
 </div>
 
-<!-- TABLE -->
-<div class="table-wrapper">
-  <table id="placement-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Company Name</th>
-        <th>Deadline</th>
-        <th>Apply</th>
-        <th>Job Profiles</th>
-        <th>Location</th>
-        <th>CTC</th>
-        <th>Eligibility</th>
-        <th>Bond</th>
-        <th>Stipend / Month</th>
-        <th>Notes</th>
-      </tr>
-    </thead>
-    <tbody id="table-body">
-      <tr>
-        <td colspan="11">
-          <div class="state-box">
-            <div class="icon">⏳</div>
-            <p>Loading placement data…</p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<!-- ============ BOARDING PASS ============ -->
+<div class="view" id="view-boarding">
+  <div class="bp-intro">
+    <span class="eyebrow">Common to every drive</span>
+    <h1>Boarding Pass</h1>
+    <p>A checkpoint-by-checkpoint guide to showing up sharp — from the moment you leave home to the moment you're cleared.</p>
+  </div>
 
+  <div class="callout">
+    <span>⚠</span>
+    <div><b>Note</b>HR Round is intentionally left out of this edition — content is being built from real inputs and will be added once confirmed.</div>
+  </div>
 
-<!-- LEAD CAPTURE -->
-<section class="lead-section" aria-labelledby="lead-heading">
-  <div class="lead-card">
-    <div class="lead-copy">
-      <span class="lead-kicker">Crack Your First Job</span>
-      <h2 id="lead-heading">Take Charge of your Placements</h2>
-      <p>Don’t just sit in placements → get Selected. Tailored Prompts, JD Breakdowns, and Insider Content, straight to your inbox every Friday.</p>
-      <div class="trust-line">Designed Exclusively for Candidates of ADIT · GCET · MBIT</div>
+  <section class="ticket" id="setup">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 00</div>
+      <h2 class="ticket__title">Before You Leave Home</h2>
+      <div class="ticket__meta"><span class="pill">Night Before</span><span class="pill">One-Time Setup</span></div>
     </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">Create a drive folder, set sharing to "anyone with the link can view," and connect it to a link shortener. If you ever forget or lose a physical document, you can pull it up and get it printed anywhere.</p>
+      <h4>Documents to upload</h4>
+      <ul class="checks">
+        <li>Resume (updated)</li>
+        <li>Passport size photo</li>
+        <li>10th + 12th marksheets</li>
+        <li>All semester exam marksheets</li>
+        <li>One ID proof (e.g. Aadhar card)</li>
+      </ul>
+      <h4>Shortener</h4>
+      <p>Use bit.ly, or a simple custom tool like <span class="mono-inline">link.henil.dev</span> — gives a clean link such as <span class="mono-inline">link.henil.dev/yourname</span>.</p>
+    </div>
+  </section>
 
-    <div class="lead-form-wrap">
-      <div class="lead-error-banner" id="lead-error-banner">⚠️ Please fix the highlighted fields.</div>
-
-      <form id="lead-form" action="https://docs.google.com/forms/d/e/1FAIpQLSdKkvzzxEgbySnjOgdOjCexTfF9-c5bsCq6VYDT4JrHofzxsQ/formResponse" method="POST" target="lead_hidden_iframe" onsubmit="return handleLeadSubmit(event)" novalidate>
-        <div id="lead-fields">
-          <div class="lead-grid">
-            <div class="lead-field">
-              <label for="lead-name">Name</label>
-              <input type="text" id="lead-name" name="entry.1850589114" placeholder="e.g. Rahul Sharma" autocomplete="name" />
-              <div class="lead-field-error" id="lead-name-error">Please enter your name.</div>
-            </div>
-
-            <div class="lead-field">
-              <label for="lead-whatsapp">WhatsApp Number</label>
-              <input type="tel" id="lead-whatsapp" name="entry.2130846960" placeholder="e.g. 9876543210" maxlength="15" autocomplete="tel" />
-              <div class="lead-field-error" id="lead-whatsapp-error">Please enter a valid WhatsApp number.</div>
-            </div>
-
-            <div class="lead-field full">
-              <label for="lead-email">Email ID</label>
-              <input type="email" id="lead-email" name="entry.1071716175" placeholder="e.g. rahul@gmail.com" autocomplete="email" />
-              <div class="lead-field-error" id="lead-email-error">Please enter a valid email address.</div>
-            </div>
-          </div>
-
-          <button class="lead-submit" id="lead-submit" type="submit">
-            <span class="lead-spinner" id="lead-spinner"></span>
-            <span id="lead-submit-text">Send me drive updates</span>
-          </button>
-          <p class="lead-note">Only valuable insights and insider information in your inbox.</p>
+  <section class="ticket" id="talks">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 01</div>
+      <h2 class="ticket__title">Pre-Placement Talk</h2>
+      <div class="ticket__meta"><span class="pill">~60 Min</span><span class="pill">Auditorium</span><span class="pill">100–400 Candidates</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">The company shares the "goody-goody" things — what it's like to work there, the hiring process, the pitch. Walking in already knowing 60–80% of what's said is the difference between nerves and calm, especially when you're one of 100–400 people competing for 5–20 openings.</p>
+      <h4>Before the talk</h4>
+      <ul class="checks">
+        <li>Re-read the company email sent by your placement cell</li>
+        <li>Visit the company website</li>
+        <li>Connect with HR &amp; people in your target domain on LinkedIn</li>
+        <li>Check their Instagram, LinkedIn or other social handles</li>
+      </ul>
+      <h4>Carry &amp; prepare</h4>
+      <div class="grid2">
+        <div class="subcard">
+          <h5>Physically bring</h5>
+          <ul class="plain">
+            <li>Small handheld fan (auditoriums get hot)</li>
+            <li>Notebook / notes app / pen &amp; paper</li>
+          </ul>
         </div>
-      </form>
-
-      <div class="lead-success" id="lead-success" role="status" aria-live="polite">
-        <div class="lead-success-icon">✓</div>
-        <h3>You’re in.</h3>
-        <p>Check your Inbox every Friday and two days before your placement drive to get insider’s content.</p>
+        <div class="subcard">
+          <h5>Have answers ready for</h5>
+          <ul class="plain">
+            <li>"Why do you want to join ___ Company?"</li>
+            <li>"Have you seen our website?"</li>
+            <li>1–2 questions of your own for "Any questions for us?"</li>
+          </ul>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <iframe name="lead_hidden_iframe" id="lead_hidden_iframe" style="display:none;" onload="handleLeadIframeLoad()"></iframe>
+  <section class="ticket" id="aptitude">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 02</div>
+      <h2 class="ticket__title">Aptitude Test</h2>
+      <div class="ticket__meta"><span class="pill">~30 Min</span><span class="pill">Pen-Paper or CBT</span><span class="pill">Auditorium / Labs</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">The toughness here is rarely about subject knowledge — it's about how you handle pressure. Questions almost always look easier in hindsight, after the exam.</p>
+      <div class="callout"><span>⚠</span><div><b>Rule</b>Don't keep your mobile phone with you during the test.</div></div>
+      <h4>Carry</h4>
+      <ul class="checks"><li>Rough pages</li><li>Pen</li></ul>
+      <h4>Be psychologically prepared for</h4>
+      <ul class="plain">
+        <li>Internet not working properly</li>
+        <li>Your screen freezing</li>
+        <li>Power going out (if you're on a college PC)</li>
+        <li>All progress lost to a technical glitch</li>
+      </ul>
+      <h4>Practical approach — CBT</h4>
+      <ul class="checks">
+        <li>Write your login credentials (username &amp; password) on paper before starting</li>
+        <li>Copy your username once typed — saves time if the password is wrong the first time</li>
+        <li>Read every instruction carefully before proceeding</li>
+        <li>Write down each question's reference number and your answer on paper — not just "no. &amp; ans," since question order can shuffle on re-entry.</li>
+        <li>Network preference: College LAN &gt;&gt;&gt; College WiFi &gt; your own hotspot</li>
+        <li>Keep your own (or a friend's) hotspot ready as backup — that's on you to have covered, not on anyone else</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ticket" id="digital">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 03</div>
+      <h2 class="ticket__title">Digital Readiness</h2>
+      <div class="ticket__meta"><span class="pill">For Any Online Stage</span><span class="pill">GD / Tech / PI</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">Applies whenever a GD, technical round, or personal interview is conducted online — whether on drive day or scheduled for the next.</p>
+      <div class="grid2">
+        <div class="subcard">
+          <h5>Technical setup</h5>
+          <ul class="plain">
+            <li>Own laptop, fully charged, with charger</li>
+            <li>Wired earphones / headphones — Bluetooth works 95% of the time, plan for the 5%</li>
+            <li>Check audio quality in Zoom / Meet / Teams beforehand</li>
+            <li>Check your webcam is working</li>
+            <li>Keep a backup audio/video setup ready, and all required apps pre-installed</li>
+            <li>Stable internet connection + backup hotspot on standby</li>
+          </ul>
+        </div>
+        <div class="subcard">
+          <h5>Psychological setup</h5>
+          <ul class="plain">
+            <li>Assume the internet won't cooperate and the other person may not hear you clearly</li>
+            <li>Be ready for the worst — audio failing, video or screen-share going blurry</li>
+            <li>While answering, look into your webcam lens, not at the other person's video</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticket" id="gd">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 04</div>
+      <h2 class="ticket__title">Group Discussion</h2>
+      <div class="ticket__meta"><span class="pill">Computer Labs</span><span class="pill">Select Companies</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">Whatever the topic, recruiters are watching three things: how <b>Structured</b> your thoughts are, how much <b>Substance</b> your insight has, and how unique your personal <b>Style</b> is. Remember — it's a discussion, not do-or-die.</p>
+      <div class="framework">
+        <div class="framework__row"><div class="framework__letter">S</div><div class="framework__content"><b>Structured</b><span>Build on top of the existing point. Your turn = Intro → Point → Outro.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">S</div><div class="framework__content"><b>Substance</b><span>Have real perspectives already formed on common topics — AI, startups, work-life balance, social media.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">S</div><div class="framework__content"><b>Style</b><span>Don't fake an accent. Stay calm, composed, courageous. Never finger-point or personally attack anyone.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticket" id="technical">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Checkpoint 05</div>
+      <h2 class="ticket__title">Technical Round</h2>
+      <div class="ticket__meta"><span class="pill">May Run Next Day</span><span class="pill">If Online</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <p class="lede">You're essentially communicating three things: curiosity about the domain, technical agency, and the ability to learn on your own.</p>
+      <h4>Standard flow</h4>
+      <ul class="plain">
+        <li>1. Introduce yourself</li>
+        <li>2. Deep dive into the stack / projects you mentioned</li>
+        <li>3. A problem or simulation to test your programming skills</li>
+      </ul>
+      <h4>Introducing yourself — N.A.M.E.</h4>
+      <div class="framework">
+        <div class="framework__row"><div class="framework__letter">N</div><div class="framework__content"><b>Necessary details</b><span>Only what's actually useful for a technical round.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">A</div><div class="framework__content"><b>Achievements</b><span>Establish trust — give them your credentials.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">M</div><div class="framework__content"><b>Make sense</b><span>Tie in a company project shared on their website or the pre-placement talk.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">E</div><div class="framework__content"><b>Engage</b><span>Close with a line that invites them to ask a question.</span></div></div>
+      </div>
+      <h4>Talking about a project — 5 pillars</h4>
+      <div class="framework">
+        <div class="framework__row"><div class="framework__letter">O</div><div class="framework__content"><b>Objective</b><span>The goal or business need behind the build.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">C</div><div class="framework__content"><b>Context</b><span>Who was it for? Tech stack? Constraints?</span></div></div>
+        <div class="framework__row"><div class="framework__letter">C</div><div class="framework__content"><b>Challenges</b><span>Technical roadblocks or bugs you ran into.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">A</div><div class="framework__content"><b>Action</b><span>The specific steps <i>you</i> took to engineer a solution.</span></div></div>
+        <div class="framework__row"><div class="framework__letter">R</div><div class="framework__content"><b>Result</b><span>A measurable outcome — e.g. "30% load time reduction."</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticket" id="final">
+    <div class="ticket__header">
+      <div class="ticket__checkpoint">Final Boarding Checklist</div>
+      <h2 class="ticket__title">Pack This Before You Leave</h2>
+      <div class="ticket__meta"><span class="pill">Pre-Departure</span><span class="pill">15 Min Buffer</span></div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket__body">
+      <div class="grid2">
+        <div>
+          <h4>Wear &amp; timing</h4>
+          <ul class="checks">
+            <li>Formal attire, ironed and ready</li>
+            <li>Extra pair of formals, inners &amp; socks — in case rain hits mid-drive</li>
+            <li>Leave with a 15-minute buffer — don't be late</li>
+          </ul>
+          <h4>Food &amp; energy</h4>
+          <ul class="checks">
+            <li>Water bottle</li>
+            <li>Snacks — some drives run past midnight</li>
+            <li>Chocolates — quick dopamine boost if you're flagging</li>
+            <li>Timepass food for the waiting stretches</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Documents</h4>
+          <ul class="checks">
+            <li>Resumes — 5 printed copies</li>
+            <li>Marksheets: 10th / 12th / diploma / all semesters</li>
+            <li>Certificates — colour copies</li>
+            <li>Carried in a proper file/folder</li>
+          </ul>
+          <h4>Tech &amp; comfort</h4>
+          <ul class="checks">
+            <li>Notepad / pen &amp; paper</li>
+            <li>Refreshment kit — facewash, mouth freshener</li>
+            <li>Phone, fully charged + power bank</li>
+            <li>Laptop, fully charged</li>
+            <li>Wired earphones</li>
+          </ul>
+        </div>
+      </div>
+      <h4>Before you walk in</h4>
+      <ul class="checks">
+        <li>Go through the company's bonds, conditions and offer terms in full</li>
+        <li>If using your own system for an online round — test mic and camera one more time</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="bp-closing"><p>All the very best for your next placement drive.</p></div>
+
+  <div class="om-note">
+    <img class="om-note__photo" src="cyfj/om.jpg" alt="Om Desai">
+    <div class="om-note__text">
+      <p class="om-note__quote">&ldquo;A friend is the one who believes in you when no one else does.&rdquo;</p>
+      <p>I don't remember exactly where I picked this up,some podcast, some book, some conversation with people I got lucky enough to sit across from. But it stayed.</p>
+      <p>As a kid, I mastered the craft of creating problems. Then life happened, and I learned the harder craft: identifying them, building systems to solve them, and knowing when the <i>how</i> needs to change even if the <i>what</i> stays the same.</p>
+      <p>So if you've lost hope after a rejection, if you want someone who brings structure, style, and substance to your interview prep, or if you just want a conversation that swings from Ancient Scriptures to science, psychology, politics, love stories, and everything in between,feel free to contact me up.</p>
+    
+      <p class="om-note__sign"><b>Om Desai</b><br>8980850095</p>
     </div>
   </div>
-</section>
+</div>
 
-<footer>Auto refreshes every 3 minutes · Data from Google Sheets</footer>
+<footer>Auto refreshes every 3 minutes · CYFJ, Ancient Intelligence Labs</footer>
+
+<!-- ============ INTEL CARD MODAL ============ -->
+<div class="modal-backdrop" id="intel-modal" onclick="if(event.target===this) closeIntel()">
+  <div class="modal-card" id="intel-card-content"></div>
+</div>
 
 <script>
-  const WEB_APP_URL   = 'https://script.google.com/macros/s/AKfycbzRrCh1w2ARurK1-wAq658krKZaImjjb58Izioid95jzRoDxwWKyh0LQkIr6j9qGvK5_w/exec';
-  const REFRESH_MS    = 3 * 60 * 1000; // 3 minutes
-  let   previousCount = 0;
+  /* ============================================================
+     THEME — defaults to system preference, manual override persists
+     ============================================================ */
+  const THEME_KEY = 'cyfj_theme';
+  function applyTheme(theme){
+    document.body.setAttribute('data-theme', theme);
+    document.getElementById('theme-toggle').textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+  function toggleTheme(){
+    const current = document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+  }
+  function initTheme(){
+    let stored = null;
+    try{ stored = localStorage.getItem(THEME_KEY); }catch(e){}
+    if(stored === 'dark' || stored === 'light'){ applyTheme(stored); return; }
+    const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(systemDark ? 'dark' : 'light');
+  }
 
-  // ── FETCH ──────────────────────────────────────────────────────────
-  async function fetchData() {
+  /* ============================================================
+     TABS
+     ============================================================ */
+  function switchTab(tab){
+    document.querySelectorAll('.tabbar button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + tab).classList.add('active');
+  }
+
+  /* ============================================================
+     TRACKER — fetch / render / sort, functionally unchanged
+     ============================================================ */
+  const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzRrCh1w2ARurK1-wAq658krKZaImjjb58Izioid95jzRoDxwWKyh0LQkIr6j9qGvK5_w/exec';
+  const CALENDAR_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxIOAfa0vJVD13npzXCxyGAMrqIsnZGRMJ0gITAZCQ9VPCq7sWHoL33VhLcwx0gq-GQ/exec';
+  const REFRESH_MS  = 3 * 60 * 1000;
+  let previousCount = 0;
+  let currentData = [];
+  let calendarIntelData = {};
+  let sortKey = null;
+  let sortAsc = true;
+
+  async function fetchAllData(){
     const btn = document.getElementById('refresh-btn');
-    btn.textContent = '⏳';
-    btn.disabled = true;
+    btn.textContent = '⏳'; btn.disabled = true;
+    const results = await Promise.allSettled([fetchData(), fetchCalendarData()]);
+    const failed = results.some(r => r.status === 'rejected');
+    if(failed) console.warn('One or more refresh jobs failed', results);
+    btn.textContent = '↻'; btn.disabled = false;
+  }
 
-    try {
-      const res  = await fetch(WEB_APP_URL + '?t=' + Date.now());
+  async function fetchData(){
+    try{
+      const res = await fetch(WEB_APP_URL + '?t=' + Date.now());
       const data = await res.json();
-      renderTable(data);
-    } catch (err) {
+      currentData = data.companies || [];
+      renderTable(currentData, data.lastUpdated);
+    }catch(err){
       console.error(err);
       document.getElementById('last-updated').textContent = '⚠️ Fetch failed — retrying soon';
-    } finally {
-      btn.textContent = '↻ Refresh';
-      btn.disabled = false;
+      throw err;
     }
   }
 
-  // ── RENDER ─────────────────────────────────────────────────────────
-  function renderTable(data) {
-    const companies  = data.companies || [];
-    const tbody      = document.getElementById('table-body');
-    const newlyAdded = companies.length - previousCount;
-    tbody.innerHTML  = '';
+  function escHtml(str){
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
 
-    if (companies.length === 0) {
-      tbody.innerHTML = `
-        <tr><td colspan="11">
-          <div class="state-box">
-            <div class="icon">📭</div>
-            <p>No companies listed yet. Check back soon!</p>
-          </div>
-        </td></tr>`;
+  function renderTable(companies, lastUpdated){
+    const tbody = document.getElementById('table-body');
+    tbody.innerHTML = '';
+    if(companies.length === 0){
+      tbody.innerHTML = `<tr><td colspan="11" class="muted">No companies listed yet. Check back soon!</td></tr>`;
     } else {
-      let openCount  = 0;
-      let closedCount = 0;
-
-      companies.forEach((c, i) => {
-        const tr     = document.createElement('tr');
-        const isNew  = newlyAdded > 0 && i >= previousCount;
-        if (isNew) tr.classList.add('new-row');
-
-        // Deadline
-        const deadline = (c['Registration Deadline'] || '').toString().trim();
+      let openCount = 0, closedCount = 0;
+      companies.forEach((c,i) => {
+        const tr = document.createElement('tr');
+        const deadline = (c['Registration Deadline']||'').toString().trim();
         const isClosed = deadline.toLowerCase().includes('closed');
-        if (isClosed) closedCount++; else if (deadline) openCount++;
+        if(isClosed) closedCount++; else if(deadline) openCount++;
+        const statusHTML = deadline
+          ? `<span class="status-word ${isClosed?'status-closed':'status-open'}">${isClosed?'Closed':'Open'}</span><span class="deadline-date">${escHtml(deadline)}</span>`
+          : '<span class="muted">—</span>';
 
-        const deadlineHTML = deadline
-          ? `<span class="badge ${isClosed ? 'badge-closed' : 'badge-active'}">${deadline}</span>`
-          : '<span style="color:#94a3b8">—</span>';
-
-        // Register link
         const linkData = c['Registration Link'] || {};
-        const regHTML  = linkData.url
+        const regHTML = linkData.url
           ? `<a class="reg-btn" href="${escHtml(linkData.url)}" target="_blank" rel="noopener noreferrer">Register →</a>`
-          : `<span class="reg-btn-disabled">No Link</span>`;
+          : '<span class="reg-disabled">No link</span>';
 
-        // Job profiles — split by || and render as chips
-        const profiles     = (c['Job Profiles'] || '').toString();
-        const profileParts = profiles.split(/\|\|/).map(s => s.trim()).filter(Boolean);
-        const profilesHTML = profileParts.length
-          ? profileParts.map(p => `<span class="profile-tag">${escHtml(p)}</span>`).join(' ')
-          : '<span style="color:#94a3b8">—</span>';
+        const profiles = (c['Job Profiles']||'').toString();
+        const profileParts = profiles.split(/\|\|/).map(s=>s.trim()).filter(Boolean);
+        const profilesHTML = profileParts.length ? profileParts.map(p=>`<span class="chip">${escHtml(p)}</span>`).join(' ') : '<span class="muted">—</span>';
 
-        // Location
-        const loc     = (c['Company Location'] || '').toString().trim();
-        const locHTML = loc
-          ? `<span class="location-chip">📍 ${escHtml(loc)}</span>`
-          : '<span style="color:#94a3b8">—</span>';
-
-        // CTC
-        const ctc = (c['Compensation (CTC)'] || '').toString().trim();
-        const ctcHTML = ctc
-          ? `<span class="ctc-value">${escHtml(ctc)}</span>`
-          : '<span style="color:#94a3b8">—</span>';
-
-        // Stipend
-        const stipend     = (c['Internship Stipend/Month'] || '').toString().trim();
-        const stipendHTML = stipend && stipend !== '0'
-          ? `<span class="stipend-value">₹${escHtml(stipend)}</span>`
-          : '<span style="color:#94a3b8">—</span>';
-
-        // Company name + NEW badge
-        const name = escHtml(c['Company Name'] || '');
-        const newBadge = isNew ? `<span class="badge badge-new">NEW</span>` : '';
+        const loc = (c['Company Location']||'').toString().trim();
+        const ctc = (c['Compensation (CTC)']||'').toString().trim();
+        const stipend = (c['Internship Stipend/Month']||'').toString().trim();
 
         tr.innerHTML = `
-          <td>${i + 1}</td>
-          <td><div class="company-name">${name} ${newBadge}</div></td>
-          <td>${deadlineHTML}</td>
+          <td>${i+1}</td>
+          <td><b>${escHtml(c['Company Name']||'')}</b></td>
+          <td>${statusHTML}</td>
           <td>${regHTML}</td>
-          <td><div class="profiles-cell">${profilesHTML}</div></td>
-          <td>${locHTML}</td>
-          <td>${ctcHTML}</td>
-          <td style="font-size:0.78rem;max-width:160px">${escHtml(c['Eligibility'] || '—')}</td>
-          <td style="font-size:0.78rem;max-width:130px">${escHtml(c['Bonds & Conditions'] || '—')}</td>
-          <td>${stipendHTML}</td>
-          <td><div class="notes-cell">${escHtml(c['Notes'] || '—')}</div></td>
+          <td>${profilesHTML}</td>
+          <td>${loc ? `<span class="loc-chip">${escHtml(loc)}</span>` : '<span class="muted">—</span>'}</td>
+          <td>${ctc ? `<span class="num-value">${escHtml(ctc)}</span>` : '<span class="muted">—</span>'}</td>
+          <td>${escHtml(c['Eligibility']||'—')}</td>
+          <td>${escHtml(c['Bonds & Conditions']||'—')}</td>
+          <td>${stipend ? `<span class="num-value">₹${escHtml(stipend)}</span>` : '<span class="muted">—</span>'}</td>
+          <td>${escHtml(c['Notes']||'—')}</td>
         `;
-
         tbody.appendChild(tr);
       });
-
-      // Stats
-      document.getElementById('total-count').textContent  = companies.length;
-      document.getElementById('open-count').textContent   = openCount;
+      document.getElementById('total-count').textContent = companies.length;
+      document.getElementById('open-count').textContent = openCount;
       document.getElementById('closed-count').textContent = closedCount;
     }
-
     previousCount = companies.length;
-
-    // Timestamp
-    const ts = data.lastUpdated ? new Date(data.lastUpdated) : new Date();
-    document.getElementById('last-updated').textContent =
-      'Synced at ' + ts.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+    const ts = lastUpdated ? new Date(lastUpdated) : new Date();
+    document.getElementById('last-updated').textContent = 'Synced ' + ts.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
   }
 
-  // ── SANITISE ───────────────────────────────────────────────────────
-  function escHtml(str) {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-
-
-  // ── THEME TOGGLE ───────────────────────────────────────────────────
-  const THEME_STORAGE_KEY = 'placement_tracker_theme';
-
-  function applyTheme(theme) {
-    const safeTheme = theme === 'dark' ? 'dark' : 'light';
-    document.body.setAttribute('data-theme', safeTheme);
-
-    const icon = document.getElementById('theme-icon');
-    const toggle = document.getElementById('theme-toggle');
-    const label = safeTheme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
-
-    if (icon) icon.textContent = safeTheme === 'dark' ? '☀️' : '🌙';
-    if (toggle) {
-      toggle.setAttribute('aria-label', label);
-      toggle.setAttribute('title', label);
-    }
-
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, safeTheme);
-    } catch (err) {
-      console.warn('Theme preference could not be saved.', err);
-    }
-  }
-
-  function toggleTheme() {
-    const currentTheme = document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
-  }
-
-  function initTheme() {
-    let savedTheme = 'light';
-    try {
-      savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'light';
-    } catch (err) {
-      savedTheme = 'light';
-    }
-    applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
-  }
-
-  // ── LEAD FORM ──────────────────────────────────────────────────────
-  let leadSubmitted = false;
-  let leadSubmitStarted = false;
-  let leadSubmitTimer = null;
-
-  function handleLeadSubmit(event) {
-    clearLeadErrors();
-
-    const name = document.getElementById('lead-name').value.trim();
-    const whatsapp = document.getElementById('lead-whatsapp').value.trim();
-    const email = document.getElementById('lead-email').value.trim();
-    let valid = true;
-
-    if (!name) {
-      showLeadFieldError('lead-name', 'lead-name-error');
-      valid = false;
-    }
-
-    if (!whatsapp || !/^\+?[\d\s\-]{10,15}$/.test(whatsapp)) {
-      showLeadFieldError('lead-whatsapp', 'lead-whatsapp-error');
-      valid = false;
-    }
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      showLeadFieldError('lead-email', 'lead-email-error');
-      valid = false;
-    }
-
-    if (!valid) {
-      document.getElementById('lead-error-banner').style.display = 'block';
-      event.preventDefault();
-      return false;
-    }
-
-    leadSubmitted = true;
-    leadSubmitStarted = true;
-    setLeadLoading(true);
-
-    clearTimeout(leadSubmitTimer);
-    leadSubmitTimer = setTimeout(() => {
-      if (leadSubmitStarted) showLeadSuccess();
-    }, 6000);
-
-    return true;
-  }
-
-  function handleLeadIframeLoad() {
-    if (!leadSubmitted) return;
-    showLeadSuccess();
-  }
-
-  function showLeadSuccess() {
-    leadSubmitStarted = false;
-    clearTimeout(leadSubmitTimer);
-    document.getElementById('lead-fields').style.display = 'none';
-    document.getElementById('lead-success').style.display = 'block';
-    document.getElementById('lead-error-banner').style.display = 'none';
-    setLeadLoading(false);
-  }
-
-  function setLeadLoading(on) {
-    const btn = document.getElementById('lead-submit');
-    const spinner = document.getElementById('lead-spinner');
-    const text = document.getElementById('lead-submit-text');
-    if (!btn || !spinner || !text) return;
-    btn.disabled = on;
-    spinner.style.display = on ? 'inline-block' : 'none';
-    text.textContent = on ? 'Submitting…' : 'Send me drive updates';
-  }
-
-  function showLeadFieldError(inputId, errorId) {
-    document.getElementById(inputId).classList.add('input-error');
-    document.getElementById(errorId).style.display = 'block';
-  }
-
-  function clearLeadErrors() {
-    ['lead-name', 'lead-whatsapp', 'lead-email'].forEach(id => {
-      document.getElementById(id).classList.remove('input-error');
+  document.querySelectorAll('#placement-table th[data-key]').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.getAttribute('data-key');
+      if(sortKey === key) sortAsc = !sortAsc; else { sortKey = key; sortAsc = true; }
+      document.querySelectorAll('#placement-table th').forEach(h=>h.classList.remove('sorted','asc'));
+      th.classList.add('sorted'); if(sortAsc) th.classList.add('asc');
+      const sorted = [...currentData].sort((a,b) => {
+        const av = (a[key]||'').toString().toLowerCase();
+        const bv = (b[key]||'').toString().toLowerCase();
+        return sortAsc ? av.localeCompare(bv) : bv.localeCompare(av);
+      });
+      renderTable(sorted);
     });
-    ['lead-name-error', 'lead-whatsapp-error', 'lead-email-error'].forEach(id => {
-      document.getElementById(id).style.display = 'none';
-    });
-    document.getElementById('lead-error-banner').style.display = 'none';
+  });
+
+  /* ============================================================
+     CALENDAR — live Google Sheet sync
+     ============================================================ */
+  async function fetchCalendarData(){
+    try{
+      const res = await fetch(CALENDAR_WEB_APP_URL + '?t=' + Date.now());
+      const data = await res.json();
+      if(!data.success) throw new Error(data.error || 'Calendar fetch failed');
+      renderDrives(data.calendar || {});
+    }catch(err){
+      console.error(err);
+      ['offline','online','hybrid'].forEach(sec => {
+        document.getElementById('count-' + sec).textContent = '';
+        document.getElementById('rows-' + sec).innerHTML = '<div class="drive-row muted">Calendar sync failed. Please refresh again.</div>';
+      });
+      throw err;
+    }
   }
 
-  // ── BOOT ───────────────────────────────────────────────────────────
+  function renderDrives(calendar){
+    calendarIntelData = {};
+    ['offline','online','hybrid'].forEach(sec => {
+      const section = calendar[sec] || {};
+      const list = Array.isArray(section.drives) ? section.drives : [];
+      document.getElementById('count-' + sec).textContent = list.length + (list.length === 1 ? ' drive' : ' drives');
+      const container = document.getElementById('rows-' + sec);
+      if(list.length === 0){ container.innerHTML = '<div class="drive-row muted">None in this category.</div>'; return; }
+      container.innerHTML = list.map(d => {
+        const key = d.intelKey || makeClientIntelKey(d.name);
+        const intel = normalizeIntelData(d, key, sec);
+        calendarIntelData[key] = intel;
+        return `
+          <div class="drive-row">
+            <span class="dname">${escHtml(intel.name)}</span>
+            <span class="ddate">${escHtml(intel.date)}</span>
+            <span class="dloc">${intel.location ? `<span class="loc-chip">${escHtml(intel.location)}</span>` : '<span class="muted">—</span>'}</span>
+            <span class="dactions"><button onclick="openIntel('${key}')">View Intel</button></span>
+          </div>
+        `;
+      }).join('');
+    });
+  }
+
+  function normalizeIntelData(d, key, section){
+    const embedUrl = extractIframeSrc(d.embedUrl || d.notionIframe || '');
+    const notionUrl = (d.notionUrl || '').toString().trim();
+    return {
+      key: key,
+      section: section,
+      name: (d.name || '').toString().trim(),
+      date: (d.date || '').toString().trim(),
+      location: (d.location || d.loc || '').toString().trim(),
+      embedUrl: embedUrl,
+      notionUrl: notionUrl,
+      hasIntel: Boolean(embedUrl || notionUrl)
+    };
+  }
+
+  function extractIframeSrc(value){
+    const text = (value || '').toString().trim();
+    const match = text.match(/src=["']([^"']+)["']/i);
+    return match ? match[1] : text;
+  }
+
+  function makeClientIntelKey(name){
+    return (name || '').toString().toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'');
+  }
+
+  /* ============================================================
+     AUTH GATE — Google Sign-In required before Intel Cards unlock.
+     ============================================================ */
+  let pendingIntelKey = null;
+
+  function updateAuthUI(user){
+    const btn = document.getElementById('auth-btn');
+    const icon = document.getElementById('auth-btn-icon');
+    const text = document.getElementById('auth-btn-text');
+    if(user){
+      btn.classList.add('signed-in');
+      icon.textContent = '✅';
+      text.textContent = (user.displayName || user.email || 'Signed in').split(' ')[0];
+    } else {
+      btn.classList.remove('signed-in');
+      icon.textContent = '🔒';
+      text.textContent = 'Sign in';
+    }
+  }
+  window.onAuthChanged = updateAuthUI;
+
+  function handleAuthBtnClick(){
+    const user = window.cyfjAuth && window.cyfjAuth.user;
+    if(user){
+      if(confirm('Sign out of CYFJ?')) window.cyfjAuth.signOutUser();
+    } else {
+      window.cyfjAuth.signIn().catch(function(){});
+    }
+  }
+
+  function openIntel(key){
+    pendingIntelKey = key;
+    const user = window.cyfjAuth && window.cyfjAuth.user;
+    if(!user){ renderAuthGate(); }
+    else { renderIntelCard(key); }
+    document.getElementById('intel-modal').classList.add('on');
+  }
+
+  function renderAuthGate(){
+    const modalCard = document.getElementById('intel-card-content');
+    modalCard.classList.remove('wide');
+    modalCard.innerHTML = `
+      <button class="modal-close" onclick="closeIntel()">×</button>
+      <div class="gate-step">
+        <div class="gate-icon">🎟️</div>
+        <h3>Sign in to unlock Intel Cards</h3>
+        <p>Use Google sign-in to access company-specific preparation notes.</p>
+        <button class="google-btn" onclick="gateSignIn()">
+          <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.5-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.1 18.9 12 24 12c3.1 0 5.8 1.1 8 3l6-6C34.6 5.1 29.6 3 24 3c-7.6 0-14.1 4.3-17.7 10.7z"/><path fill="#4CAF50" d="M24 45c5.5 0 10.4-1.9 14.2-5.1l-6.6-5.4C29.6 36.4 26.9 37.4 24 37.4c-5.2 0-9.6-3.3-11.2-7.9l-6.6 5.1C9.8 40.6 16.3 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.6 5.4C41.6 35.9 45 30.4 45 24c0-1.4-.1-2.5-1.4-3.5z"/></svg>
+          Sign in with Google
+        </button>
+      </div>
+    `;
+  }
+
+  function gateSignIn(){
+    window.cyfjAuth.signIn().then(function(user){
+      renderIntelCard(pendingIntelKey);
+    }).catch(function(){});
+  }
+
+  function renderIntelCard(key){
+    const modalCard = document.getElementById('intel-card-content');
+    const data = calendarIntelData[key];
+    if(!data || !data.hasIntel){
+      modalCard.classList.remove('wide');
+      modalCard.innerHTML = `
+        <button class="modal-close" onclick="closeIntel()">×</button>
+        <h3 class="occasion">No intel card yet</h3>
+        <div class="no-intel">This company doesn't have an intel card uploaded yet.</div>
+      `;
+    } else {
+      modalCard.classList.add('wide');
+      const iframeUrl = data.embedUrl || data.notionUrl;
+      const fallbackUrl = data.notionUrl || data.embedUrl;
+      modalCard.innerHTML = `
+        <button class="modal-close" onclick="closeIntel()">×</button>
+        <div class="intel-embed-head">
+          <h3 class="occasion">${escHtml(data.name)}</h3>
+          <p class="loc">${escHtml(data.location)}</p>
+        </div>
+        <iframe class="intel-iframe" src="${escHtml(iframeUrl)}" loading="lazy" title="${escHtml(data.name)} Intel Card"></iframe>
+        <a class="intel-fallback-link" href="${escHtml(fallbackUrl)}" target="_blank" rel="noopener noreferrer">Not loading? Open in a new tab →</a>
+      `;
+    }
+  }
+  function closeIntel(){
+    document.getElementById('intel-modal').classList.remove('on');
+    document.getElementById('intel-card-content').classList.remove('wide');
+    pendingIntelKey = null;
+  }
+
+  /* ============================================================
+     BOOT
+     ============================================================ */
   initTheme();
-  fetchData();
-  setInterval(fetchData, REFRESH_MS);
+  fetchAllData();
+  setInterval(fetchAllData, REFRESH_MS);
 </script>
 </body>
 </html>
