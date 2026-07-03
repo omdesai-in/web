@@ -3,10 +3,41 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LZK6YSVPZB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LZK6YSVPZB');
+</script>
+<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+
+<meta name="description" content="Take Charge of your Placements. Track placement drives, deadlines, CTC, eligibility, and insider placement updates for ADIT, GCET, and MBIT candidates.">
+<link rel="canonical" href="https://omdesai.in/cyfj">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="CYFJ Placement Tracker">
+<meta property="og:description" content="Take Charge of your Placements. Track drives, deadlines, CTC, eligibility, and insider placement updates.">
+<meta property="og:image" content="https://omdesai.in/cyfj/og.jpg">
+<meta property="og:image:secure_url" content="https://omdesai.in/cyfj/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1536">
+<meta property="og:image:height" content="1024">
+<meta property="og:url" content="https://omdesai.in/cyfj">
+<meta property="og:site_name" content="CYFJ Placement Tracker">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CYFJ Placement Tracker">
+<meta name="twitter:description" content="Take Charge of your Placements. Track drives, deadlines, CTC, eligibility, and insider placement updates.">
+<meta name="twitter:image" content="https://omdesai.in/cyfj/og.jpg">
+
 <title>CYFJ — Crack Your First Job</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
@@ -250,6 +281,27 @@
   .framework__content span{ display:block; font-size:12px; color:var(--text-secondary); margin-top:1px; }
   .bp-closing{ text-align:center; padding:26px 0 8px; }
   .bp-closing p{ font-family:'Lora',serif; font-weight:600; font-size:16px; color:var(--text-secondary); }
+
+  /* ---- personal note (Om) ---- */
+  .om-note{
+    display:flex; gap:20px; align-items:flex-start; max-width:640px; margin:8px auto 4px;
+    padding:26px 6px 4px; border-top:1px solid var(--border);
+  }
+  .om-note__photo{
+    width:100px; height:100px; border-radius:50%; object-fit:cover; flex-shrink:0;
+    border:2px solid var(--brand-teal-tint);
+  }
+  .om-note__text p{ font-size:13px; color:var(--text-secondary); margin:0 0 10px; }
+  .om-note__quote{
+    font-family:'Lora',serif; font-weight:600; font-style:italic; font-size:15px;
+    color:var(--text-primary); margin:0 0 12px;
+  }
+  .om-note__sign{ margin-top:14px !important; color:var(--text-primary) !important; }
+  .om-note__sign b{ font-family:'Lora',serif; font-size:14px; }
+  @media (max-width:520px){
+    .om-note{ flex-direction:column; align-items:center; text-align:left; }
+    .om-note__photo{ margin-bottom:6px; }
+  }
 
   footer{ text-align:center; padding:20px; font-size:11px; color:var(--text-muted); }
 </style>
@@ -562,6 +614,18 @@
   </section>
 
   <div class="bp-closing"><p>All the very best for your next placement drive.</p></div>
+
+  <div class="om-note">
+    <img class="om-note__photo" src="om.jpg" alt="Om Desai">
+    <div class="om-note__text">
+      <p class="om-note__quote">&ldquo;A friend is the one who believes in you when no one else does.&rdquo;</p>
+      <p>I don't remember exactly where I picked this up,some podcast, some book, some conversation with people I got lucky enough to sit across from. But it stayed.</p>
+      <p>As a kid, I mastered the craft of creating problems. Then life happened, and I learned the harder craft: identifying them, building systems to solve them, and knowing when the <i>how</i> needs to change even if the <i>what</i> stays the same.</p>
+      <p>So if you've lost hope after a rejection, if you want someone who brings structure, style, and substance to your interview prep, or if you just want a conversation that swings from Ancient Scriptures to science, psychology, politics, love stories, and everything in between,feel free to contact me up.</p>
+    
+      <p class="om-note__sign"><b>Om Desai</b><br>8980850095</p>
+    </div>
+  </div>
 </div>
 
 <footer>Auto refreshes every 3 minutes · CYFJ, Ancient Intelligence Labs</footer>
