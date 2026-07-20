@@ -1,0 +1,358 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Current &amp; Proposed Product Workflows — Medkart Savings Journey · Om Desai</title><meta name="description" content="Workflow baseline for PRD drafting"><link rel="icon" href="/pa/favicon.svg" type="image/svg+xml"><style>.doc-meta[data-astro-cid-2bu7jrx7]{color:var(--text-muted);font-size:var(--text-sm);margin:0 0 var(--sp-5)}
+</style><link rel="stylesheet" href="/pa/_astro/BaseLayout.BOOJg5xu.css"></head><body class="theme-medkart"><header class="site-header"><div class="wrap"><a class="brand" href="/pa/">Om Desai</a><button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav><ul class="site-nav" id="site-nav"><li><a href="/pa/medkart/" aria-current="page">Medkart Product Exercise</a></li><li><a href="/pa/real-product-work/">Real Product Work</a></li><li><a href="/pa/research-coordination/">Research &amp; Coordination</a></li><li><a href="/pa/artifacts/">Artifacts</a></li><li><a href="/pa/about/">About / Resume</a></li></ul></nav></div></header><script type="module">var e=document.getElementById(`nav-toggle`),t=document.getElementById(`site-nav`);e?.addEventListener(`click`,()=>{let n=t?.classList.toggle(`is-open`);e.setAttribute(`aria-expanded`,n?`true`:`false`)});</script><main><div class="wrap wrap--narrow"><section style="padding-bottom: 0;"><p class="eyebrow">Medkart Product Exercise</p><h1>Current &amp; Proposed Product Workflows — Medkart Savings Journey</h1><nav class="subnav" aria-label="Medkart Product Exercise sections"><a href="/pa/medkart/">Overview</a><a href="/pa/medkart/discovery/">Discovery</a><a href="/pa/medkart/workflows/" aria-current="page">Workflows</a><a href="/pa/medkart/prd/">PRD</a><a href="/pa/medkart/feature-spec/">Feature Spec</a><a href="/pa/medkart/wireframes/">Wireframes &amp; Prototype</a><a href="/pa/medkart/research/">Research Guide</a><a href="/pa/medkart/qa/">QA</a><a href="/pa/medkart/operations/">Operations</a><a href="/pa/medkart/execution-tracker/">Execution Tracker</a></nav></section><section style="padding-top: var(--sp-6);"><div class="prose"><p class="doc-meta" data-astro-cid-2bu7jrx7><span class="mono" data-astro-cid-2bu7jrx7>v0.1</span> · <span class="mono" data-astro-cid-2bu7jrx7>19 July 2026</span> · Workflow baseline for PRD drafting</p><p class="lede">The step tables below are the source of truth; these two diagrams are a visual reading of the same current-state and proposed-state flows described in the document.</p><figure class="diagram-figure"><img src="/pa/downloads/medkart_current_workflow.png" alt="Diagram of the reconstructed current-state store purchase workflow: customer request, inventory search, item selection, discount and membership, bill completion, receipt delivery, CRM follow-up context." loading="lazy"><figcaption><span>Figure 1 — Reconstructed current-state store workflow (amber steps require verification)</span><a href="/pa/downloads/medkart_current_workflow.png" target="_blank" rel="noopener noreferrer">Open full size ↗</a></figcaption></figure><figure class="diagram-figure"><img src="/pa/downloads/medkart_proposed_workflow.png" alt="Diagram of the proposed store-to-app workflow: verified store transaction, account match decision, then either an unmatched/ambiguous exception path or eligible matched account leading to digital purchase record, optional family assignment, optional communication, and customer actions." loading="lazy"><figcaption><span>Figure 2 — Proposed store-to-app workflow with match, consent and exception paths</span><a href="/pa/downloads/medkart_proposed_workflow.png" target="_blank" rel="noopener noreferrer">Open full size ↗</a></figcaption></figure>
+<p><strong>Independent exercise • Current-state facts and proposed-state hypotheses are labelled separately</strong></p>
+<p><strong>Current state:</strong> Reconstructed from two store visits and approximately five informal interactions
+<strong>Future state:</strong> Validation-ready hypothesis; not a description of Medkart’s internal roadmap
+<strong>Primary actors:</strong> Customer, store representative, retail system, app/CRM and support
+<strong>Version:</strong> 0.1 • 19 July 2026
+<strong>Status:</strong> Workflow baseline for PRD drafting</p>
+<blockquote>
+<p><strong>Reading rule:</strong> Solid teal steps are observed or proposed core flow. Amber steps are decisions or details that require verification. Red steps protect the customer when matching or data integrity fails.</p>
+</blockquote>
+<h2 id="1-current-state-workflow">1. Current-state workflow</h2>
+<p>The current-state workflow captures only what was observed or recalled. It does not attempt to reproduce Medkart’s proprietary retail software or infer undocumented automation.</p>
+<p><strong>Figure 1 — Reconstructed store purchase workflow</strong> (Amber steps require verification)</p>
+<p><code>Customer request → Inventory search → Item selection → Discount &#x26; membership → Bill completion → Receipt delivery (requires verification) → CRM / follow-up context (requires verification)</code></p>
+<blockquote>
+<p><strong>Important:</strong> No major usability problem or feature request was identified by the two experienced representatives.</p>
+</blockquote>
+<h3 id="11-step-definitions">1.1 Step definitions</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Step</th><th>Actor</th><th>Definition</th><th>Evidence</th></tr></thead><tbody><tr><td>C1</td><td>Customer request</td><td>Customer / representative</td><td>Customer asks for medicine; prescription rules were not studied</td><td>Observed generally</td></tr><tr><td>C2</td><td>Inventory lookup</td><td>Representative / retail system</td><td>Search item and locate its physical storage box</td><td>Observed</td></tr><tr><td>C3</td><td>Bill composition</td><td>Representative</td><td>Retrieve items and add them to the transaction</td><td>Observed</td></tr><tr><td>C4</td><td>Discount and membership</td><td>Representative / customer</td><td>Explain discount; identify membership using contact number; offer membership when applicable</td><td>Observed / recalled</td></tr><tr><td>C5</td><td>Bill completion</td><td>Representative / retail system</td><td>Confirm final transaction and produce bill</td><td>Observed generally</td></tr><tr><td>C6</td><td>Receipt</td><td>Representative / customer</td><td>Printed receipt confirmed; digital receipt requires verification</td><td>Partially confirmed</td></tr><tr><td>C7</td><td>CRM context</td><td>CRM / representative</td><td>Contact and expected medicine-completion timing visible; exact triggers and consent unknown</td><td>Requires verification</td></tr></tbody></table>
+<h3 id="12-current-state-unknowns">1.2 Current-state unknowns</h3>
+<ul>
+<li>Exact membership duration, eligibility and discount rules.</li>
+<li>Whether and how a digital bill is delivered.</li>
+<li>How CRM medicine-completion timing is calculated and used.</li>
+<li>Where reminder consent is collected, stored, changed and withdrawn.</li>
+<li>How shared, recycled or incorrect phone numbers are handled.</li>
+<li>Refund, return, cancellation and partial-fulfilment flows.</li>
+</ul>
+<h2 id="2-proposed-state-workflow">2. Proposed-state workflow</h2>
+<p>The future-state workflow starts only after a pharmacist-verified store transaction. Its central design principle is <strong>fail-safe identity matching</strong>: an uncertain match must never expose a customer’s purchase to another account.</p>
+<p><strong>Figure 2 — Proposed store-to-app workflow with match, consent and exception paths</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Verified store transaction</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>   Account match (decision)</span></span>
+<span class="line"><span>   ├── no/uncertain → Unmatched or ambiguous (exception)</span></span>
+<span class="line"><span>   │                       → offer safe claim/support path with verification</span></span>
+<span class="line"><span>   │                       → after resolution → Customer actions</span></span>
+<span class="line"><span>   └── yes → Eligible matched account</span></span>
+<span class="line"><span>                → Digital purchase record</span></span>
+<span class="line"><span>                → Optional organization (family assignment, separate opt-in)</span></span>
+<span class="line"><span>                → Optional communication (reminder preference, separate opt-in)</span></span>
+<span class="line"><span>                → Customer actions</span></span></code></pre>
+<h3 id="21-proposed-step-definitions">2.1 Proposed step definitions</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Step</th><th>Owner</th><th>Requirement</th><th>Primary data</th></tr></thead><tbody><tr><td>P1</td><td>Transaction complete</td><td>Retail system</td><td>Create eligible, pharmacist-verified transaction event</td><td>Transaction ID, store, items, totals</td></tr><tr><td>P2</td><td>Account match</td><td>Identity service</td><td>Match transaction to authenticated customer using approved identifiers</td><td>Match result and confidence/rule</td></tr><tr><td>P3</td><td>Eligibility check</td><td>Product rules</td><td>Exclude unsupported, sensitive, cancelled or otherwise ineligible records</td><td>Eligibility outcome and reason</td></tr><tr><td>P4</td><td>Publish record</td><td>App backend</td><td>Create customer-visible record only after P2 and P3 succeed</td><td>Purchase summary and invoice link</td></tr><tr><td>P5</td><td>Explain savings</td><td>App</td><td>Display auditable comparison source, assumptions and amount</td><td>Paid, comparator and savings</td></tr><tr><td>P6</td><td>Family assignment</td><td>Customer</td><td>Optional assignment to an authorized profile</td><td>Profile permission and audit event</td></tr><tr><td>P7</td><td>Reminder preference</td><td>Customer / CRM</td><td>Separate opt-in for purpose, channel and timing; reversible</td><td>Consent state and timestamp</td></tr><tr><td>P8</td><td>Customer action</td><td>Customer</td><td>View, reorder, locate store or contact support</td><td>Action event and outcome</td></tr></tbody></table>
+<h2 id="3-exception-workflows">3. Exception workflows</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Trigger</th><th>Safe system behaviour</th><th>Resolution</th></tr></thead><tbody><tr><td>E1</td><td>No app account</td><td>Do not publish automatically</td><td>Invite account creation or verified claim without blocking store checkout</td></tr><tr><td>E2</td><td>Shared or recycled number</td><td>Treat match as ambiguous</td><td>Require additional verification; never reveal item details before verification</td></tr><tr><td>E3</td><td>Wrong purchase appears</td><td>Hide access and open urgent correction</td><td>Log incident, verify ownership, remove link, and notify affected account appropriately</td></tr><tr><td>E4</td><td>Duplicate transaction</td><td>Suppress duplicate display</td><td>Use stable transaction ID and idempotent ingestion</td></tr><tr><td>E5</td><td>Refund / return / cancellation</td><td>Update record state</td><td>Preserve audit trail; recalculate totals and savings</td></tr><tr><td>E6</td><td>Savings comparator unavailable</td><td>Show paid amount without unsupported savings</td><td>Explain why comparison is unavailable</td></tr><tr><td>E7</td><td>Consent withdrawn</td><td>Stop future communication</td><td>Preserve lawful audit record; update all connected channels</td></tr><tr><td>E8</td><td>Family access removed</td><td>Remove profile visibility</td><td>Retain only access and audit data required by policy</td></tr></tbody></table>
+<h2 id="4-responsibility-map">4. Responsibility map</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Actor</th><th>Responsible for</th><th>Not responsible for</th></tr></thead><tbody><tr><td>Store representative</td><td>Complete accurate bill; explain membership; follow checkout SOP</td><td>Diagnose app, alter medical instructions or override identity rules</td></tr><tr><td>Retail system</td><td>Create authoritative transaction and status updates</td><td>Decide app visibility without eligibility and identity checks</td></tr><tr><td>App / identity</td><td>Match, publish, protect access and show status</td><td>Infer consumption, adherence or family ownership</td></tr><tr><td>CRM</td><td>Store explicit communication preferences and enforce suppression</td><td>Treat transaction existence as reminder consent</td></tr><tr><td>Customer</td><td>Review record, assign authorized profile and control communication</td><td>Prove medical need to access their valid purchase record</td></tr><tr><td>Support</td><td>Resolve mismatches, duplicates and correction requests</td><td>Reveal data before identity verification</td></tr></tbody></table>
+<h2 id="5-workflow-acceptance-gates">5. Workflow acceptance gates</h2>
+<ul>
+<li><strong>No store checkout dependency:</strong> app linking failure must not block a valid in-store sale.</li>
+<li><strong>No uncertain exposure:</strong> ambiguous account matches produce no customer-visible item data.</li>
+<li><strong>No bundled consent:</strong> purchase visibility, family assignment and reminder communication are separate decisions.</li>
+<li><strong>No unsupported savings claim:</strong> comparison method and source must be explainable and auditable.</li>
+<li><strong>No silent correction:</strong> refunds, returns, duplicates and ownership corrections update visible state and audit history.</li>
+<li><strong>No clinical inference:</strong> the workflow does not provide diagnosis, dosage or adherence advice.</li>
+</ul>
+<h2 id="6-open-decisions-before-prd-approval">6. Open decisions before PRD approval</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Decision</th><th>Owner</th><th>Evidence</th></tr></thead><tbody><tr><td>D1</td><td>Does linked in-store purchase history already exist?</td><td>Product / engineering</td><td>Capability review</td></tr><tr><td>D2</td><td>What identifier and verification rules permit safe matching?</td><td>Engineering / privacy</td><td>Architecture and threat review</td></tr><tr><td>D3</td><td>Which transactions or items are ineligible for automatic display?</td><td>Product / compliance</td><td>Policy definition</td></tr><tr><td>D4</td><td>How is savings calculated and what comparator is allowed?</td><td>Pricing / legal</td><td>Calculation standard</td></tr><tr><td>D5</td><td>What family-profile permissions apply?</td><td>Product / privacy</td><td>Access-control model</td></tr><tr><td>D6</td><td>What existing CRM consent can be reused, if any?</td><td>CRM / compliance</td><td>Consent inventory</td></tr><tr><td>D7</td><td>Who owns customer corrections and SLA?</td><td>Operations / support</td><td>Service blueprint</td></tr></tbody></table>
+<h2 id="document-control">Document control</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Version</th><th>Date</th><th>Change</th></tr></thead><tbody><tr><td>0.1</td><td>19 July 2026</td><td>Initial current-state, proposed-state, exception and responsibility workflows</td></tr></tbody></table></div></section></div></main><footer class="site-footer"><p>Om Desai · Product Associate candidate portfolio · <a href="mailto:padhai.omdesai@gmail.com">padhai.omdesai@gmail.com</a>· <a href="tel:+918980850095">+91 89808 50095</a>· <a href="/pa/about/">About &amp; résumé</a></p><p>&copy; 2026. Medkart Savings Journey is an independent candidate exercise, not affiliated with or approved by Medkart.</p></footer></body></html>

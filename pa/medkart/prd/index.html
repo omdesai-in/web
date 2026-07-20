@@ -1,0 +1,829 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Product Requirements Document — Medkart Savings Journey · Om Desai</title><meta name="description" content="Draft for discovery and concept testing — not approved for implementation"><link rel="icon" href="/pa/favicon.svg" type="image/svg+xml"><style>.doc-meta[data-astro-cid-2bu7jrx7]{color:var(--text-muted);font-size:var(--text-sm);margin:0 0 var(--sp-5)}
+</style><link rel="stylesheet" href="/pa/_astro/BaseLayout.BOOJg5xu.css"></head><body class="theme-medkart"><header class="site-header"><div class="wrap"><a class="brand" href="/pa/">Om Desai</a><button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav><ul class="site-nav" id="site-nav"><li><a href="/pa/medkart/" aria-current="page">Medkart Product Exercise</a></li><li><a href="/pa/real-product-work/">Real Product Work</a></li><li><a href="/pa/research-coordination/">Research &amp; Coordination</a></li><li><a href="/pa/artifacts/">Artifacts</a></li><li><a href="/pa/about/">About / Resume</a></li></ul></nav></div></header><script type="module">var e=document.getElementById(`nav-toggle`),t=document.getElementById(`site-nav`);e?.addEventListener(`click`,()=>{let n=t?.classList.toggle(`is-open`);e.setAttribute(`aria-expanded`,n?`true`:`false`)});</script><main><div class="wrap wrap--narrow"><section style="padding-bottom: 0;"><p class="eyebrow">Medkart Product Exercise</p><h1>Product Requirements Document — Medkart Savings Journey</h1><nav class="subnav" aria-label="Medkart Product Exercise sections"><a href="/pa/medkart/">Overview</a><a href="/pa/medkart/discovery/">Discovery</a><a href="/pa/medkart/workflows/">Workflows</a><a href="/pa/medkart/prd/" aria-current="page">PRD</a><a href="/pa/medkart/feature-spec/">Feature Spec</a><a href="/pa/medkart/wireframes/">Wireframes &amp; Prototype</a><a href="/pa/medkart/research/">Research Guide</a><a href="/pa/medkart/qa/">QA</a><a href="/pa/medkart/operations/">Operations</a><a href="/pa/medkart/execution-tracker/">Execution Tracker</a></nav></section><section style="padding-top: var(--sp-6);"><div class="prose"><p class="doc-meta" data-astro-cid-2bu7jrx7><span class="mono" data-astro-cid-2bu7jrx7>v0.1</span> · <span class="mono" data-astro-cid-2bu7jrx7>19 July 2026</span> · Draft for discovery and concept testing — not approved for implementation</p>
+<h2 id="medkart-savings-journey">Medkart Savings Journey</h2>
+<p><strong>Connecting eligible in-store purchases to the customer app</strong></p>
+<p><strong>Document status:</strong> Draft for discovery and concept testing — not approved for implementation
+<strong>Release scope:</strong> MVP: linked purchase record, digital invoice, explainable savings and correction handling
+<strong>Product surface:</strong> Customer app supported by retail transaction, identity and support workflows
+<strong>Primary user:</strong> Authenticated Medkart customer completing an eligible in-store purchase
+<strong>Owner:</strong> Candidate-created independent product exercise
+<strong>Version:</strong> 0.1 • 19 July 2026
+<strong>Dependencies:</strong> Capability audit, customer research, identity review, privacy/compliance review and store pilot</p>
+<blockquote>
+<p><strong>Problem hypothesis:</strong> An in-store customer may benefit from a safe digital record of the purchase, invoice and savings. The need and the absence of an existing internal capability must both be validated before build approval.</p>
+</blockquote>
+<blockquote>
+<p><strong>MVP principle:</strong> Prove reliable transaction-to-account linking and customer value before adding family assignment, refill preferences or reorder. Any ambiguous match must fail closed and reveal no medicine information.</p>
+</blockquote>
+<h2 id="1-background">1. Background</h2>
+<p>An exploratory store study was conducted across two Medkart locations through approximately five informal interactions with two experienced store representatives. The walkthrough covered billing, inventory lookup, membership identification using a contact number, CRM context and reporting. Representatives appeared comfortable with the existing process and did not identify an immediate feature request.</p>
+<p>Medkart’s public app listing already describes prescription upload, branded-versus-generic comparison, order tracking, refill reminders, family profiles and store discovery. The proposed opportunity is therefore not a standalone reminder feature. It explores whether an eligible in-store transaction can continue safely into the customer’s existing digital relationship.</p>
+<h2 id="2-problem-and-opportunity">2. Problem and opportunity</h2>
+<h3 id="21-problem-hypothesis">2.1 Problem hypothesis</h3>
+<p>After an in-store purchase, customers may lack a durable, app-accessible record that connects the bill, purchase information and an explainable savings summary. The impact, frequency and current workarounds have not yet been measured.</p>
+<h3 id="22-opportunity-statement">2.2 Opportunity statement</h3>
+<p>How might Medkart connect an eligible in-store transaction to the correct authenticated customer so they can retain the invoice, understand savings and resolve errors—without slowing store checkout or exposing sensitive purchase data?</p>
+<h3 id="23-why-this-is-worth-testing">2.3 Why this is worth testing</h3>
+<ul>
+<li>Makes the value of membership and generic-medicine savings more tangible after checkout.</li>
+<li>May reduce friction when customers need an earlier bill or purchase detail.</li>
+<li>Creates a foundation for later family, reminder and reorder journeys without bundling them prematurely.</li>
+<li>Tests a measurable store-to-app handoff while respecting identity, privacy and operational constraints.</li>
+</ul>
+<h2 id="3-goals-non-goals-and-principles">3. Goals, non-goals and principles</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Goals</th><th>Non-goals</th></tr></thead><tbody><tr><td>Safely show eligible store purchases to the correct authenticated customer</td><td>Diagnose conditions, recommend dosage or infer adherence</td></tr><tr><td>Provide an accessible digital invoice and understandable transaction summary</td><td>Redesign the complete retail billing or inventory system</td></tr><tr><td>Explain savings using an approved, auditable comparison method</td><td>Automatically substitute prescribed medicines</td></tr><tr><td>Support correction, refund and duplicate states</td><td>Launch family assignment, refill integration or reorder in MVP</td></tr><tr><td>Measure customer value and operational impact through a controlled pilot</td><td>Assume that a positive concept reaction proves demand</td></tr></tbody></table>
+<h3 id="31-product-principles">3.1 Product principles</h3>
+<ul>
+<li><strong>Fail closed:</strong> uncertain identity means no customer-visible purchase details.</li>
+<li><strong>Checkout independence:</strong> app-linking failure never blocks a valid in-store sale.</li>
+<li><strong>Explain, do not imply:</strong> show how savings are calculated and when they are unavailable.</li>
+<li><strong>Separate purposes:</strong> purchase visibility is not reminder consent or family authorization.</li>
+<li><strong>Correctability:</strong> customers can report wrong, duplicate or outdated records through a visible path.</li>
+<li><strong>Minimum necessary data:</strong> analytics and support tools avoid unnecessary medicine or prescription detail.</li>
+</ul>
+<h2 id="4-users-and-jobs-to-be-done">4. Users and jobs to be done</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>User</th><th>Job to be done</th></tr></thead><tbody><tr><td>In-store customer</td><td>When I complete a store purchase, help me retain an accurate record so I can find the bill and understand what I paid later.</td></tr><tr><td>Customer managing household purchases</td><td>When I buy for more than one person, help me organize records safely without exposing them to the wrong person.</td></tr><tr><td>Store representative</td><td>When I finish checkout, let the digital handoff happen without adding complex steps or making me troubleshoot the app.</td></tr><tr><td>Support agent</td><td>When a customer reports a wrong or duplicate record, give me a traceable way to verify and correct it without exposing more data.</td></tr><tr><td>Product / operations</td><td>When piloting the journey, show whether it provides value without increasing privacy incidents or store effort.</td></tr></tbody></table>
+<h2 id="5-scope-and-prioritization">5. Scope and prioritization</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Priority</th><th>Capabilities</th></tr></thead><tbody><tr><td>MVP / Must</td><td>Eligible transaction ingestion; safe account matching; purchase list and detail; digital invoice; approved savings explanation; correction path; refund/cancellation state; audit and monitoring</td></tr><tr><td>Pilot / Should</td><td>Verified claim flow for unmatched transactions; store locator/support handoff; lightweight customer education</td></tr><tr><td>Later / Could</td><td>Authorized family assignment; explicit refill preference integration; reorder from purchase; cumulative savings dashboard</td></tr><tr><td>Not planned</td><td>Clinical recommendations; automatic substitution; adherence scoring; full loyalty redesign; blocking checkout on app failure</td></tr></tbody></table>
+<h3 id="51-prioritization-rationale">5.1 Prioritization rationale</h3>
+<p>The MVP focuses on the smallest complete trust loop: create the right record, show it to the right person, explain it accurately and correct it when something goes wrong. Family assignment, refill integration and reorder increase authorization, consent and clinical-context complexity; they should follow only after the core link is safe and useful.</p>
+<h2 id="6-proposed-user-journey">6. Proposed user journey</h2>
+<p>The diagram shows the complete concept. The MVP includes the verified transaction, account match, eligible record, digital purchase details and customer action. Optional family and communication branches remain future scope.</p>
+<p><em>(See Figure 1 — Proposed store-to-app journey, shared with the Workflows document. Family assignment and reminder preferences are post-MVP.)</em></p>
+<h2 id="7-functional-requirements">7. Functional requirements</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Capability</th><th>Requirement</th><th>Priority</th></tr></thead><tbody><tr><td>FR-01</td><td>Transaction ingestion</td><td>Ingest an eligible completed store transaction using a stable unique transaction ID.</td><td>Must</td></tr><tr><td>FR-02</td><td>Idempotency</td><td>Repeated delivery of the same transaction event must not create duplicate customer records.</td><td>Must</td></tr><tr><td>FR-03</td><td>Eligibility</td><td>Evaluate transaction status and product/policy rules before any customer-visible record is created.</td><td>Must</td></tr><tr><td>FR-04</td><td>Account match</td><td>Use approved identifiers and verification rules to match the transaction to an authenticated customer.</td><td>Must</td></tr><tr><td>FR-05</td><td>Fail-closed match</td><td>If the match is missing, ambiguous or conflicts with account state, expose no item-level information.</td><td>Must</td></tr><tr><td>FR-06</td><td>Purchase list</td><td>Show eligible linked purchases ordered by transaction date with store, total and current status.</td><td>Must</td></tr><tr><td>FR-07</td><td>Purchase detail</td><td>Show store, date/time, item display data approved for the surface, quantities, amounts, total and status.</td><td>Must</td></tr><tr><td>FR-08</td><td>Digital invoice</td><td>Provide a viewable/downloadable invoice or approved receipt representation.</td><td>Must</td></tr><tr><td>FR-09</td><td>Savings explanation</td><td>Show paid amount, approved comparator, calculated savings and a plain-language methodology; suppress savings if inputs are unavailable.</td><td>Must</td></tr><tr><td>FR-10</td><td>Record states</td><td>Represent completed, partially returned, returned, cancelled, corrected and unavailable states as supported by source systems.</td><td>Must</td></tr><tr><td>FR-11</td><td>Correction</td><td>Allow the customer to report ‘not mine’, duplicate, wrong amount/item or invoice issue through a traceable support path.</td><td>Must</td></tr><tr><td>FR-12</td><td>Access control</td><td>Require authentication and authorization on every list, detail, invoice and correction request.</td><td>Must</td></tr><tr><td>FR-13</td><td>Audit</td><td>Record link creation, visibility changes, correction actions and access-control changes according to policy.</td><td>Must</td></tr><tr><td>FR-14</td><td>Unmatched claim</td><td>Offer a verified claim flow without showing item detail before verification.</td><td>Should</td></tr><tr><td>FR-15</td><td>Family assignment</td><td>Allow optional assignment only to an authorized family profile with reversible access.</td><td>Later</td></tr><tr><td>FR-16</td><td>Reminder preference</td><td>Collect separate purpose/channel/timing consent that can be withdrawn and synchronized with CRM.</td><td>Later</td></tr><tr><td>FR-17</td><td>Reorder</td><td>Allow a customer to initiate a reorder subject to prescription, availability and pharmacist rules.</td><td>Later</td></tr></tbody></table>
+<h2 id="8-business-rules">8. Business rules</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Rule</th></tr></thead><tbody><tr><td>BR-01</td><td>A transaction is visible only when source status, eligibility and account match all pass.</td></tr><tr><td>BR-02</td><td>A phone number alone must not be assumed sufficient when shared, recycled, changed or otherwise ambiguous.</td></tr><tr><td>BR-03</td><td>The customer app is not the authoritative source for transaction totals; it reflects approved retail-system state.</td></tr><tr><td>BR-04</td><td>Purchase visibility does not constitute consent for refill, promotional or other communication.</td></tr><tr><td>BR-05</td><td>Savings appear only when the comparator, calculation method and source meet approved rules.</td></tr><tr><td>BR-06</td><td>Refunds, returns, cancellations and corrections update the visible record without deleting the required audit trail.</td></tr><tr><td>BR-07</td><td>An account-linking or app outage cannot prevent store billing from completing.</td></tr><tr><td>BR-08</td><td>Analytics must not contain prescription images, diagnosis, free-text medical notes or item names unless explicitly approved and necessary.</td></tr></tbody></table>
+<h2 id="9-information-and-interface-requirements">9. Information and interface requirements</h2>
+<h3 id="91-logical-information">9.1 Logical information</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Group</th><th>Logical fields</th><th>Purpose</th></tr></thead><tbody><tr><td>Transaction identity</td><td>Stable transaction ID, store ID, transaction timestamp, source status</td><td>Linking, idempotency and support</td></tr><tr><td>Customer link</td><td>Approved account/member identifiers and match outcome</td><td>Authorization; restrict access</td></tr><tr><td>Purchase summary</td><td>Approved item display fields, quantities, line totals, discounts, tax/charges and total</td><td>Customer record</td></tr><tr><td>Invoice</td><td>Invoice identifier and secured view/download reference</td><td>Bill access</td></tr><tr><td>Savings</td><td>Paid amount, approved comparator, method version and calculated result</td><td>Explainability and audit</td></tr><tr><td>Record status</td><td>Completed, adjusted, returned, cancelled, corrected or unavailable</td><td>Customer expectation</td></tr><tr><td>Correction</td><td>Category, timestamp, status, owner and resolution</td><td>Support traceability</td></tr></tbody></table>
+<h3 id="92-required-screens-and-states">9.2 Required screens and states</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Surface</th><th>Requirements</th></tr></thead><tbody><tr><td>Purchase history</td><td>Eligible store purchases, status, date, store and total; loading, empty, error and unavailable states</td></tr><tr><td>Purchase detail</td><td>Transaction lines, totals, invoice action, savings explanation and support action</td></tr><tr><td>Savings explanation</td><td>Comparator source, method, limitations and unavailable state</td></tr><tr><td>Correction flow</td><td>Issue category, confirmation, case status and safe resolution messaging</td></tr><tr><td>Claim flow</td><td>Verification before detail; success, mismatch, expired and support-required states</td></tr></tbody></table>
+<h2 id="10-non-functional-requirements">10. Non-functional requirements</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Area</th><th>Requirement</th></tr></thead><tbody><tr><td>NFR-01</td><td>Privacy</td><td>Minimize data; apply purpose limitation, retention and deletion rules approved by privacy/compliance.</td></tr><tr><td>NFR-02</td><td>Security</td><td>Encrypt in transit/at rest as applicable; authorize every request; prevent predictable invoice references.</td></tr><tr><td>NFR-03</td><td>Reliability</td><td>Transaction ingestion is idempotent and retry-safe; failures are observable and recoverable.</td></tr><tr><td>NFR-04</td><td>Performance</td><td>Pilot targets must be set after baselining; app history should not materially slow primary app navigation.</td></tr><tr><td>NFR-05</td><td>Checkout isolation</td><td>No downstream app, identity or analytics dependency may block retail checkout.</td></tr><tr><td>NFR-06</td><td>Accessibility</td><td>Support readable contrast, scalable text, screen-reader labels, focus order and non-colour status cues.</td></tr><tr><td>NFR-07</td><td>Localization</td><td>Customer copy and savings explanations must support required languages and currency formatting.</td></tr><tr><td>NFR-08</td><td>Observability</td><td>Monitor ingestion failures, match outcomes, visibility changes, correction volume and access anomalies.</td></tr></tbody></table>
+<h2 id="11-acceptance-criteria">11. Acceptance criteria</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Acceptance criterion</th></tr></thead><tbody><tr><td>AC-01</td><td>Given a completed eligible transaction with a verified account match, when ingestion succeeds, then one purchase record appears for that authenticated customer.</td></tr><tr><td>AC-02</td><td>Given the same transaction event is delivered more than once, when processed, then only one customer-visible record exists.</td></tr><tr><td>AC-03</td><td>Given an ambiguous or conflicting account match, when ingestion is evaluated, then no item, amount or invoice detail is exposed.</td></tr><tr><td>AC-04</td><td>Given an eligible record, when the customer opens detail, then store, date, approved line details, totals, status and invoice action are displayed.</td></tr><tr><td>AC-05</td><td>Given an approved savings calculation, when shown, then the comparator and method are accessible in plain language.</td></tr><tr><td>AC-06</td><td>Given savings inputs are unavailable or unapproved, when detail loads, then no unsupported savings amount is shown.</td></tr><tr><td>AC-07</td><td>Given a return, refund or cancellation update, when the source event is processed, then the app record reflects the new state and preserves traceability.</td></tr><tr><td>AC-08</td><td>Given a customer selects ‘This is not mine’, when submitted, then the detail is protected, a case is created and no additional data is exposed during verification.</td></tr><tr><td>AC-09</td><td>Given the app-linking service is unavailable, when store checkout completes, then billing remains successful and the event can be retried asynchronously.</td></tr><tr><td>AC-10</td><td>Given an unauthorized or unauthenticated request, when any purchase endpoint is called, then access is denied and the attempt is logged according to policy.</td></tr></tbody></table>
+<h2 id="12-measurement-plan">12. Measurement plan</h2>
+<blockquote>
+<p><strong>Target-setting rule:</strong> Do not invent commercial targets before baseline data exists. Set pilot targets after confirming eligible transaction volume, current app adoption, match reliability, checkout timing and support volume. Privacy incidents have zero tolerance.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Theme</th><th>Metric</th><th>Question</th><th>Target treatment</th></tr></thead><tbody><tr><td>Adoption</td><td>Eligible linked purchases viewed within 7 days</td><td>Does the record attract real use?</td><td>Baseline during pilot</td></tr><tr><td>Task value</td><td>Invoice opens/downloads; repeat views; correction use</td><td>Which customer jobs occur?</td><td>Baseline during pilot</td></tr><tr><td>Link quality</td><td>Eligible match rate; ambiguous-match rate</td><td>Can the identity flow scale safely?</td><td>Set after architecture review</td></tr><tr><td>Data quality</td><td>Duplicate, stale-status and savings-suppression rates</td><td>Is displayed information dependable?</td><td>Pilot thresholds</td></tr><tr><td>Operational</td><td>Checkout time impact; representative support requests</td><td>Does the workflow burden stores?</td><td>No material degradation</td></tr><tr><td>Trust</td><td>Confirmed cross-account disclosures</td><td>Is privacy protected?</td><td>Zero tolerance</td></tr><tr><td>Support</td><td>Correction cases per linked record; resolution time</td><td>Can errors be corrected?</td><td>Set with support owner</td></tr></tbody></table>
+<h3 id="121-analytics-events">12.1 Analytics events</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Event</th><th>Purpose</th><th>Privacy constraint</th></tr></thead><tbody><tr><td>store_purchase_link_evaluated</td><td>Eligibility and match outcome</td><td>No item name or prescription data</td></tr><tr><td>store_purchase_linked</td><td>Successful record creation</td><td>Transaction pseudonymous key, store cohort, latency</td></tr><tr><td>purchase_history_viewed</td><td>History opened</td><td>Count and surface version</td></tr><tr><td>purchase_detail_viewed</td><td>Record opened</td><td>Status and age bucket</td></tr><tr><td>invoice_opened</td><td>Invoice action</td><td>Success/failure only</td></tr><tr><td>savings_explanation_viewed</td><td>Explanation opened</td><td>Method version and availability</td></tr><tr><td>purchase_issue_reported</td><td>Correction started/submitted</td><td>Issue category, not free-text medical detail</td></tr><tr><td>purchase_record_state_changed</td><td>Refund/return/correction reflected</td><td>Old/new state and processing latency</td></tr></tbody></table>
+<h2 id="13-rollout-and-release-plan">13. Rollout and release plan</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Stage</th><th>Scope</th><th>Exit gate</th></tr></thead><tbody><tr><td>Gate 0 — Validate</td><td>Customer/store research; capability audit; identity, savings and privacy decisions</td><td>Problem, existing capability and owners confirmed</td></tr><tr><td>Gate 1 — Design</td><td>Wireframes, threat review, event contract, support and store SOP</td><td>Acceptance criteria and exception ownership approved</td></tr><tr><td>Gate 2 — Internal test</td><td>Synthetic transactions and authorized internal accounts</td><td>No cross-account exposure; retry and correction paths pass</td></tr><tr><td>Gate 3 — Limited pilot</td><td>One or two stores; controlled customer cohort; feature flag and kill switch</td><td>Stable data quality, safe matching and manageable support</td></tr><tr><td>Gate 4 — Expand</td><td>Incremental stores and cohorts with monitoring</td><td>Pilot decision criteria met; unresolved risks accepted by owners</td></tr></tbody></table>
+<h3 id="131-rollback-triggers">13.1 Rollback triggers</h3>
+<ul>
+<li>Any confirmed cross-account purchase disclosure.</li>
+<li>Systematic incorrect totals, invoice access or savings calculation.</li>
+<li>Store checkout degradation caused by the integration.</li>
+<li>Material spike in duplicate or stale records beyond pilot tolerance.</li>
+<li>Inability to stop visibility or communication after correction/withdrawal.</li>
+</ul>
+<h2 id="14-qa-and-validation-strategy">14. QA and validation strategy</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Test layer</th><th>Coverage</th></tr></thead><tbody><tr><td>Unit</td><td>Eligibility, idempotency, state transitions, savings suppression and access rules</td></tr><tr><td>Contract / integration</td><td>Retail event schema, retries, identity result, invoice authorization and correction updates</td></tr><tr><td>End-to-end</td><td>Eligible match, ambiguous match, no account, duplicate, return, cancellation and wrong-account report</td></tr><tr><td>Security / privacy</td><td>Authorization bypass, identifier enumeration, invoice-link leakage, shared/recycled number and audit review</td></tr><tr><td>Usability</td><td>History discovery, invoice retrieval, savings comprehension and correction completion</td></tr><tr><td>Operations UAT</td><td>Store checkout isolation, support case handling, incident escalation and kill switch</td></tr><tr><td>Accessibility</td><td>Keyboard/focus, screen reader, scalable text, contrast and non-colour status</td></tr></tbody></table>
+<h2 id="15-risks-and-mitigations">15. Risks and mitigations</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Risk</th><th>Severity</th><th>Mitigation</th></tr></thead><tbody><tr><td>R1</td><td>Purchase linked to wrong person</td><td>Critical</td><td>Fail-closed matching, additional verification, access controls, monitoring and urgent correction</td></tr><tr><td>R2</td><td>Savings claim is misleading</td><td>High</td><td>Approved comparator, method version, suppression and audit</td></tr><tr><td>R3</td><td>Feature already exists internally</td><td>High</td><td>Capability audit before design approval</td></tr><tr><td>R4</td><td>Low customer value</td><td>Medium</td><td>Behaviour-first research and limited pilot before scale</td></tr><tr><td>R5</td><td>Store checkout burden</td><td>High</td><td>Asynchronous integration and representative UAT</td></tr><tr><td>R6</td><td>CRM consent incorrectly inferred</td><td>Critical</td><td>Separate purpose-specific consent; no MVP reminder integration</td></tr><tr><td>R7</td><td>Refund/correction state is stale</td><td>High</td><td>Source-of-truth events, monitoring, reconciliation and visible status</td></tr><tr><td>R8</td><td>Analytics over-collects health data</td><td>High</td><td>Event review, allow-listed fields and no item/prescription detail by default</td></tr></tbody></table>
+<h2 id="16-dependencies-and-open-decisions">16. Dependencies and open decisions</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Decision</th><th>Owner</th><th>Required by</th></tr></thead><tbody><tr><td>D1</td><td>Does linked in-store purchase history already exist in any customer surface?</td><td>Product / engineering</td><td>Before discovery approval</td></tr><tr><td>D2</td><td>What is the authoritative membership and account identifier model?</td><td>Engineering / identity</td><td>Before technical design</td></tr><tr><td>D3</td><td>Which matching evidence is sufficient for automatic display?</td><td>Identity / privacy</td><td>Before technical design</td></tr><tr><td>D4</td><td>Which transactions/items are excluded from automatic history?</td><td>Product / compliance</td><td>Before policy approval</td></tr><tr><td>D5</td><td>Is a digital invoice already issued, and through which channel?</td><td>Retail operations</td><td>Before UX design</td></tr><tr><td>D6</td><td>What is the approved savings comparator and calculation method?</td><td>Pricing / legal</td><td>Before savings design</td></tr><tr><td>D7</td><td>Who owns corrections and what service level applies?</td><td>Support / operations</td><td>Before pilot</td></tr><tr><td>D8</td><td>What baseline defines no material checkout degradation?</td><td>Store operations / analytics</td><td>Before pilot</td></tr></tbody></table>
+<h2 id="17-definition-of-ready">17. Definition of ready</h2>
+<ul>
+<li>Customer and store research has tested the problem and documented contradicting evidence.</li>
+<li>Existing internal capabilities and duplicate scope have been reviewed.</li>
+<li>MVP scope, workflows, wireframes and acceptance criteria are approved by relevant owners.</li>
+<li>Identity, privacy, savings and transaction-eligibility rules are documented.</li>
+<li>Event contract, source-of-truth ownership and reconciliation approach are agreed.</li>
+<li>Support SOP, incident path, feature flag and rollback mechanism are ready.</li>
+<li>Pilot metrics and thresholds are based on baseline data rather than invented targets.</li>
+</ul>
+<h2 id="18-definition-of-done">18. Definition of done</h2>
+<ul>
+<li>All MVP functional and non-functional acceptance criteria pass.</li>
+<li>Security, privacy, accessibility and operations reviews are complete.</li>
+<li>Synthetic and authorized end-to-end tests cover happy paths and exceptions.</li>
+<li>Monitoring, dashboards, alerts and audit logs are operational.</li>
+<li>Store and support training artifacts are published and acknowledged.</li>
+<li>Pilot release is feature-flagged, reversible and has named incident owners.</li>
+<li>Post-pilot findings and proceed/refine/stop decision are documented.</li>
+</ul>
+<h2 id="document-control">Document control</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Version</th><th>Date</th><th>Change</th></tr></thead><tbody><tr><td>0.1</td><td>19 July 2026</td><td>Initial discovery-stage PRD based on field observations, public product baseline and proposed workflows</td></tr></tbody></table>
+<p><strong>Disclosure:</strong> This is an independent candidate exercise. It was not commissioned by Medkart and is not based on access to Medkart’s internal roadmap, architecture, customer data or product documentation.</p></div></section></div></main><footer class="site-footer"><p>Om Desai · Product Associate candidate portfolio · <a href="mailto:padhai.omdesai@gmail.com">padhai.omdesai@gmail.com</a>· <a href="tel:+918980850095">+91 89808 50095</a>· <a href="/pa/about/">About &amp; résumé</a></p><p>&copy; 2026. Medkart Savings Journey is an independent candidate exercise, not affiliated with or approved by Medkart.</p></footer></body></html>

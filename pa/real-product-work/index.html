@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Crack Your First Job · Om Desai</title><meta name="description" content="A live, solo-built placement-tracking product for ADIT, GCET and MBIT students — real users, real analytics, real iteration history."><link rel="icon" href="/pa/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/pa/_astro/BaseLayout.BOOJg5xu.css"></head><body><header class="site-header"><div class="wrap"><a class="brand" href="/pa/">Om Desai</a><button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav><ul class="site-nav" id="site-nav"><li><a href="/pa/medkart/">Medkart Product Exercise</a></li><li><a href="/pa/real-product-work/" aria-current="page">Real Product Work</a></li><li><a href="/pa/research-coordination/">Research &amp; Coordination</a></li><li><a href="/pa/artifacts/">Artifacts</a></li><li><a href="/pa/about/">About / Resume</a></li></ul></nav></div></header><script type="module">var e=document.getElementById(`nav-toggle`),t=document.getElementById(`site-nav`);e?.addEventListener(`click`,()=>{let n=t?.classList.toggle(`is-open`);e.setAttribute(`aria-expanded`,n?`true`:`false`)});</script><main><div class="wrap wrap--narrow"><section style="padding-bottom: 0;"><p class="eyebrow">Real Product Work</p><h1>Crack Your First Job</h1><div class="tldr"><div><p class="field-label">Problem</p><p>Placement season buried students in scattered college emails — no single place to see which drives were open, what the requirements were, or what was due when.</p></div><div><p class="field-label">Role</p><p>Solo — ideated, built (frontend, Apps Script backend), and have operated it continuously since launch: data entry, deadlines, analytics, support.</p></div><div><p class="field-label">Outcome / status</p><p>Live and actively maintained since the 14 June 2026 MVP launch. Real usage: 255 active users, 2,600 tracked events, and a feature history driven entirely by repeated student feedback.</p></div></div></section><section style="padding-top: var(--sp-6);"><div class="prose">
+<p><strong>A live placement-tracking product built solo for ADIT, GCET and MBIT students</strong></p>
+<p><strong>Live at:</strong> omdesai.in/cyfj
+<strong>Built by:</strong> Om Desai, solo — with Claude AI as a coding assistant
+<strong>Ideation:</strong> ~1 June 2026 · <strong>Built in:</strong> 2–3 days · <strong>MVP launched:</strong> 14 June 2026
+<strong>Stack:</strong> HTML/CSS/JS frontend, Google Sheets + Google Apps Script backend
+<strong>Status:</strong> Live and actively maintained</p>
+<blockquote>
+<p><strong>What this is:</strong> Unlike the Medkart exercise elsewhere in this portfolio, CYFJ is not a proposed concept — it is a real, shipped product with real users, real usage data, and a real feedback-driven iteration history.</p>
+</blockquote>
+<h2 id="1-the-problem">1. The problem</h2>
+<p>Placement season means a flood of information arriving through scattered college emails — different job descriptions, compensation details, eligibility rules and deadlines, often several a week. Students with limited time or attention had no reliable way to track which drives were open, what the requirements were, or when something was due. Information lived in inboxes, not in a place students could quickly scan and act on.</p>
+<h2 id="2-what-i-built">2. What I built</h2>
+<p><strong>The MVP (14 June 2026):</strong> a centralized placement tracker plus a Google Form for collecting student input — the smallest version that solved the core problem of “where do I see everything in one place.”</p>
+<p><strong>The stack, deliberately simple:</strong> a plain HTML/CSS/JS frontend backed by a Google Sheet, with Google Apps Script handling the data layer. No framework, no backend server to maintain — just something that could be built fast and kept running by one person.</p>
+<h2 id="3-feature-by-feature">3. Feature-by-feature</h2>
+<h3 id="tracker">Tracker</h3>
+<p>A sortable table of placement drives with: Company, Registration Deadline, Apply link, Job Profiles, Location, Compensation (CTC), Eligibility, Bond &#x26; Conditions, Internship Stipend, and Notes. A stat row shows Total / Open / Closed counts at a glance. A visible notice banner reminds students the data is manually updated and should be cross-checked against official college communications — an honesty signal I built in deliberately.</p>
+<h3 id="calendar">Calendar</h3>
+<p>Drives are organized into Offline, Online and Hybrid sections, so a student can quickly see what mode of drive is coming up and plan preparation accordingly.</p>
+<h3 id="boarding-pass">Boarding Pass</h3>
+<p>The most developed feature, and the one that goes furthest beyond a simple tracker. It’s a checkpoint-by-checkpoint guide covering the entire drive-day experience:</p>
+<ul>
+<li><strong>Checkpoint 00 — Before You Leave Home:</strong> what to have digitized and shareable via a link shortener (resume, photo, marksheets, ID proof)</li>
+<li><strong>Checkpoint 01 — Pre-Placement Talk:</strong> how to walk in already knowing 60–80% of what will be said</li>
+<li><strong>Checkpoint 02 — Aptitude Test:</strong> practical CBT tactics (writing down question reference numbers, network preference order, backup hotspot)</li>
+<li><strong>Checkpoint 03 — Digital Readiness:</strong> technical and psychological setup for any online round</li>
+<li><strong>Checkpoint 04 — Group Discussion:</strong> an original framework — <strong>S-S-S</strong> (Structured, Substance, Style)</li>
+<li><strong>Checkpoint 05 — Technical Round:</strong> two original frameworks — <strong>N.A.M.E.</strong> for self-introductions (Necessary details, Achievements, Make sense, Engage) and <strong>O-C-C-A-R</strong> for talking through a project (Objective, Context, Challenges, Action, Result)</li>
+<li><strong>Final Boarding Checklist:</strong> a practical pre-departure packing list (attire, documents, tech, food)</li>
+</ul>
+<p>The Boarding Pass closes with a personal note and photo signed by name — a deliberate choice to keep the product feeling human rather than purely transactional.</p>
+<h3 id="intel-cards">Intel Cards</h3>
+<p>Company-specific preparation material, embedded via Notion and gated behind Google sign-in.</p>
+<h2 id="4-the-iteration-story--feedback-led-every-major-addition">4. The iteration story — feedback led every major addition</h2>
+<p>This is the clearest evidence of real product thinking in the project: every major feature exists because of a repeated, observed student need, not because it seemed like a good idea in isolation.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Trigger</th><th>Response</th></tr></thead><tbody><tr><td>Students repeatedly asked <strong>“When is this company coming?”</strong></td><td>Added the <strong>Calendar</strong> view, categorizing drives as Offline/Online/Hybrid</td></tr><tr><td>Students wanted company-specific, insider-level preparation material</td><td>Added <strong>Intel Cards</strong>, gated behind sign-in</td></tr><tr><td>A recurring need for a single, reusable process guide across every drive</td><td>Built the <strong>Boarding Pass</strong></td></tr></tbody></table>
+<p>Testing was informal — usability testing with real students, with changes made directly based on their feedback rather than a formal test-case process.</p>
+<h2 id="5-operations--what-i-did-personally-ongoing">5. Operations — what I did personally, ongoing</h2>
+<ul>
+<li>Read every company email and manually extracted the relevant details</li>
+<li>Updated the Google Sheet by hand (no automated parsing — the pipeline from email to Sheet to live site was fully manual)</li>
+<li>Maintained registration links and deadlines</li>
+<li>Monitored analytics</li>
+<li>Responded to student-reported issues</li>
+<li>Maintained the Apps Script integration</li>
+<li>Used Apps Script’s built-in version history as my informal task/version log — no separate project-management tool</li>
+</ul>
+<h2 id="6-usage-evidence">6. Usage evidence</h2>
+<p>From Google Analytics (real snapshot, current state):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Active users</td><td>255</td></tr><tr><td>New users</td><td>185</td></tr><tr><td>Average engagement time</td><td>57s</td></tr><tr><td>Event count</td><td>2,600</td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Page</th><th>Views</th><th>Active users</th><th>Event count</th><th>Bounce rate</th></tr></thead><tbody><tr><td>CYFJ — Crack Your First Job</td><td>622</td><td>222</td><td>2.1k</td><td>69.0%</td></tr><tr><td>Placement Tracker</td><td>212</td><td>56</td><td>559</td><td>63.1%</td></tr></tbody></table>
+<p>In the earliest days after launch, the site saw roughly 100 visits, growing to roughly 200 cumulative visits within the first week — the numbers above reflect where it stands now, after the calendar, Intel Cards and Boarding Pass were added.</p>
+<h2 id="7-an-honest-gap">7. An honest gap</h2>
+<p>At some point during operation, students reported data-fetching issues, and I investigated and updated the Apps Script integration to resolve it. I don’t have the original bug details recorded — I’m stating that plainly rather than reconstructing a specific bug I don’t actually remember, because inventing detail here would undercut the honesty this whole portfolio is built on.</p>
+<p><strong>What I’d do differently if I rebuilt this today:</strong> run a documented testing pass on the current live product — real test cases, real reproduction steps, real evidence — instead of relying on informal usability testing and memory. That’s a natural next artifact for this case study, using the same QA rigor shown in the Medkart exercise elsewhere in this portfolio.</p>
+<h2 id="8-note-on-naming">8. Note on naming</h2>
+<p>CYFJ’s footer credits itself alongside “Ancient Intelligence Labs” — the same name behind the Ancient Intelligence Lab case study elsewhere in this portfolio. Both projects were built and are run by the same person, which is part of why the product instincts (feedback-led iteration, a bias toward simple/durable tooling, and a habit of personally signing off on the work) show up consistently across both.</p>
+<h2 id="document-control">Document control</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Version</th><th>Date</th><th>Change</th></tr></thead><tbody><tr><td>1.0</td><td>20 July 2026</td><td>Initial case study, drawn from live site source, analytics and direct interview</td></tr></tbody></table></div></section></div></main><footer class="site-footer"><p>Om Desai · Product Associate candidate portfolio · <a href="mailto:padhai.omdesai@gmail.com">padhai.omdesai@gmail.com</a>· <a href="tel:+918980850095">+91 89808 50095</a>· <a href="/pa/about/">About &amp; résumé</a></p><p>&copy; 2026. Medkart Savings Journey is an independent candidate exercise, not affiliated with or approved by Medkart.</p></footer></body></html>

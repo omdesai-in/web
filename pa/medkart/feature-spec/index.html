@@ -1,0 +1,443 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Feature Specification — Medkart Savings Journey · Om Desai</title><meta name="description" content="Draft for prototype testing and implementation feasibility review"><link rel="icon" href="/pa/favicon.svg" type="image/svg+xml"><style>.doc-meta[data-astro-cid-2bu7jrx7]{color:var(--text-muted);font-size:var(--text-sm);margin:0 0 var(--sp-5)}
+</style><link rel="stylesheet" href="/pa/_astro/BaseLayout.BOOJg5xu.css"></head><body class="theme-medkart"><header class="site-header"><div class="wrap"><a class="brand" href="/pa/">Om Desai</a><button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav><ul class="site-nav" id="site-nav"><li><a href="/pa/medkart/" aria-current="page">Medkart Product Exercise</a></li><li><a href="/pa/real-product-work/">Real Product Work</a></li><li><a href="/pa/research-coordination/">Research &amp; Coordination</a></li><li><a href="/pa/artifacts/">Artifacts</a></li><li><a href="/pa/about/">About / Resume</a></li></ul></nav></div></header><script type="module">var e=document.getElementById(`nav-toggle`),t=document.getElementById(`site-nav`);e?.addEventListener(`click`,()=>{let n=t?.classList.toggle(`is-open`);e.setAttribute(`aria-expanded`,n?`true`:`false`)});</script><main><div class="wrap wrap--narrow"><section style="padding-bottom: 0;"><p class="eyebrow">Medkart Product Exercise</p><h1>Feature Specification — Medkart Savings Journey</h1><nav class="subnav" aria-label="Medkart Product Exercise sections"><a href="/pa/medkart/">Overview</a><a href="/pa/medkart/discovery/">Discovery</a><a href="/pa/medkart/workflows/">Workflows</a><a href="/pa/medkart/prd/">PRD</a><a href="/pa/medkart/feature-spec/" aria-current="page">Feature Spec</a><a href="/pa/medkart/wireframes/">Wireframes &amp; Prototype</a><a href="/pa/medkart/research/">Research Guide</a><a href="/pa/medkart/qa/">QA</a><a href="/pa/medkart/operations/">Operations</a><a href="/pa/medkart/execution-tracker/">Execution Tracker</a></nav></section><section style="padding-top: var(--sp-6);"><div class="prose"><p class="doc-meta" data-astro-cid-2bu7jrx7><span class="mono" data-astro-cid-2bu7jrx7>v0.1</span> · <span class="mono" data-astro-cid-2bu7jrx7>19 July 2026</span> · Draft for prototype testing and implementation feasibility review</p>
+<h2 id="medkart-savings-journey--mvp-mobile-experience-and-interaction-specification">Medkart Savings Journey — MVP mobile experience and interaction specification</h2>
+<p><strong>Status:</strong> Draft for prototype testing and implementation feasibility review
+<strong>Related PRD:</strong> Medkart Savings Journey PRD v0.1
+<strong>Platform:</strong> Authenticated mobile app; responsive principles apply
+<strong>MVP screens:</strong> Purchase history, detail, savings, issue, issue status and purchase claim
+<strong>Excluded:</strong> Family assignment, refill consent integration and reorder
+<strong>Version:</strong> 0.1 • 19 July 2026
+<strong>Disclosure:</strong> Independent candidate exercise; not Medkart’s actual interface</p>
+<blockquote>
+<p><strong>Design intent:</strong> Make the customer’s store purchase understandable and correctable while keeping identity, savings methodology and unavailable states explicit.</p>
+</blockquote>
+<blockquote>
+<p><strong>Prototype boundary:</strong> The yellow “independent concept” strip and fictional-data labels are portfolio disclosures. They are not proposed production UI components.</p>
+</blockquote>
+<h2 id="1-experience-architecture">1. Experience architecture</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Screen</th><th>Primary job</th><th>Entry</th><th>Exit</th></tr></thead><tbody><tr><td>S01</td><td>Purchase history</td><td>Find a linked store purchase</td><td>Purchases tab</td><td>S02 or S06</td></tr><tr><td>S02</td><td>Purchase detail</td><td>Understand one transaction and access invoice</td><td>S01</td><td>S03, S04 or invoice</td></tr><tr><td>S03</td><td>Savings explanation</td><td>Understand how the saving was calculated</td><td>S02</td><td>S02</td></tr><tr><td>S04</td><td>Report issue</td><td>Identify a wrong, duplicate, adjusted or inaccessible record</td><td>S02</td><td>S05</td></tr><tr><td>S05</td><td>Issue status</td><td>Confirm protection and track correction</td><td>S04</td><td>S01 or support</td></tr><tr><td>S06</td><td>Claim purchase</td><td>Verify an unmatched store purchase before viewing detail</td><td>S01 / invite</td><td>S02 after verification or support</td></tr></tbody></table>
+<h3 id="11-navigation-rules">1.1 Navigation rules</h3>
+<ul>
+<li>Purchases is a dedicated authenticated destination in bottom navigation or an equivalent discoverable app entry.</li>
+<li>Back returns to the previous screen without changing the transaction or issue state.</li>
+<li>Deep links must require authentication and re-check authorization before displaying purchase data.</li>
+<li>A failed or ambiguous claim never redirects to purchase detail; it remains in safe verification/support states.</li>
+<li>Issue submission protects the record when “not mine” is selected before presenting any further transaction detail.</li>
+</ul>
+<h3 id="12-global-state-model">1.2 Global state model</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>State</th><th>Required behaviour</th></tr></thead><tbody><tr><td>Loading</td><td>Use stable skeletons; do not briefly flash cached data belonging to another account.</td></tr><tr><td>Empty</td><td>Explain that only eligible linked store purchases appear; offer safe claim/help actions.</td></tr><tr><td>Partial data</td><td>Show available transaction facts; suppress unverified invoice or savings sections.</td></tr><tr><td>Offline</td><td>Show last-known non-sensitive shell only if policy allows; defer protected detail until authorization can be checked.</td></tr><tr><td>Error</td><td>Use actionable retry/support copy without exposing identifiers or internal error detail.</td></tr><tr><td>Restricted</td><td>Hide transaction detail while ownership, correction or policy review is active.</td></tr></tbody></table>
+<h2 id="2-shared-components-and-content-rules">2. Shared components and content rules</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Component</th><th>Specification</th><th>Accessibility / trust requirement</th></tr></thead><tbody><tr><td>Purchase card</td><td>Store, date, invoice reference, total, status and optional savings summary</td><td>Entire card is one accessible action; status is not communicated by colour alone.</td></tr><tr><td>Status tag</td><td>Completed, adjusted, returned, cancelled, corrected or restricted</td><td>Readable text label; screen-reader announcement; approved state mapping.</td></tr><tr><td>Money</td><td>Indian currency formatting with clear paid/comparator/savings labels</td><td>Never rely on typography alone to distinguish paid and saved.</td></tr><tr><td>Invoice action</td><td>View/download secured invoice</td><td>Reauthorize; non-predictable reference; visible error and retry.</td></tr><tr><td>Savings summary</td><td>Approved comparator, paid amount, saving and method link</td><td>Suppress if calculation is unavailable; use “example” only in prototype.</td></tr><tr><td>Issue category</td><td>Not mine, duplicate, amount/status, invoice unavailable</td><td>Avoid medical free text; protect “not mine” records promptly.</td></tr><tr><td>Claim verification</td><td>Invoice reference, purchase date and approved verification challenge</td><td>Reveal no transaction item, total or medicine data before verified match.</td></tr></tbody></table>
+<h3 id="21-content-principles">2.1 Content principles</h3>
+<ul>
+<li>Use “Amount paid” instead of ambiguous “Price”.</li>
+<li>Use “Comparable price” only after pricing/legal define the approved comparator.</li>
+<li>Explain why savings are unavailable rather than displaying ₹0 saved.</li>
+<li>Do not imply that purchase history proves medicine consumption or adherence.</li>
+<li>Never ask customers to enter diagnosis, dosage or prescription detail in general support text fields.</li>
+<li>Use plain status language and provide next action for restricted, adjusted or unavailable records.</li>
+</ul>
+<h2 id="3-purchase-history">3. Purchase history</h2>
+<p>Help an authenticated customer find eligible in-store purchase records and understand their status at a glance.</p>
+<figure class="diagram-figure"><img src="/pa/images/wireframe-history.png" alt="Wireframe: Store purchases / purchase history screen" loading="lazy"><figcaption><span>Wireframe: Store purchases / purchase history screen</span><a href="/pa/images/wireframe-history.png" target="_blank" rel="noopener noreferrer">Open full size ↗</a></figcaption></figure>
+<p><strong>Entry:</strong> Purchases navigation, post-login deep link or successful claim.</p>
+<p><strong>Data:</strong> Store display name; date/time; masked or approved invoice reference; paid total; record status; optional approved savings summary.</p>
+<p><strong>Primary actions:</strong> Open purchase detail; filter by date/store/status; start “claim a purchase” when needed.</p>
+<p><strong>Required states:</strong> Loading, populated, empty, offline, partial data, restricted card, pagination/end of list.</p>
+<p><strong>PRD traceability:</strong> FR-03–FR-06, FR-10, FR-12; AC-01–AC-03, AC-10.</p>
+<p><strong>Analytics:</strong> purchase_history_viewed; purchase_card_selected; claim_purchase_started.</p>
+<p><strong>Notes:</strong> Cumulative savings is optional and must be suppressed until comparison coverage and methodology are approved.</p>
+<p><em>Figure 3. Independent MVP wireframe using fictional transaction data.</em></p>
+<h2 id="4-purchase-detail">4. Purchase detail</h2>
+<p>Present one authoritative transaction in a way that is understandable, downloadable and correctable.</p>
+<figure class="diagram-figure"><img src="/pa/images/wireframe-detail.png" alt="Wireframe: Purchase details screen" loading="lazy"><figcaption><span>Wireframe: Purchase details screen</span><a href="/pa/images/wireframe-detail.png" target="_blank" rel="noopener noreferrer">Open full size ↗</a></figcaption></figure>
+<p><strong>Entry:</strong> Selection from S01 or successful verified claim.</p>
+<p><strong>Data:</strong> Store/date; record state; approved line display; quantity; totals; discounts; invoice action; optional savings module.</p>
+<p><strong>Primary actions:</strong> Open invoice; open savings explanation; report issue; return to history.</p>
+<p><strong>Required states:</strong> Loading, complete, partial data, invoice unavailable, savings unavailable, adjusted/returned/cancelled, restricted.</p>
+<p><strong>PRD traceability:</strong> FR-07–FR-12; AC-04–AC-10.</p>
+<p><strong>Analytics:</strong> purchase_detail_viewed; invoice_opened; savings_explanation_opened; purchase_issue_started.</p>
+<p><strong>Notes:</strong> The retail system remains authoritative for totals and status. The app must label stale/unavailable states rather than infer values.</p>
+<p><em>Figure 4. Independent MVP wireframe using fictional transaction data.</em></p>
+<h2 id="5-savings-explanation">5. Savings explanation</h2>
+<p>Explain the comparison method so a customer can understand and trust a displayed savings amount.</p>
+<figure class="diagram-figure"><img src="/pa/images/wireframe-savings.png" alt="Wireframe: How savings are calculated screen" loading="lazy"><figcaption><span>Wireframe: How savings are calculated screen</span><a href="/pa/images/wireframe-savings.png" target="_blank" rel="noopener noreferrer">Open full size ↗</a></figcaption></figure>
+<p><strong>Entry:</strong> Savings module on S02.</p>
+<p><strong>Data:</strong> Paid amount; approved comparator; saving; method name/version; eligible scope; limitation/unavailable explanation.</p>
+<p><strong>Primary actions:</strong> Return to purchase detail; optionally open approved methodology/help.</p>
+<p><strong>Required states:</strong> Available, partially comparable, unavailable, method updated, calculation under review.</p>
+<p><strong>PRD traceability:</strong> FR-09; BR-05; AC-05–AC-06.</p>
+<p><strong>Analytics:</strong> savings_explanation_viewed; savings_method_help_opened.</p>
+<p><strong>Notes:</strong> The interface cannot define the comparator. Pricing and legal owners must approve calculation rules before implementation.</p>
+<p><em>Figure 5. Independent MVP wireframe using fictional transaction data.</em></p>
+<h2 id="6-report-a-purchase-issue">6. Report a purchase issue</h2>
+<p>Give customers a safe, low-friction path to report ownership, duplication, amount/status or invoice problems.</p>
+<figure class="diagram-figure"><img src="/pa/images/wireframe-issue.png" alt="Wireframe: Report a purchase issue screen" loading="lazy"><figcaption><span>Wireframe: Report a purchase issue screen</span><a href="/pa/images/wireframe-issue.png" target="_blank" rel="noopener noreferrer">Open full size ↗</a></figcaption></figure>
+<p><strong>Entry:</strong> “Something is wrong” on S02.</p>
+<p><strong>Data:</strong> Transaction reference passed securely; selected issue category; optional minimal note; authenticated account.</p>
+<p><strong>Primary actions:</strong> Select category; enter optional note; submit; cancel/back.</p>
+<p><strong>Required states:</strong> Default, selected, validation error, submitting, duplicate case, service unavailable.</p>
+<p><strong>PRD traceability:</strong> FR-11–FR-13; AC-08, AC-10.</p>
+<p><strong>Analytics:</strong> purchase_issue_started; issue_category_selected; purchase_issue_submitted; purchase_issue_failed.</p>
+<p><strong>Notes:</strong> For “not mine,” protect or restrict the record immediately according to policy. Free text must warn against unnecessary medical information.</p>
+<p><em>Figure 6. Independent MVP wireframe using fictional transaction data.</em></p>
+<h2 id="7-protected-issue-status">7. Protected issue status</h2>
+<p>Confirm that the report was received and explain what happens next without continuing to expose disputed purchase details.</p>
+<figure class="diagram-figure"><img src="/pa/images/wireframe-status.png" alt="Wireframe: Issue received / protected status screen" loading="lazy"><figcaption><span>Wireframe: Issue received / protected status screen</span><a href="/pa/images/wireframe-status.png" target="_blank" rel="noopener noreferrer">Open full size ↗</a></figcaption></figure>
+<p><strong>Entry:</strong> Successful S04 submission.</p>
+<p><strong>Data:</strong> Case reference; issue category; safe status; next-step copy; support route.</p>
+<p><strong>Primary actions:</strong> Return to history; contact support; later view case status if supported.</p>
+<p><strong>Required states:</strong> Received, reviewing, resolved, more verification required, unavailable.</p>
+<p><strong>PRD traceability:</strong> FR-10–FR-13; AC-07–AC-08.</p>
+<p><strong>Analytics:</strong> issue_status_viewed; support_contact_started.</p>
+<p><strong>Notes:</strong> Do not promise a resolution time until support ownership and SLA are approved. Avoid showing disputed medicine/item details.</p>
+<p><em>Figure 7. Independent MVP wireframe using fictional transaction data.</em></p>
+<h2 id="8-claim-unmatched-purchase">8. Claim unmatched purchase</h2>
+<p>Allow a customer to verify a purchase that was not linked automatically without revealing transaction details before identity is established.</p>
+<figure class="diagram-figure"><img src="/pa/images/wireframe-claim.png" alt="Wireframe: Claim a store purchase screen" loading="lazy"><figcaption><span>Wireframe: Claim a store purchase screen</span><a href="/pa/images/wireframe-claim.png" target="_blank" rel="noopener noreferrer">Open full size ↗</a></figcaption></figure>
+<p><strong>Entry:</strong> Empty/history help action or privacy-safe invitation.</p>
+<p><strong>Data:</strong> Invoice reference; purchase date; approved verification challenge; match outcome.</p>
+<p><strong>Primary actions:</strong> Verify and claim; request help; cancel.</p>
+<p><strong>Required states:</strong> Default, invalid input, no match, ambiguous match, challenge expired, too many attempts, verified, support required.</p>
+<p><strong>PRD traceability:</strong> FR-05, FR-12, FR-14; AC-03, AC-10.</p>
+<p><strong>Analytics:</strong> claim_purchase_started; claim_verification_submitted; claim_match_outcome; claim_support_started.</p>
+<p><strong>Notes:</strong> The wireframe uses a verification-code placeholder. Identity/privacy owners must select the actual challenge and anti-abuse controls.</p>
+<p><em>Figure 8. Independent MVP wireframe using fictional transaction data.</em></p>
+<h2 id="9-interaction-and-transition-matrix">9. Interaction and transition matrix</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>From</th><th>Trigger</th><th>Guard / system check</th><th>To</th><th>Failure behaviour</th></tr></thead><tbody><tr><td>S01</td><td>Select purchase</td><td>Authenticated and authorized record</td><td>S02</td><td>Show safe error; no cached detail flash</td></tr><tr><td>S01</td><td>Claim purchase</td><td>Authenticated account</td><td>S06</td><td>Require login first</td></tr><tr><td>S02</td><td>How calculated</td><td>Savings is approved and available</td><td>S03</td><td>Show unavailable explanation</td></tr><tr><td>S02</td><td>Something is wrong</td><td>Authorized record</td><td>S04</td><td>Offer support if service unavailable</td></tr><tr><td>S04</td><td>Submit issue</td><td>Valid category; authenticated request</td><td>S05</td><td>Preserve input and retry; avoid duplicate cases</td></tr><tr><td>S06</td><td>Verify claim</td><td>Approved identity challenge succeeds</td><td>S02</td><td>No detail; show no-match/ambiguous/support state</td></tr><tr><td>S05</td><td>Back to history</td><td>Authenticated account</td><td>S01</td><td>Restricted record remains appropriately labelled</td></tr></tbody></table>
+<h2 id="10-error-and-edge-state-requirements">10. Error and edge-state requirements</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Scenario</th><th>UX requirement</th><th>System requirement</th></tr></thead><tbody><tr><td>UXE01</td><td>Wrong account / not mine</td><td>Restrict details; confirm case; provide safe support route</td><td>Revoke or hide link; audit; urgent review</td></tr><tr><td>UXE02</td><td>Duplicate transaction</td><td>Label duplicate review; do not double-count savings</td><td>Idempotency and reconciliation</td></tr><tr><td>UXE03</td><td>Refund/return</td><td>Show adjusted state and revised amounts</td><td>Source-of-truth state event</td></tr><tr><td>UXE04</td><td>Invoice unavailable</td><td>Keep transaction summary; explain and retry/support</td><td>Secured invoice service observability</td></tr><tr><td>UXE05</td><td>Savings unavailable</td><td>Omit numeric saving; explain why</td><td>Suppress unapproved/incomplete calculation</td></tr><tr><td>UXE06</td><td>Shared/recycled phone</td><td>Reveal nothing before stronger verification</td><td>Ambiguous match result and anti-abuse controls</td></tr><tr><td>UXE07</td><td>App offline</td><td>Avoid exposing unverified cached protected data</td><td>Authorization-aware cache policy</td></tr><tr><td>UXE08</td><td>Claim attempts exceeded</td><td>Explain temporary restriction and support route</td><td>Rate limit, risk logging and recovery</td></tr></tbody></table>
+<h2 id="11-accessibility-and-responsive-requirements">11. Accessibility and responsive requirements</h2>
+<ul>
+<li>Minimum touch target follows the product design system; interactive cards expose one clear accessible name.</li>
+<li>Text supports device scaling without clipping, overlap or loss of actions.</li>
+<li>Status, savings and errors use text and icons in addition to colour.</li>
+<li>Focus order follows visual order; focus returns predictably after modal or error dismissal.</li>
+<li>Currency and dates are announced with meaningful labels, not as isolated numbers.</li>
+<li>Forms provide visible labels, field-level errors and a summary when submission fails.</li>
+<li>Reduced-motion preference is respected; no essential information depends on animation.</li>
+<li>On wider screens, content may expand but sensitive data and action hierarchy remain unchanged.</li>
+</ul>
+<h2 id="12-privacy-security-and-analytics-constraints">12. Privacy, security and analytics constraints</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Area</th><th>Requirement</th></tr></thead><tbody><tr><td>Authorization</td><td>Re-check authorization for history, detail, invoice, correction and claim endpoints; do not trust navigation state.</td></tr><tr><td>Caching</td><td>Define whether protected data may be cached; prevent account-switch leakage.</td></tr><tr><td>Identifiers</td><td>Use non-predictable references and approved masking in customer-visible UI.</td></tr><tr><td>Free text</td><td>Do not send general issue notes into analytics; warn against medical detail.</td></tr><tr><td>Analytics</td><td>Prefer status/category/method version and latency. Exclude item names, prescription images, diagnosis and unapproved identifiers.</td></tr><tr><td>Screenshots/support</td><td>Support tools must minimize exposure and follow role-based access.</td></tr><tr><td>Deletion/retention</td><td>Apply approved policy to links, issue records, analytics and audit data.</td></tr></tbody></table>
+<h2 id="13-design-and-engineering-handoff-checklist">13. Design and engineering handoff checklist</h2>
+<ul>
+<li>Final design-system components and production brand tokens applied.</li>
+<li>All screen states designed, including empty, error, restricted, adjusted and unavailable.</li>
+<li>Identity, eligibility, savings and state-transition rules linked to implementation tickets.</li>
+<li>API contracts define idempotency, authorization, status updates and error taxonomy.</li>
+<li>Production copy reviewed by product, operations, support, pricing/legal and privacy/compliance.</li>
+<li>Analytics schema reviewed for data minimization.</li>
+<li>Accessibility annotations and test cases included.</li>
+<li>Prototype tested with customers and store/support users before build approval.</li>
+<li>Feature flag, kill switch, dashboards and incident owners documented.</li>
+</ul>
+<h2 id="14-prototype-files-and-disclosure">14. Prototype files and disclosure</h2>
+<p>The accompanying HTML prototype provides clickable navigation between the six screens. Static PNG exports are intended for the portfolio website, interview presentation and document preview. All store names, prices, invoices, case identifiers and transaction details are fictional.</p>
+<p><strong>Disclosure:</strong> This feature specification and prototype are independent candidate work. They were not commissioned by Medkart and do not represent Medkart’s current interface, roadmap or internal system design.</p>
+<h2 id="document-control">Document control</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Version</th><th>Date</th><th>Change</th></tr></thead><tbody><tr><td>0.1</td><td>19 July 2026</td><td>Initial MVP feature specification and six-screen independent prototype</td></tr></tbody></table></div></section></div></main><footer class="site-footer"><p>Om Desai · Product Associate candidate portfolio · <a href="mailto:padhai.omdesai@gmail.com">padhai.omdesai@gmail.com</a>· <a href="tel:+918980850095">+91 89808 50095</a>· <a href="/pa/about/">About &amp; résumé</a></p><p>&copy; 2026. Medkart Savings Journey is an independent candidate exercise, not affiliated with or approved by Medkart.</p></footer></body></html>

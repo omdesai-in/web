@@ -1,0 +1,839 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Operations · Om Desai</title><meta name="description" content="Store support SOP, issue-resolution &amp; release playbook, and the customer-facing user guide for the Medkart Savings Journey."><link rel="icon" href="/pa/favicon.svg" type="image/svg+xml"><style>.doc-meta[data-astro-cid-2bu7jrx7]{color:var(--text-muted);font-size:var(--text-sm);margin:0 0 var(--sp-5)}
+</style><link rel="stylesheet" href="/pa/_astro/BaseLayout.BOOJg5xu.css"></head><body class="theme-medkart"><header class="site-header"><div class="wrap"><a class="brand" href="/pa/">Om Desai</a><button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav><ul class="site-nav" id="site-nav"><li><a href="/pa/medkart/" aria-current="page">Medkart Product Exercise</a></li><li><a href="/pa/real-product-work/">Real Product Work</a></li><li><a href="/pa/research-coordination/">Research &amp; Coordination</a></li><li><a href="/pa/artifacts/">Artifacts</a></li><li><a href="/pa/about/">About / Resume</a></li></ul></nav></div></header><script type="module">var e=document.getElementById(`nav-toggle`),t=document.getElementById(`site-nav`);e?.addEventListener(`click`,()=>{let n=t?.classList.toggle(`is-open`);e.setAttribute(`aria-expanded`,n?`true`:`false`)});</script><main><div class="wrap wrap--narrow"><section style="padding-bottom: 0;"><p class="eyebrow">Medkart Product Exercise</p><h1>Operations</h1><nav class="subnav" aria-label="Medkart Product Exercise sections"><a href="/pa/medkart/">Overview</a><a href="/pa/medkart/discovery/">Discovery</a><a href="/pa/medkart/workflows/">Workflows</a><a href="/pa/medkart/prd/">PRD</a><a href="/pa/medkart/feature-spec/">Feature Spec</a><a href="/pa/medkart/wireframes/">Wireframes &amp; Prototype</a><a href="/pa/medkart/research/">Research Guide</a><a href="/pa/medkart/qa/">QA</a><a href="/pa/medkart/operations/" aria-current="page">Operations</a><a href="/pa/medkart/execution-tracker/">Execution Tracker</a></nav></section><section style="padding-top: var(--sp-6);"><div class="prose"><p class="doc-meta" data-astro-cid-2bu7jrx7><span class="mono" data-astro-cid-2bu7jrx7>v0.1</span> · <span class="mono" data-astro-cid-2bu7jrx7>19 July 2026</span> · Draft for review and pilot simulation — Independent candidate exercise (no production-system claim; not Medkart&#39;s current SOP, policy, or service commitment)</p>
+<p><em>Independent candidate exercise • Proposed workflow • No production-system claim</em></p>
+<h2 id="standard-operating-procedure">Standard Operating Procedure</h2>
+<h3 id="linked-purchase-support-sop">Linked Purchase Support SOP</h3>
+<p>Store and customer-support handling for the proposed Savings Journey MVP</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>STATUS</td><td>Draft for review and pilot simulation</td></tr><tr><td>APPLIES TO</td><td>Store representatives, customer support and area/operations managers</td></tr><tr><td>MVP</td><td>Linked purchase history, invoice, savings explanation and correction</td></tr><tr><td>VERSION</td><td>0.1 • 19 July 2026</td></tr><tr><td>OWNER</td><td>Proposed: Product Operations</td></tr></tbody></table>
+<p><strong>Purpose:</strong> Provide consistent, privacy-safe handling when a customer asks about a linked store purchase, invoice, savings amount or incorrect record.</p>
+<p><strong>Disclosure:</strong> Proposed portfolio operating model based on the Medkart Savings Journey case study. This is not Medkart’s current SOP, policy or service commitment.</p>
+<hr>
+<h2 id="1-operating-principles">1. Operating principles</h2>
+<ul>
+<li>Store checkout is never delayed because app linking or support tools are unavailable.</li>
+<li>Verify the customer through an approved method before discussing transaction detail. A phone number alone is not proof of ownership.</li>
+<li>Reveal the minimum information necessary; never read out another account’s purchase details.</li>
+<li>Do not interpret medicines, dosage or clinical suitability. Refer clinical questions to an authorized pharmacist/appropriate channel.</li>
+<li>Do not promise savings, correction or resolution timelines unless the approved policy provides one.</li>
+<li>When ownership is disputed, protect the record first and investigate second.</li>
+</ul>
+<h3 id="11-roles">1.1 Roles</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Role</th><th>Can do</th><th>Must not do</th></tr></thead><tbody><tr><td>Store representative</td><td>Explain store bill, locate invoice route, create/route a support case.</td><td>Change app ownership, invent savings logic or expose other-customer data.</td></tr><tr><td>Customer support</td><td>Verify identity, inspect authorized case context, update safe status, coordinate correction.</td><td>Request unnecessary medical information or bypass authorization.</td></tr><tr><td>Product/Engineering support</td><td>Investigate event, match, invoice, lifecycle or calculation behavior.</td><td>Use unrestricted production data outside approved access.</td></tr><tr><td>Area/Operations manager</td><td>Confirm store process, escalation and staff readiness.</td><td>Resolve technical/privacy incidents informally without a record.</td></tr><tr><td>Security/Privacy owner</td><td>Lead suspected exposure or mis-linking response.</td><td>Delay containment while waiting for full root cause.</td></tr></tbody></table>
+<hr>
+<h2 id="2-standard-customer-help-flow">2. Standard customer-help flow</h2>
+<ol>
+<li><strong>Listen and classify</strong> — Ask what the customer is trying to do: find a purchase, open an invoice, understand savings, report incorrect details or report “not mine.” Do not ask for diagnosis, dosage or medicine history.</li>
+<li><strong>Confirm channel and authorization</strong> — Use only the approved verification flow. If authorization is uncertain or the match is ambiguous, show/discuss no transaction detail and move to protected support.</li>
+<li><strong>Use the correct path</strong> — Follow the scenario table below. Keep the retail billing source authoritative for transaction amount and lifecycle state.</li>
+<li><strong>Create a case when required</strong> — Record case ID, transaction reference, category, safe description, timestamps and owner. Avoid customer contact details or medicine text in general notes unless policy requires and protects it.</li>
+<li><strong>Confirm the next step</strong> — Give a case reference and safe status. Do not promise a date unless an approved SLA exists.</li>
+<li><strong>Close with evidence</strong> — Record outcome, correction/reconciliation evidence and customer-safe closure reason. Link any product defect to the relevant QA case.</li>
+</ol>
+<h3 id="21-scenario-routing">2.1 Scenario routing</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Customer need</th><th>Immediate action</th><th>Escalate when</th></tr></thead><tbody><tr><td>Purchase missing</td><td>Offer protected claim/help path; confirm no detail before verification.</td><td>No match, ambiguous match, repeated failure or suspected data issue.</td></tr><tr><td>Invoice unavailable</td><td>Keep checkout/bill context separate; retry approved invoice route or create case.</td><td>Service failure persists or wrong invoice appears.</td></tr><tr><td>Savings unclear</td><td>Open approved explanation; state unavailable if comparator is missing.</td><td>Displayed amount does not reconcile or method is unapproved.</td></tr><tr><td>Wrong amount/status</td><td>Create correction case; preserve original audit trail.</td><td>Return/refund event missing, amount inconsistent or repeated.</td></tr><tr><td>Duplicate purchase</td><td>Create data-integrity case; do not double-count savings.</td><td>Duplicate survives refresh/reconciliation.</td></tr><tr><td>Not mine</td><td>Protect/hide record immediately; create privacy-priority case.</td><td>Always notify privacy/security owner under approved protocol.</td></tr></tbody></table>
+<hr>
+<h2 id="3-escalation-and-severity">3. Escalation and severity</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Level</th><th>Example</th><th>Initial response</th><th>Owner</th></tr></thead><tbody><tr><td>P0 — urgent</td><td>Another customer’s record, authorization bypass, systemic mislink.</td><td>Protect access, preserve logs, stop/disable affected path, incident escalation.</td><td>Security/Privacy + Engineering</td></tr><tr><td>P1 — high</td><td>Duplicate totals, incorrect savings, return not reconciled, unusable correction.</td><td>Create high-priority defect/case; assess pilot impact.</td><td>Product + Engineering</td></tr><tr><td>P2 — standard</td><td>Invoice retry, isolated UI/accessibility issue with workaround.</td><td>Create normal case and provide safe workaround.</td><td>Support/Product Ops</td></tr><tr><td>P3 — improvement</td><td>Copy, clarity or non-blocking usability feedback.</td><td>Record feedback for prioritization.</td><td>Product</td></tr></tbody></table>
+<h3 id="31-mandatory-p0-actions">3.1 Mandatory P0 actions</h3>
+<ul>
+<li>Stop sharing or displaying the disputed record; do not ask the customer to reproduce exposure publicly.</li>
+<li>Capture only safe identifiers, time, channel and affected feature; preserve technical logs through approved access.</li>
+<li>Notify the named incident owners and pilot/release decision owner.</li>
+<li>Evaluate feature flag containment and whether other records may be affected.</li>
+<li>Do not close until protection, scope assessment, correction and communication decisions are recorded.</li>
+</ul>
+<h3 id="32-handoff-template">3.2 Handoff template</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Field</th><th>Example (fictional)</th></tr></thead><tbody><tr><td>Case ID</td><td>CASE-EXAMPLE-1042</td></tr><tr><td>Category</td><td>Not mine / incorrect link</td></tr><tr><td>Safe record reference</td><td>TXN-•••-4281</td></tr><tr><td>Customer-visible state</td><td>Protected — under review</td></tr><tr><td>What happened</td><td>Customer reports the purchase is not theirs; detail was hidden immediately.</td></tr><tr><td>Action taken</td><td>Access protected; privacy owner notified; audit review requested.</td></tr><tr><td>Owner / next review</td><td>Assigned owner and approved review timestamp</td></tr><tr><td>Evidence</td><td>Authorized, redacted log/ticket links only</td></tr></tbody></table>
+<hr>
+<h2 id="4-data-handling-and-closeout">4. Data handling and closeout</h2>
+<h3 id="41-collect-only-what-is-necessary">4.1 Collect only what is necessary</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Allowed when needed</th><th>Avoid in general notes/analytics</th></tr></thead><tbody><tr><td>Case ID, safe transaction reference, issue category, timestamps, state and owner.</td><td>Full phone number, medicine names, prescription images, diagnosis, dosage or emotional/medical narrative.</td></tr><tr><td>Approved verification outcome, not secret verification answers.</td><td>Passwords, OTPs, payment credentials or unredacted identity documents.</td></tr><tr><td>Redacted technical evidence and event IDs.</td><td>Screenshots containing another customer’s details.</td></tr></tbody></table>
+<h3 id="42-closure-checklist">4.2 Closure checklist</h3>
+<ul>
+<li>Customer-visible status is accurate and safe.</li>
+<li>Record ownership/access is corrected or remains protected according to policy.</li>
+<li>Totals, lifecycle state and savings are reconciled where applicable.</li>
+<li>Root cause or product defect is linked, with regression scope.</li>
+<li>Customer receives an approved closure explanation and support route.</li>
+<li>Case retention and deletion follow approved policy.</li>
+</ul>
+<hr>
+<h2 id="5-store-briefing-checklist">5. Store briefing checklist</h2>
+<ul>
+<li>Know where the customer can find Purchases, invoice, savings explanation and Report issue.</li>
+<li>Know that checkout continues during linking failure.</li>
+<li>Know that phone-number presence does not authorize disclosure.</li>
+<li>Know the “not mine” containment and escalation route.</li>
+<li>Know the approved non-clinical boundaries and pharmacist referral route.</li>
+<li>Have current support contacts and feature/pilot status.</li>
+</ul>
+<p><strong>Success measure:</strong> The customer receives a clear next step, the record stays protected, checkout remains unaffected and every material issue has an owner and traceable evidence.</p><hr><p class="eyebrow">Companion document</p><p class="doc-meta" data-astro-cid-2bu7jrx7><span class="mono" data-astro-cid-2bu7jrx7>v0.1</span> · <span class="mono" data-astro-cid-2bu7jrx7>19 July 2026</span> · Draft operating model for review — Independent candidate exercise (not Medkart&#39;s current SOP, policy, or service commitment)</p>
+<p><em>Independent candidate exercise • Proposed issue and release controls</em></p>
+<h2 id="process-documentation">Process Documentation</h2>
+<h3 id="issue-resolution--release-playbook">Issue Resolution &#x26; Release Playbook</h3>
+<p>From customer report to correction, controlled pilot and rollback</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>STATUS</td><td>Draft operating model for review</td></tr><tr><td>AUDIENCE</td><td>Product, Engineering, QA, Security/Privacy, Support and Retail Operations</td></tr><tr><td>RELATED FILES</td><td>PRD, Feature Specification, QA Plan, QA Tracker and SOP</td></tr><tr><td>VERSION</td><td>0.1 • 19 July 2026</td></tr><tr><td>SCOPE</td><td>Savings Journey MVP concept</td></tr></tbody></table>
+<p><strong>Purpose:</strong> Define ownership, decision points, evidence and safe failure behavior across issue resolution and release management.</p>
+<p><strong>Disclosure:</strong> Proposed portfolio operating model based on the Medkart Savings Journey case study. This is not Medkart’s current SOP, policy or service commitment.</p>
+<hr>
+<h2 id="1-issue-resolution-process">1. Issue-resolution process</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Stage</th><th>Owner</th><th>Action</th><th>Evidence / exit</th></tr></thead><tbody><tr><td>1. Receive</td><td>Store/Support</td><td>Classify missing, invoice, savings, amount/status, duplicate or not-mine.</td><td>Case ID and safe category.</td></tr><tr><td>2. Protect</td><td>Support + Security/Privacy</td><td>For ownership/privacy concerns, hide/restrict detail and preserve audit evidence.</td><td>Protection confirmed; incident path if needed.</td></tr><tr><td>3. Verify</td><td>Support/Product Ops</td><td>Use approved identity and transaction verification; reveal minimum data.</td><td>Verified outcome or safe no-match state.</td></tr><tr><td>4. Diagnose</td><td>Engineering/Product</td><td>Trace event, match, lifecycle, invoice and savings calculation.</td><td>Root cause or bounded hypothesis.</td></tr><tr><td>5. Correct</td><td>Authorized owner</td><td>Correct link/state/calculation through approved controls; preserve history.</td><td>Reconciled record and change evidence.</td></tr><tr><td>6. Validate</td><td>QA</td><td>Retest original case and risk-based regression set.</td><td>Passed evidence or reopened defect.</td></tr><tr><td>7. Communicate</td><td>Support</td><td>Provide approved outcome and next step without internal/sensitive detail.</td><td>Customer-safe closure note.</td></tr><tr><td>8. Learn</td><td>Product Ops</td><td>Trend cases, update SOP/tests and prioritize systemic fixes.</td><td>Linked insight/action.</td></tr></tbody></table>
+<h3 id="11-decision-rules">1.1 Decision rules</h3>
+<ul>
+<li>If identity is uncertain: fail closed.</li>
+<li>If savings cannot be verified: suppress the number.</li>
+<li>If state conflicts with the retail source: show a safe pending/unavailable state and reconcile.</li>
+<li>If linking is unavailable: checkout continues and recovery is asynchronous.</li>
+<li>If another customer’s data may be exposed: protect first, activate the security/privacy path and assess scope.</li>
+</ul>
+<hr>
+<h2 id="2-ownership-and-service-model">2. Ownership and service model</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Activity</th><th>Product</th><th>Engineering</th><th>QA</th><th>Security/Privacy</th><th>Support/Ops</th></tr></thead><tbody><tr><td>Classify case</td><td>C</td><td>I</td><td>I</td><td>C</td><td>A/R</td></tr><tr><td>Protect disputed record</td><td>I</td><td>R</td><td>I</td><td>A</td><td>R</td></tr><tr><td>Diagnose technical root cause</td><td>C</td><td>A/R</td><td>C</td><td>C</td><td>I</td></tr><tr><td>Approve savings rule</td><td>A</td><td>C</td><td>C</td><td>C</td><td>I</td></tr><tr><td>Validate correction</td><td>C</td><td>C</td><td>A/R</td><td>C</td><td>I</td></tr><tr><td>Customer communication</td><td>C</td><td>I</td><td>I</td><td>C</td><td>A/R</td></tr><tr><td>Release decision</td><td>A</td><td>R</td><td>R</td><td>R</td><td>R</td></tr><tr><td>Rollback execution</td><td>A</td><td>R</td><td>C</td><td>C</td><td>I</td></tr></tbody></table>
+<p><em>R = Responsible • A = Accountable • C = Consulted • I = Informed</em></p>
+<h3 id="21-safe-status-vocabulary">2.1 Safe status vocabulary</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Internal state</th><th>Customer-safe status</th><th>Do not say</th></tr></thead><tbody><tr><td>Received</td><td>We received your report.</td><td>Guaranteed resolution date without approved SLA.</td></tr><tr><td>Protected</td><td>Details are hidden while we review ownership.</td><td>Another customer’s identity or purchase information.</td></tr><tr><td>Reviewing</td><td>We are checking the purchase record.</td><td>Unconfirmed technical blame or internal logs.</td></tr><tr><td>Corrected</td><td>The purchase record has been updated.</td><td>That medicine or usage was clinically correct.</td></tr><tr><td>Unable to verify</td><td>We could not safely match this purchase. Contact support.</td><td>Any hidden transaction detail.</td></tr></tbody></table>
+<hr>
+<h2 id="3-release-process">3. Release process</h2>
+<ol>
+<li><strong>Scope lock</strong> — Confirm MVP, explicit exclusions, acceptance criteria, user groups and pilot boundary.</li>
+<li><strong>Readiness review</strong> — Check the 17 release controls across Product, QA, Engineering, Privacy/Security, Data, Accessibility, Support and Operations.</li>
+<li><strong>Evidence review</strong> — All P0 tests pass; no unresolved critical/high privacy or security defect; savings and lifecycle reconciliation are verified.</li>
+<li><strong>Pilot approval</strong> — Record go/no-go participants, open risks, risk acceptances, feature-flag configuration and rollback owner.</li>
+<li><strong>Controlled enablement</strong> — Enable the smallest approved cohort; confirm monitoring and support channels before expansion.</li>
+<li><strong>Daily pilot review</strong> — Review privacy, identity match, duplicates, reconciliation, invoice, savings and issue metrics plus qualitative feedback.</li>
+<li><strong>Scale, hold or rollback</strong> — Expand only after stable evidence and explicit approval; otherwise hold or execute rollback.</li>
+</ol>
+<h3 id="31-entry-and-exit-gates">3.1 Entry and exit gates</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Gate</th><th>Minimum condition</th></tr></thead><tbody><tr><td>Build enters QA</td><td>Stable scope, synthetic data, authorized environment, observable event flow.</td></tr><tr><td>Build enters pilot</td><td>P0 tests passed, support/SOP ready, monitoring and rollback configured.</td></tr><tr><td>Pilot expands</td><td>No safety trigger, stable core indicators, issue ownership working.</td></tr><tr><td>Feature exits pilot</td><td>Recorded decision with results, risks, customer/store feedback and scale plan.</td></tr></tbody></table>
+<hr>
+<h2 id="4-gono-go-and-rollback">4. Go/no-go and rollback</h2>
+<h3 id="41-automatic-no-go--rollback-triggers">4.1 Automatic no-go / rollback triggers</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Trigger</th><th>Immediate action</th><th>Decision owner</th></tr></thead><tbody><tr><td>Cross-account exposure or authorization bypass</td><td>Disable/restrict affected path; incident protocol; assess scope.</td><td>Security/Privacy + Product</td></tr><tr><td>Ambiguous match reveals metadata</td><td>Fail closed; stop expansion; fix and regress.</td><td>Product + Engineering</td></tr><tr><td>Savings shown without approved comparator</td><td>Suppress savings module; reconcile affected records.</td><td>Product + Data/Pricing</td></tr><tr><td>Duplicate or incorrect lifecycle materially affects totals</td><td>Hold rollout; reconcile; repair idempotency/state handling.</td><td>Engineering + Product</td></tr><tr><td>Linking failure interrupts checkout</td><td>Remove dependency/disable feature; restore store continuity.</td><td>Retail Ops + Engineering</td></tr><tr><td>”Not mine” cannot be protected</td><td>Stop rollout; activate support/privacy fallback.</td><td>Security/Privacy + Support</td></tr></tbody></table>
+<h3 id="42-rollback-procedure">4.2 Rollback procedure</h3>
+<ol>
+<li><strong>Declare</strong> — Record trigger, scope, decision owner and time.</li>
+<li><strong>Contain</strong> — Disable the feature or affected component through the approved feature flag/kill switch.</li>
+<li><strong>Confirm store continuity</strong> — Verify checkout and core retail operations remain functional.</li>
+<li><strong>Protect and reconcile</strong> — Protect disputed records; preserve audit data; define treatment for queued events and linked records.</li>
+<li><strong>Communicate and recover</strong> — Notify relevant owners and pilot teams using approved copy. Fix the trigger, run regression, repeat readiness review and require explicit re-enable approval.</li>
+</ol>
+<hr>
+<h2 id="5-monitoring-and-continuous-improvement">5. Monitoring and continuous improvement</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Indicator</th><th>Question answered</th><th>Response</th></tr></thead><tbody><tr><td>Eligible event → linked record</td><td>Is ingestion and matching healthy?</td><td>Investigate drops or abnormal segment differences.</td></tr><tr><td>Ambiguous/missing match rate</td><td>Are identity rules creating risk or friction?</td><td>Keep fail-closed; improve verification safely.</td></tr><tr><td>Duplicate rate</td><td>Is idempotency working?</td><td>Target zero; urgent diagnosis.</td></tr><tr><td>Reconciliation delay</td><td>Are lifecycle updates arriving?</td><td>Inspect queue/source/state handling.</td></tr><tr><td>Not-mine rate</td><td>Could records be mis-linked?</td><td>Privacy review and immediate protection.</td></tr><tr><td>Savings unavailable/error</td><td>Is comparison data trustworthy?</td><td>Suppress affected calculations and inspect source.</td></tr><tr><td>Issue resolution aging</td><td>Can support complete the loop?</td><td>Adjust ownership, tooling or SOP; do not invent an SLA.</td></tr></tbody></table>
+<h3 id="51-weekly-review-agenda">5.1 Weekly review agenda</h3>
+<ul>
+<li>Outcome and safety indicators versus expected range.</li>
+<li>New P0/P1 issues, blocked test cases and unresolved root causes.</li>
+<li>Customer and store feedback themes, separated from single anecdotes.</li>
+<li>Decisions made, owners, dates and dependencies.</li>
+<li>Changes required in PRD, feature spec, test coverage, SOP or user guide.</li>
+<li>Recommendation: continue, hold, expand, narrow or rollback.</li>
+</ul>
+<hr>
+<h2 id="6-change-control">6. Change control</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Change</th><th>Required review</th></tr></thead><tbody><tr><td>Identity/matching rule</td><td>Security/Privacy, Product, Engineering and QA.</td></tr><tr><td>Savings comparator/method</td><td>Product, Data/Pricing, Legal/Compliance as applicable, QA.</td></tr><tr><td>Customer-visible status/copy</td><td>Product, Support/Ops, Design and Privacy.</td></tr><tr><td>Analytics field/event</td><td>Product, Analytics and Privacy.</td></tr><tr><td>Pilot scope or release gate</td><td>Product, Engineering, QA, Security/Privacy and Operations.</td></tr></tbody></table>
+<p><strong>Completion rule:</strong> A process is complete only when the outcome, evidence, owner and customer-safe communication are recorded—not merely when a ticket changes status.</p><hr><p class="eyebrow">Companion document</p><p class="doc-meta" data-astro-cid-2bu7jrx7><span class="mono" data-astro-cid-2bu7jrx7>v0.1</span> · <span class="mono" data-astro-cid-2bu7jrx7>19 July 2026</span> · Independent candidate exercise — fictional screens and data (not Medkart&#39;s current SOP, policy, or service commitment)</p>
+<p><em>Independent candidate exercise • Fictional screens and data</em></p>
+<h2 id="customer-user-guide">Customer User Guide</h2>
+<h3 id="your-medkart-store-purchases">Your Medkart Store Purchases</h3>
+<p>How to find an eligible purchase, view its invoice, understand savings and report an issue</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>AUDIENCE</td><td>Customers using the proposed authenticated mobile experience</td></tr><tr><td>FEATURE</td><td>Medkart Savings Journey — MVP concept</td></tr><tr><td>SCREENS</td><td>History, detail, savings, issue, status and claim</td></tr><tr><td>VERSION</td><td>0.1 • 19 July 2026</td></tr><tr><td>DATA</td><td>All examples and transaction details are fictional</td></tr></tbody></table>
+<p><strong>Purpose:</strong> Explain the proposed feature in simple language while setting honest expectations about linking, savings and support.</p>
+<p><strong>Disclosure:</strong> Proposed portfolio operating model based on the Medkart Savings Journey case study. This is not Medkart’s current SOP, policy or service commitment.</p>
+<hr>
+<h2 id="1-find-a-store-purchase">1. Find a store purchase</h2>
+<blockquote>
+<p><strong>Screen not yet designed — described here instead:</strong> Mobile screen showing the “Store purchases” list view with an example savings banner (₹1,260) and three recent purchases (Medkart • University Road, Medkart • Central Avenue, Medkart • University Road) each with amount, status badge, and example saving.</p>
+</blockquote>
+<p><strong>1. Sign in</strong>
+Use the account connected through the approved Medkart verification process.</p>
+<p><strong>2. Open Purchases</strong>
+Eligible linked store purchases appear newest first.</p>
+<p><strong>3. Choose a purchase</strong>
+Check the store, date, amount and status before opening it.</p>
+<p><strong>4. If nothing appears</strong>
+Use Claim a purchase or contact support. No purchase detail is shown until verification succeeds.</p>
+<blockquote>
+<p><strong>Important:</strong> Not every store transaction may be eligible or linked immediately. A missing record does not mean your printed store bill is invalid.</p>
+</blockquote>
+<h3 id="what-the-status-can-mean">What the status can mean</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody><tr><td>Completed</td><td>The linked purchase is currently recorded as completed.</td></tr><tr><td>Adjusted</td><td>The amount or item state changed after the original bill.</td></tr><tr><td>Returned</td><td>A return/refund update has been recorded.</td></tr><tr><td>Protected</td><td>Details are hidden while ownership or an issue is reviewed.</td></tr><tr><td>Unavailable</td><td>Some information cannot be shown safely or reliably right now.</td></tr></tbody></table>
+<hr>
+<h2 id="2-view-details-and-your-invoice">2. View details and your invoice</h2>
+<blockquote>
+<p><strong>Screen not yet designed — described here instead:</strong> Mobile “Purchase details” screen showing store name, date, status badge, amount paid (₹640), an example saving callout (₹540) with a “How this is calculated” link, an itemized purchase summary (Medicine A, Medicine B, Health product C, subtotal, store discount, amount paid), a “View digital invoice” button, and a “Something is wrong” button.</p>
+</blockquote>
+<p><strong>Purchase details</strong>
+Review the store, date, line items, quantity, amount, discount and current status when available.</p>
+<p><strong>View invoice</strong>
+Open or download the secured digital invoice. If it is unavailable, retry or use the support route.</p>
+<p><strong>Amount paid</strong>
+This should match the authoritative transaction after returns or adjustments.</p>
+<p><strong>Something is wrong</strong>
+Use the issue action instead of sharing transaction screenshots publicly.</p>
+<h3 id="if-the-invoice-does-not-open">If the invoice does not open</h3>
+<ul>
+<li>Check your connection and retry once.</li>
+<li>Keep your printed invoice if you received one at the store.</li>
+<li>Use Report issue or the approved support channel if the problem continues.</li>
+<li>Never send passwords, OTPs or payment credentials to obtain an invoice.</li>
+</ul>
+<hr>
+<h2 id="3-understand-a-displayed-saving">3. Understand a displayed saving</h2>
+<blockquote>
+<p><strong>Screen not yet designed — described here instead:</strong> Mobile “How savings are calculated” screen showing an example comparison of Approved comparable price (₹1,180) vs Amount paid (₹640), the resulting example saving (₹540), an explanation panel (Approved comparator, Same purchase context, Not always available, Method version), and a disclaimer that prototype values/methodology are illustrative.</p>
+</blockquote>
+<p><strong>Amount paid</strong>
+The amount recorded for the purchase after applicable discounts and adjustments.</p>
+<p><strong>Comparable price</strong>
+An approved reference used for the explanation—not an arbitrary estimate.</p>
+<p><strong>You saved</strong>
+The difference calculated using the stated method and eligible items.</p>
+<p><strong>Unavailable</strong>
+If a reliable comparator is missing, no savings amount should be invented. The app should explain that it is unavailable.</p>
+<blockquote>
+<p><strong>Please note:</strong> A linked purchase or savings display does not provide medical advice and does not prove that medicine was consumed. Ask an authorized healthcare professional for clinical guidance.</p>
+</blockquote>
+<hr>
+<h2 id="4-report-a-problem-safely">4. Report a problem safely</h2>
+<blockquote>
+<p><strong>Screen not yet designed — described here instead:</strong> Mobile “Report a purchase issue” screen with a warning banner (“Do not include prescription, diagnosis or unnecessary medical details”), four selectable issue options (This purchase is not mine, I see a duplicate purchase, Amount or status looks incorrect, I cannot open the invoice), an optional note field, and a “Submit issue” button.</p>
+</blockquote>
+<p><strong>1. Select the issue</strong>
+Choose Not mine, duplicate, incorrect amount/status or invoice unavailable.</p>
+<p><strong>2. Keep notes minimal</strong>
+Do not enter diagnosis, dosage, prescription details, passwords or OTPs.</p>
+<p><strong>3. Submit</strong>
+You should receive a case reference and safe status.</p>
+<p><strong>4. For “not mine”</strong>
+The disputed record should be protected while it is reviewed.</p>
+<h3 id="when-to-contact-support">When to contact support</h3>
+<ul>
+<li>You can see a purchase that is not yours.</li>
+<li>A purchase remains duplicated or shows the wrong return/refund state.</li>
+<li>The invoice or savings explanation appears inconsistent.</li>
+<li>A claim repeatedly fails or the app asks for unsafe information.</li>
+</ul>
+<hr>
+<h2 id="5-claim-a-missing-purchase">5. Claim a missing purchase</h2>
+<blockquote>
+<p><strong>Screen not yet designed — described here instead:</strong> Mobile “Claim a store purchase” screen with a privacy-first claim banner, input fields for invoice number, purchase date, and verification code, a “Verify and claim” button, an “I need help” button, and a note that the screen intentionally reveals no transaction or medicine detail before verification.</p>
+</blockquote>
+<p><strong>Start safely</strong>
+Enter only the approved invoice reference/date and complete the approved verification challenge.</p>
+<p><strong>No detail before verification</strong>
+The app should not reveal items, amounts or medicine information while the match is uncertain.</p>
+<p><strong>No match or ambiguous match</strong>
+Use the support route. Repeated guessing may be limited to protect customers.</p>
+<p><strong>Successful verification</strong>
+The purchase can be added to history only after ownership is confirmed.</p>
+<hr>
+<h2 id="6-privacy-and-safety-reminders">6. Privacy and safety reminders</h2>
+<ul>
+<li>Use your own account and a trusted device. Sign out on shared devices.</li>
+<li>Do not share purchase screenshots publicly.</li>
+<li>Medkart support should never ask for your password or OTP.</li>
+<li>A purchase does not automatically provide consent for refill reminders.</li>
+<li>For urgent medical needs, use the appropriate clinical/emergency channel—not a product support case.</li>
+</ul>
+<blockquote>
+<p><strong>Prototype note:</strong> Screens, support routes, pricing and case references in this guide are fictional examples created for a Product Associate portfolio.</p>
+</blockquote></div></section></div></main><footer class="site-footer"><p>Om Desai · Product Associate candidate portfolio · <a href="mailto:padhai.omdesai@gmail.com">padhai.omdesai@gmail.com</a>· <a href="tel:+918980850095">+91 89808 50095</a>· <a href="/pa/about/">About &amp; résumé</a></p><p>&copy; 2026. Medkart Savings Journey is an independent candidate exercise, not affiliated with or approved by Medkart.</p></footer></body></html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Connecting the Store Bill to the Customer App — Discovery &amp; Assumptions Brief · Om Desai</title><meta name="description" content="Discovery scope locked; validation pending"><link rel="icon" href="/pa/favicon.svg" type="image/svg+xml"><style>.doc-meta[data-astro-cid-2bu7jrx7]{color:var(--text-muted);font-size:var(--text-sm);margin:0 0 var(--sp-5)}
+</style><link rel="stylesheet" href="/pa/_astro/BaseLayout.BOOJg5xu.css"></head><body class="theme-medkart"><header class="site-header"><div class="wrap"><a class="brand" href="/pa/">Om Desai</a><button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav><ul class="site-nav" id="site-nav"><li><a href="/pa/medkart/" aria-current="page">Medkart Product Exercise</a></li><li><a href="/pa/real-product-work/">Real Product Work</a></li><li><a href="/pa/research-coordination/">Research &amp; Coordination</a></li><li><a href="/pa/artifacts/">Artifacts</a></li><li><a href="/pa/about/">About / Resume</a></li></ul></nav></div></header><script type="module">var e=document.getElementById(`nav-toggle`),t=document.getElementById(`site-nav`);e?.addEventListener(`click`,()=>{let n=t?.classList.toggle(`is-open`);e.setAttribute(`aria-expanded`,n?`true`:`false`)});</script><main><div class="wrap wrap--narrow"><section style="padding-bottom: 0;"><p class="eyebrow">Medkart Product Exercise</p><h1>Connecting the Store Bill to the Customer App — Discovery &amp; Assumptions Brief</h1><nav class="subnav" aria-label="Medkart Product Exercise sections"><a href="/pa/medkart/">Overview</a><a href="/pa/medkart/discovery/" aria-current="page">Discovery</a><a href="/pa/medkart/workflows/">Workflows</a><a href="/pa/medkart/prd/">PRD</a><a href="/pa/medkart/feature-spec/">Feature Spec</a><a href="/pa/medkart/wireframes/">Wireframes &amp; Prototype</a><a href="/pa/medkart/research/">Research Guide</a><a href="/pa/medkart/qa/">QA</a><a href="/pa/medkart/operations/">Operations</a><a href="/pa/medkart/execution-tracker/">Execution Tracker</a></nav></section><section style="padding-top: var(--sp-6);"><div class="prose"><p class="doc-meta" data-astro-cid-2bu7jrx7><span class="mono" data-astro-cid-2bu7jrx7>v0.1</span> · <span class="mono" data-astro-cid-2bu7jrx7>19 July 2026</span> · Discovery scope locked; validation pending</p>
+<p><strong>Independent product exercise • Based on limited field observation and public information</strong></p>
+<p><strong>Prepared for:</strong> Medkart Product Associate application
+<strong>Version:</strong> 0.1 • 19 July 2026
+<strong>Status:</strong> Discovery scope locked; validation pending
+<strong>Classification:</strong> Independent exercise — not commissioned by Medkart</p>
+<blockquote>
+<p><strong>Opportunity statement:</strong> Explore whether an in-store transaction can become a useful, consent-led digital record that helps customers understand savings, retain purchase information and manage future needs across store and app.</p>
+</blockquote>
+<h2 id="1-executive-summary">1. Executive summary</h2>
+<p>This exercise began with a practical question: how does a product and technology team contribute inside a retail pharmacy business? An exploratory conversation with a Medkart product professional indicated that the team works across retail operations and consumer-facing applications. That prompted field visits to two Medkart stores and approximately five informal interactions with two store representatives.</p>
+<p>The representatives demonstrated billing, inventory lookup, customer relationship management and daily sales reporting. They appeared comfortable with the existing system and did not identify an immediate feature request. The responsible product response is therefore not to declare the current workflow broken. Instead, this brief defines a bounded hypothesis around continuity between the in-store purchase and Medkart’s customer app.</p>
+<p>The proposed concept is a digital purchase and savings record linked to a customer’s membership contact number. It would surface a pharmacist-verified transaction in the app, allow the customer to assign it to a family profile, show savings transparently and request refill communication with explicit consent. Whether any part of this already exists internally must be verified before product development.</p>
+<h2 id="2-evidence-standard">2. Evidence standard</h2>
+<p>Every statement in this exercise is assigned one of four evidence levels. This prevents memory, public information and product hypotheses from being presented as equivalent facts.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Evidence level</th><th>Meaning</th><th>Treatment</th></tr></thead><tbody><tr><td>Observed</td><td>Seen or explained during the two store visits</td><td>Use as limited field evidence</td></tr><tr><td>Recalled</td><td>Retrospectively reconstructed from memory</td><td>Verify before operational use</td></tr><tr><td>Public</td><td>Current public product or company information</td><td>Time-stamp and cite</td></tr><tr><td>Hypothesis</td><td>An opportunity requiring user and internal validation</td><td>Do not describe as an existing problem</td></tr></tbody></table>
+<h2 id="3-discovery-inputs">3. Discovery inputs</h2>
+<h3 id="31-field-interactions">3.1 Field interactions</h3>
+<ul>
+<li>Two Medkart stores near the candidate’s hostel.</li>
+<li>Two representatives responsible for customer service and day-to-day store operations; exact internal titles were not collected.</li>
+<li>Approximately five informal interactions around 15 July 2026.</li>
+<li>A representative walkthrough lasted approximately 40 minutes.</li>
+<li>No photographs, recordings or contemporaneous notes were collected; the account is retrospective.</li>
+</ul>
+<h3 id="32-public-product-baseline">3.2 Public product baseline</h3>
+<p>As of 19 July 2026, Medkart’s public app listing describes prescription upload, branded-versus-generic comparison, order tracking, automatic refill reminders, family profiles and store discovery. Therefore, refill reminders alone are not a defensible new-feature proposal. The exercise instead examines a possible handoff between an in-store bill and the existing customer app.</p>
+<h2 id="4-current-state-observations">4. Current-state observations</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Area</th><th>What was observed or recalled</th><th>Confidence</th></tr></thead><tbody><tr><td>Billing</td><td>Search item → add to bill → explain discount → identify or offer membership → complete bill</td><td>Observed / recalled</td></tr><tr><td>Membership</td><td>Customer is identified using a contact number</td><td>Observed / recalled</td></tr><tr><td>Membership offer</td><td>A ₹60 payment was described as enabling additional discount for one or two years</td><td>Duration requires verification</td></tr><tr><td>Inventory</td><td>Search can locate the medicine’s specific physical storage box</td><td>Observed / recalled</td></tr><tr><td>CRM</td><td>Customer contact information and expected medicine-completion timing were visible</td><td>Purpose and rules require verification</td></tr><tr><td>Reporting</td><td>A daily sales report was demonstrated</td><td>Internal report name unconfirmed</td></tr><tr><td>Receipt</td><td>Printed bill confirmed; digital bill may also exist</td><td>Digital channel requires verification</td></tr><tr><td>Oversight</td><td>Area managers were described as making regular store visits</td><td>Cadence and responsibilities unconfirmed</td></tr></tbody></table>
+<p><strong>Primary field finding:</strong> Experienced representatives appeared familiar with and satisfied with the existing process. No major usability issue, repeated manual task or feature request was identified in this limited sample.</p>
+<h2 id="5-product-hypothesis">5. Product hypothesis</h2>
+<h3 id="51-hypothesized-user-need">5.1 Hypothesized user need</h3>
+<p>An in-store customer may benefit from carrying the value of a physical transaction into the app: a durable bill, an understandable savings record, family-level organization and a controlled path to future action. This need has not yet been validated with customers.</p>
+<h3 id="52-proposed-experience">5.2 Proposed experience</h3>
+<ol>
+<li>The representative identifies the member using the customer’s contact number.</li>
+<li>The retail system completes a pharmacist-verified transaction.</li>
+<li>With appropriate account matching and consent, the transaction becomes visible in the customer’s app.</li>
+<li>The app shows purchased items, store, date, amount paid, digital invoice and an explainable savings summary.</li>
+<li>The customer assigns the purchase to themselves or an authorized family profile.</li>
+<li>The customer explicitly chooses whether and how to receive future refill communication.</li>
+<li>The customer can reorder, contact a store or reach pharmacist support without the feature changing medical instructions.</li>
+</ol>
+<h3 id="53-value-proposition">5.3 Value proposition</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Stakeholder</th><th>Potential value</th></tr></thead><tbody><tr><td>Customer</td><td>Retain bills; understand cumulative savings; organize family purchases; control reminders</td></tr><tr><td>Store representative</td><td>Make membership value tangible; reduce repeated history questions; create a clear store-to-app handoff</td></tr><tr><td>Business</td><td>Support app adoption, retention and measurable omnichannel engagement</td></tr><tr><td>Product and operations</td><td>Create a traceable workflow connecting transaction, consent, communication and support</td></tr></tbody></table>
+<h2 id="6-scope-boundaries">6. Scope boundaries</h2>
+<h3 id="in-scope-for-the-exercise">In scope for the exercise</h3>
+<ul>
+<li>Linking an eligible in-store transaction to an authenticated customer account.</li>
+<li>Digital invoice and purchase summary.</li>
+<li>Savings explanation with a defined comparison method.</li>
+<li>Assignment to an authorized family profile.</li>
+<li>Explicit, editable refill-communication preferences.</li>
+<li>Support, error, duplicate-account and unmatched-transaction states.</li>
+</ul>
+<h3 id="out-of-scope">Out of scope</h3>
+<ul>
+<li>Diagnosis, dosage advice or clinical decision support.</li>
+<li>Automatic medicine substitution or alteration of a prescription.</li>
+<li>Unverified claims that a medicine has been consumed.</li>
+<li>A redesign of Medkart’s retail billing or inventory platform.</li>
+<li>A full loyalty-program redesign.</li>
+<li>Assuming that the proposed capability does not already exist internally.</li>
+</ul>
+<h2 id="7-assumptions-and-validation-plan">7. Assumptions and validation plan</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Assumption</th><th>Owner to consult</th><th>Validation</th></tr></thead><tbody><tr><td>A1</td><td>Contact number reliably identifies membership</td><td>Store ops / product</td><td>Observe exceptions and duplicate numbers</td></tr><tr><td>A2</td><td>In-store bills are not already fully available in the app</td><td>Product / engineering</td><td>Internal capability review</td></tr><tr><td>A3</td><td>Customers value cumulative savings visibility</td><td>Customers</td><td>Concept interviews and prototype test</td></tr><tr><td>A4</td><td>Savings can be calculated and explained consistently</td><td>Pricing / legal / product</td><td>Define comparison source and audit rules</td></tr><tr><td>A5</td><td>Family-profile assignment is appropriate for store purchases</td><td>Customers / privacy</td><td>Consent and account-access research</td></tr><tr><td>A6</td><td>Reminder preferences can be carried across CRM and app</td><td>CRM / engineering</td><td>Data-flow and consent review</td></tr><tr><td>A7</td><td>₹60 membership lasts one or two years</td><td>Store operations</td><td>Verify current policy and variants</td></tr><tr><td>A8</td><td>A digital bill is currently issued</td><td>Store operations</td><td>Observe checkout and confirm delivery channel</td></tr></tbody></table>
+<h2 id="8-safety-privacy-and-trust-requirements">8. Safety, privacy and trust requirements</h2>
+<ul>
+<li>Do not expose purchase information to another family member without clear authorization.</li>
+<li>Do not send reminders until the customer has chosen the channel and granted valid consent.</li>
+<li>Use only pharmacist-verified transaction data; do not infer dosage or adherence.</li>
+<li>Explain how savings are calculated and avoid misleading comparisons.</li>
+<li>Support account mismatch, recycled phone number, shared family number and customer-data deletion scenarios.</li>
+<li>Maintain an audit trail for account linking, preference changes and outbound communication.</li>
+</ul>
+<h2 id="9-research-required-before-a-prd-is-approved">9. Research required before a PRD is approved</h2>
+<p>The next phase should test the problem before refining the solution. A small directional study can begin with 5–8 in-store customers, 3–5 store representatives, 1–2 area managers and relevant product, CRM, engineering and compliance stakeholders.</p>
+<ul>
+<li>What do customers do with printed and digital pharmacy bills after purchase?</li>
+<li>Do customers understand the membership benefit and the savings they received?</li>
+<li>Would customers use in-store history inside the app, and for which task?</li>
+<li>How are shared family contact numbers and family profiles handled today?</li>
+<li>When and how is reminder consent collected, updated and withdrawn?</li>
+<li>Which billing, CRM and app identifiers can safely match a transaction to an account?</li>
+<li>What store exceptions occur when a member cannot be found or uses another person’s number?</li>
+<li>How should savings be calculated, displayed and audited?</li>
+</ul>
+<h2 id="10-decision-gate-and-next-artifacts">10. Decision gate and next artifacts</h2>
+<p>Proceed to detailed design only if research shows that customers value the store-to-app record, internal systems can support reliable account matching, and legal/privacy review accepts the proposed consent and family-access model.</p>
+<ul>
+<li>Customer, store representative and area manager research questionnaire.</li>
+<li>Current-state and proposed-state workflow diagrams.</li>
+<li>Product Requirements Document with user stories and acceptance criteria.</li>
+<li>Wireframes for purchase history, savings, family assignment and reminder consent.</li>
+<li>Analytics and event-tracking plan.</li>
+<li>QA plan, test cases, bug report and release checklist.</li>
+<li>Store SOP, customer user guide and escalation process.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<p>These sources establish the public product baseline and the rationale for exploring an omnichannel journey. They do not reveal Medkart’s internal architecture or prove that the proposed capability is absent.</p>
+<ul>
+<li>Medkart app listing — Google Play</li>
+<li>Medkart app listing — Apple App Store</li>
+<li>Optiblack case study on Medkart analytics and omnichannel measurement</li>
+</ul>
+<h2 id="research-limitations">Research limitations</h2>
+<ul>
+<li>The store sample was small, geographically convenient and limited to experienced representatives.</li>
+<li>Interactions were informal and were not recorded through notes, audio, photographs or a structured interview guide.</li>
+<li>The representatives’ internal role titles, the membership duration and the digital-bill channel remain unverified.</li>
+<li>No customers, newer representatives, area managers, product managers, engineers or compliance stakeholders have yet been interviewed for this concept.</li>
+<li>Public app descriptions can change and may omit capabilities that already exist.</li>
+<li>No access was available to Medkart’s retail software, CRM data model, consent records or app architecture beyond the store walkthrough.</li>
+<li>The proposed experience is therefore a validation-ready hypothesis, not a product recommendation ready for implementation.</li>
+</ul>
+<h2 id="document-control">Document control</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Version</th><th>Date</th><th>Change</th></tr></thead><tbody><tr><td>0.1</td><td>19 July 2026</td><td>Initial discovery brief; field observations, public baseline, assumptions and decision gate</td></tr></tbody></table>
+<p><em>Public-product information checked on 19 July 2026. Store observations are limited, informal and retrospectively documented.</em></p></div></section></div></main><footer class="site-footer"><p>Om Desai · Product Associate candidate portfolio · <a href="mailto:padhai.omdesai@gmail.com">padhai.omdesai@gmail.com</a>· <a href="tel:+918980850095">+91 89808 50095</a>· <a href="/pa/about/">About &amp; résumé</a></p><p>&copy; 2026. Medkart Savings Journey is an independent candidate exercise, not affiliated with or approved by Medkart.</p></footer></body></html>

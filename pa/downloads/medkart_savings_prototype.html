@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medkart Savings Journey — Independent MVP Prototype</title>
+  <style>
+    :root{
+      --ink:#1f2933; --muted:#66737e; --line:#d9e1e5; --canvas:#eef3f2;
+      --surface:#fff; --teal:#0b6f68; --teal-2:#095a55; --teal-soft:#e7f4f1;
+      --gold:#a56a00; --gold-soft:#fff4d6; --red:#a83b2e; --red-soft:#fce8e6;
+      --green:#1f7a4e; --green-soft:#e1f3ea; --shadow:0 24px 70px rgba(22,47,45,.18);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--canvas)}
+    button,a{font:inherit}
+    button{cursor:pointer}
+    .workspace{min-height:100vh;display:grid;grid-template-columns:310px 1fr}
+    .sidebar{padding:28px 24px;background:#143a37;color:white;position:sticky;top:0;height:100vh;overflow:auto}
+    .eyebrow{font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#96d4cd}
+    .sidebar h1{font-size:25px;line-height:1.15;margin:9px 0 9px}
+    .sidebar p{font-size:13px;line-height:1.55;color:#c7dcda;margin:0 0 20px}
+    .disclosure{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);padding:12px;border-radius:12px;font-size:11px;line-height:1.45;color:#e0ecea;margin-bottom:24px}
+    .nav-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#91b9b5;font-weight:800;margin:18px 0 8px}
+    .screen-link{width:100%;border:0;background:transparent;color:#dbe9e7;text-align:left;padding:10px 11px;border-radius:9px;margin:2px 0;display:flex;align-items:center;gap:10px;font-size:13px}
+    .screen-link:hover,.screen-link.active{background:#fff;color:#143a37}
+    .screen-link .num{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,.12);font-size:10px;font-weight:800}
+    .screen-link.active .num{background:var(--teal-soft);color:var(--teal)}
+    .legend{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.15);font-size:11px;color:#a9c7c3;line-height:1.5}
+    .stage{padding:34px;display:grid;place-items:center;min-width:0}
+    .phone{width:390px;height:844px;background:var(--surface);border:10px solid #102a28;border-radius:42px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+    .phone:before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:104px;height:24px;border-radius:20px;background:#102a28;z-index:20}
+    .statusbar{height:34px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 22px 6px;font-size:10px;font-weight:750;background:white;position:relative;z-index:2}
+    .screen{height:calc(100% - 34px);background:#f7f9f9;display:none;overflow:auto;padding-bottom:84px;scrollbar-width:none}
+    .screen::-webkit-scrollbar{display:none}
+    .screen.active{display:block}
+    .concept-strip{padding:7px 15px;background:var(--gold-soft);color:#785108;font-size:9.5px;font-weight:700;text-align:center;border-bottom:1px solid #efd899}
+    .appbar{background:white;padding:15px 17px 13px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;z-index:5}
+    .appbar h2{font-size:18px;margin:0;line-height:1.15}
+    .appbar .sub{font-size:10.5px;color:var(--muted);margin-top:3px}
+    .icon-btn{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:white;color:var(--ink);display:grid;place-items:center;font-weight:800}
+    .content{padding:15px}
+    .summary-card{background:linear-gradient(135deg,#0b6f68,#0b5b55);color:white;border-radius:18px;padding:18px;box-shadow:0 12px 28px rgba(11,111,104,.18)}
+    .summary-card .label{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:#b8e0dc;font-weight:800}
+    .summary-card .amount{font-size:30px;font-weight:850;margin:3px 0}
+    .summary-card p{font-size:11px;line-height:1.45;color:#d8ecea;margin:5px 0 0}
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin:18px 2px 9px}
+    .section-title h3{font-size:13px;margin:0}
+    .section-title button{border:0;background:transparent;color:var(--teal);font-size:11px;font-weight:750}
+    .purchase-card{background:white;border:1px solid var(--line);border-radius:15px;padding:14px;margin-bottom:10px;box-shadow:0 3px 12px rgba(31,41,51,.04)}
+    .purchase-card .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .purchase-card h4{margin:0;font-size:13px}
+    .purchase-card .meta{font-size:10.5px;color:var(--muted);margin-top:4px}
+    .tag{display:inline-flex;align-items:center;padding:4px 7px;border-radius:20px;font-size:9px;font-weight:800;white-space:nowrap}
+    .tag.complete{color:var(--green);background:var(--green-soft)}
+    .tag.adjusted{color:var(--gold);background:var(--gold-soft)}
+    .purchase-card .money{display:flex;justify-content:space-between;align-items:end;margin-top:13px;padding-top:11px;border-top:1px solid #edf1f2}
+    .price{font-size:17px;font-weight:850}
+    .saved{font-size:10px;color:var(--green);font-weight:800}
+    .chev{color:var(--teal);font-size:18px;font-weight:800}
+    .bottom-nav{position:absolute;bottom:0;left:0;right:0;height:72px;background:white;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-around;z-index:10;padding-bottom:6px}
+    .bottom-nav button{border:0;background:transparent;color:#7d8992;display:grid;gap:3px;place-items:center;font-size:9px;font-weight:700}
+    .bottom-nav button span{font-size:20px;line-height:1}
+    .bottom-nav button.active{color:var(--teal)}
+    .detail-hero{background:white;padding:17px;border-bottom:1px solid var(--line)}
+    .detail-hero .topline{display:flex;justify-content:space-between;align-items:center}
+    .detail-hero .store{font-size:15px;font-weight:800}
+    .detail-hero .meta{font-size:10.5px;color:var(--muted);margin-top:5px}
+    .detail-hero .total-label{font-size:10px;color:var(--muted);margin-top:17px}
+    .detail-hero .total{font-size:29px;font-weight:900;margin-top:1px}
+    .savings-card{margin:14px 15px 0;background:var(--green-soft);border:1px solid #b8dfca;border-radius:15px;padding:14px}
+    .savings-card .row{display:flex;justify-content:space-between;align-items:start;gap:12px}
+    .savings-card .big{font-size:22px;font-weight:900;color:var(--green)}
+    .savings-card h3{font-size:12px;margin:1px 0 4px;color:#195e3e}
+    .savings-card p{font-size:9.5px;line-height:1.4;color:#376a50;margin:0}
+    .text-link{border:0;background:transparent;color:var(--teal);font-size:10px;font-weight:800;padding:0;margin-top:9px}
+    .panel{margin:14px 15px 0;background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden}
+    .panel-title{padding:12px 14px;border-bottom:1px solid #edf1f2;font-size:12px;font-weight:850}
+    .line-item{padding:12px 14px;border-bottom:1px solid #edf1f2;display:flex;justify-content:space-between;gap:10px}
+    .line-item:last-child{border-bottom:0}
+    .line-item .name{font-size:11.5px;font-weight:750}
+    .line-item .desc{font-size:9.5px;color:var(--muted);margin-top:3px}
+    .line-item .amt{font-size:11.5px;font-weight:800;white-space:nowrap}
+    .totals{padding:12px 14px;background:#fbfcfc}
+    .totals .tr{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin:6px 0}
+    .totals .tr.total-row{font-size:12px;color:var(--ink);font-weight:850;padding-top:7px;border-top:1px solid var(--line)}
+    .actions{padding:14px 15px 0;display:grid;gap:9px}
+    .primary,.secondary,.danger-button{width:100%;border-radius:12px;padding:12px 14px;font-weight:800;font-size:12px}
+    .primary{border:1px solid var(--teal);background:var(--teal);color:white}
+    .secondary{border:1px solid var(--teal);background:white;color:var(--teal)}
+    .danger-button{border:1px solid #dca8a2;background:white;color:var(--red)}
+    .method-card{background:white;border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:12px}
+    .method-card h3{font-size:13px;margin:0 0 9px}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .compare-box{padding:12px;border-radius:12px;background:#f3f6f6}
+    .compare-box.good{background:var(--green-soft)}
+    .compare-box .lab{font-size:9px;color:var(--muted);font-weight:750}
+    .compare-box .val{font-size:20px;font-weight:900;margin-top:3px}
+    .compare-box.good .val{color:var(--green)}
+    .formula{margin-top:10px;background:var(--teal-soft);color:#285c57;border-radius:10px;padding:10px;font-size:10px;line-height:1.45}
+    .info-list{margin:0;padding:0;list-style:none}
+    .info-list li{padding:12px 0;border-bottom:1px solid #edf1f2;font-size:10.5px;line-height:1.45;color:#43515c}
+    .info-list li:last-child{border:0;padding-bottom:0}
+    .info-list b{display:block;color:var(--ink);font-size:11px;margin-bottom:3px}
+    .notice{border-radius:12px;padding:11px 12px;background:var(--gold-soft);border:1px solid #eed594;color:#725108;font-size:9.5px;line-height:1.45;margin-top:12px}
+    .choice{display:flex;align-items:flex-start;gap:10px;padding:12px 13px;background:white;border:1px solid var(--line);border-radius:12px;margin-bottom:9px}
+    .choice.selected{border-color:var(--teal);box-shadow:0 0 0 2px rgba(11,111,104,.1)}
+    .radio{width:18px;height:18px;border:2px solid #98a5ad;border-radius:50%;display:grid;place-items:center;margin-top:1px;flex:none}
+    .selected .radio{border-color:var(--teal)}
+    .selected .radio:after{content:"";width:8px;height:8px;background:var(--teal);border-radius:50%}
+    .choice h4{font-size:11.5px;margin:0}
+    .choice p{font-size:9.5px;line-height:1.4;color:var(--muted);margin:3px 0 0}
+    .field{margin:14px 0}
+    .field label{display:block;font-size:10px;font-weight:800;margin-bottom:6px}
+    .field input,.field textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px 12px;background:white;color:var(--ink);font:inherit;font-size:11px}
+    .field textarea{height:74px;resize:none}
+    .helper{font-size:9px;color:var(--muted);line-height:1.4;margin-top:5px}
+    .success-mark{width:64px;height:64px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-size:31px;font-weight:900;margin:30px auto 15px}
+    .center{text-align:center}
+    .center h3{font-size:18px;margin:0 0 7px}
+    .center p{font-size:10.5px;color:var(--muted);line-height:1.5;max-width:290px;margin:0 auto}
+    .case-card{margin-top:20px;background:white;border:1px solid var(--line);border-radius:15px;padding:14px;text-align:left}
+    .case-card .case-id{font-size:9px;text-transform:uppercase;color:var(--muted);font-weight:800;letter-spacing:.08em}
+    .case-card h4{font-size:13px;margin:5px 0 11px}
+    .progress{display:flex;gap:5px;margin:10px 0}
+    .progress i{height:5px;flex:1;background:#dfe6e8;border-radius:5px}
+    .progress i.done{background:var(--teal)}
+    .case-card p{font-size:9.5px;line-height:1.45;color:var(--muted);margin:7px 0 0}
+    .claim-hero{padding:17px;background:var(--teal-soft);border-bottom:1px solid #cfe4e1}
+    .claim-hero h3{font-size:15px;margin:0 0 5px;color:#155f59}
+    .claim-hero p{font-size:10px;line-height:1.45;color:#46716d;margin:0}
+    .safe-box{display:flex;gap:10px;background:white;border:1px solid #bddbd7;border-radius:12px;padding:11px;margin:14px 0}
+    .safe-box .lock{font-size:20px}
+    .safe-box p{font-size:9.5px;line-height:1.45;color:#4d6966;margin:0}
+    .safe-box b{display:block;color:#174f4b;margin-bottom:2px}
+    @media(max-width:760px){
+      .workspace{display:block}.sidebar{position:relative;height:auto;padding:20px}.sidebar .nav-label,.sidebar .screen-link,.legend{display:none}
+      .stage{padding:14px}.phone{width:min(390px,100%);height:844px}
+    }
+  </style>
+</head>
+<body>
+<main class="workspace">
+  <aside class="sidebar">
+    <div class="eyebrow">Independent MVP prototype</div>
+    <h1>Medkart Savings Journey</h1>
+    <p>Store purchase history, digital invoice, explainable savings and correction handling.</p>
+    <div class="disclosure">This candidate-created prototype is not Medkart’s current interface. All transactions, prices, stores and identifiers are fictional.</div>
+    <div class="nav-label">Prototype screens</div>
+    <button class="screen-link" data-screen="history"><span class="num">01</span>Purchase history</button>
+    <button class="screen-link" data-screen="detail"><span class="num">02</span>Purchase detail</button>
+    <button class="screen-link" data-screen="savings"><span class="num">03</span>Savings explanation</button>
+    <button class="screen-link" data-screen="issue"><span class="num">04</span>Report an issue</button>
+    <button class="screen-link" data-screen="status"><span class="num">05</span>Issue status</button>
+    <button class="screen-link" data-screen="claim"><span class="num">06</span>Claim unmatched purchase</button>
+    <div class="legend">MVP only. Family assignment, refill consent and reorder are intentionally excluded from this prototype.</div>
+  </aside>
+
+  <section class="stage">
+    <div class="phone" aria-label="Interactive mobile prototype">
+      <div class="statusbar"><span>9:41</span><span>● ●● 100%</span></div>
+
+      <section class="screen" id="screen-history">
+        <div class="concept-strip">Independent concept • fictional example data</div>
+        <header class="appbar"><div><h2>Store purchases</h2><div class="sub">Bills and savings from eligible store visits</div></div><button class="icon-btn" aria-label="Help">?</button></header>
+        <div class="content">
+          <div class="summary-card"><div class="label">Example savings across linked purchases</div><div class="amount">₹1,260</div><p>Calculated using the approved comparison shown on each eligible purchase.</p></div>
+          <div class="section-title"><h3>Recent purchases</h3><button>Filter</button></div>
+          <article class="purchase-card" data-go="detail"><div class="top"><div><h4>Medkart • University Road</h4><div class="meta">18 Jul 2026 • Invoice MK-10482</div></div><span class="tag complete">Completed</span></div><div class="money"><div><div class="price">₹640</div><div class="saved">Example saving ₹540</div></div><span class="chev">›</span></div></article>
+          <article class="purchase-card"><div class="top"><div><h4>Medkart • Central Avenue</h4><div class="meta">03 Jul 2026 • Invoice MK-09731</div></div><span class="tag adjusted">Adjusted</span></div><div class="money"><div><div class="price">₹420</div><div class="saved">Example saving ₹310</div></div><span class="chev">›</span></div></article>
+          <article class="purchase-card"><div class="top"><div><h4>Medkart • University Road</h4><div class="meta">12 Jun 2026 • Invoice MK-08814</div></div><span class="tag complete">Completed</span></div><div class="money"><div><div class="price">₹515</div><div class="saved">Example saving ₹410</div></div><span class="chev">›</span></div></article>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-detail">
+        <div class="concept-strip">Independent concept • fictional example data</div>
+        <header class="appbar"><button class="icon-btn" data-go="history" aria-label="Back">←</button><div style="flex:1"><h2>Purchase details</h2><div class="sub">Invoice MK-10482</div></div><button class="icon-btn" aria-label="More">•••</button></header>
+        <div class="detail-hero"><div class="topline"><div><div class="store">Medkart • University Road</div><div class="meta">18 Jul 2026, 7:42 PM</div></div><span class="tag complete">Completed</span></div><div class="total-label">Amount paid</div><div class="total">₹640</div></div>
+        <div class="savings-card"><div class="row"><div><h3>Example saving on this purchase</h3><p>Compared using the approved branded-price method.</p></div><div class="big">₹540</div></div><button class="text-link" data-go="savings">How this is calculated →</button></div>
+        <div class="panel"><div class="panel-title">Purchase summary</div><div class="line-item"><div><div class="name">Medicine A</div><div class="desc">10 tablets • fictional item</div></div><div class="amt">₹280</div></div><div class="line-item"><div><div class="name">Medicine B</div><div class="desc">15 tablets • fictional item</div></div><div class="amt">₹320</div></div><div class="line-item"><div><div class="name">Health product C</div><div class="desc">1 unit • fictional item</div></div><div class="amt">₹80</div></div><div class="totals"><div class="tr"><span>Items subtotal</span><span>₹680</span></div><div class="tr"><span>Store discount</span><span>− ₹40</span></div><div class="tr total-row"><span>Amount paid</span><span>₹640</span></div></div></div>
+        <div class="actions"><button class="primary">View digital invoice</button><button class="danger-button" data-go="issue">Something is wrong</button></div>
+      </section>
+
+      <section class="screen" id="screen-savings">
+        <div class="concept-strip">Independent concept • fictional example data</div>
+        <header class="appbar"><button class="icon-btn" data-go="detail" aria-label="Back">←</button><div style="flex:1"><h2>How savings are calculated</h2><div class="sub">Invoice MK-10482</div></div></header>
+        <div class="content">
+          <div class="method-card"><h3>Example comparison</h3><div class="compare-grid"><div class="compare-box"><div class="lab">Approved comparable price</div><div class="val">₹1,180</div></div><div class="compare-box good"><div class="lab">Amount paid</div><div class="val">₹640</div></div></div><div class="formula">₹1,180 comparable price − ₹640 amount paid = <b>₹540 example saving</b></div></div>
+          <div class="method-card"><h3>What this means</h3><ul class="info-list"><li><b>Approved comparator</b>The comparison must use a method reviewed by Medkart’s pricing and legal owners.</li><li><b>Same purchase context</b>Only eligible items with a valid comparison are included.</li><li><b>Not always available</b>If comparison inputs cannot be verified, the app should show the paid amount without a savings claim.</li><li><b>Method version</b>This example uses “Comparison method v1” for transparency and audit.</li></ul><div class="notice">Prototype note: values and methodology are illustrative. An actual calculation standard must be approved before launch.</div></div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-issue">
+        <div class="concept-strip">Independent concept • fictional example data</div>
+        <header class="appbar"><button class="icon-btn" data-go="detail" aria-label="Back">←</button><div style="flex:1"><h2>Report a purchase issue</h2><div class="sub">Invoice MK-10482</div></div></header>
+        <div class="content">
+          <div class="notice" style="margin:0 0 14px">Do not include prescription, diagnosis or other unnecessary medical details.</div>
+          <div class="choice selected"><span class="radio"></span><div><h4>This purchase is not mine</h4><p>Protect the record and start identity verification.</p></div></div>
+          <div class="choice"><span class="radio"></span><div><h4>I see a duplicate purchase</h4><p>The same invoice appears more than once.</p></div></div>
+          <div class="choice"><span class="radio"></span><div><h4>Amount or status looks incorrect</h4><p>Total, refund, return or purchase status needs review.</p></div></div>
+          <div class="choice"><span class="radio"></span><div><h4>I cannot open the invoice</h4><p>The digital invoice is missing or unavailable.</p></div></div>
+          <div class="field"><label>Optional note</label><textarea placeholder="Add only information needed to explain the issue"></textarea><div class="helper">Avoid medicine or prescription details unless support specifically requests them through an approved secure channel.</div></div>
+          <button class="primary" data-go="status">Submit issue</button>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-status">
+        <div class="concept-strip">Independent concept • fictional example data</div>
+        <header class="appbar"><button class="icon-btn" data-go="history" aria-label="Close">×</button><div style="flex:1"><h2>Issue received</h2><div class="sub">Protected correction workflow</div></div></header>
+        <div class="content center">
+          <div class="success-mark">✓</div><h3>We’ve protected this record</h3><p>The purchase will remain restricted while ownership is reviewed. No further purchase detail is shown in this prototype state.</p>
+          <div class="case-card"><div class="case-id">Case CY-2084</div><h4>Purchase ownership review</h4><div class="progress"><i class="done"></i><i></i><i></i></div><p><b style="color:var(--ink)">Received</b><br>Support will verify the transaction and account relationship through an approved process.</p></div>
+          <div class="actions" style="padding:16px 0 0"><button class="primary" data-go="history">Back to purchase history</button><button class="secondary">Contact support</button></div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-claim">
+        <div class="concept-strip">Independent concept • fictional example data</div>
+        <header class="appbar"><button class="icon-btn" data-go="history" aria-label="Back">←</button><div style="flex:1"><h2>Claim a store purchase</h2><div class="sub">For purchases not linked automatically</div></div></header>
+        <div class="claim-hero"><h3>Verify before viewing details</h3><p>Medicine, amount and invoice details remain hidden until the purchase can be matched safely to your account.</p></div>
+        <div class="content">
+          <div class="safe-box"><div class="lock">🔒</div><p><b>Privacy-first claim</b>A contact number alone may be insufficient when numbers are shared, changed or recycled.</p></div>
+          <div class="field"><label>Invoice number</label><input value="MK-" aria-label="Invoice number"><div class="helper">Find this on the printed or approved digital receipt.</div></div>
+          <div class="field"><label>Purchase date</label><input value="18 / 07 / 2026" aria-label="Purchase date"></div>
+          <div class="field"><label>Verification code</label><input placeholder="6-digit code" aria-label="Verification code"><div class="helper">The actual verification method must be approved by identity and privacy owners.</div></div>
+          <button class="primary">Verify and claim</button>
+          <button class="secondary" style="margin-top:9px">I need help</button>
+          <div class="notice">This screen intentionally reveals no transaction or medicine detail before verification.</div>
+        </div>
+      </section>
+
+      <nav class="bottom-nav" aria-label="App navigation"><button><span>⌂</span>Home</button><button class="active" data-go="history"><span>▤</span>Purchases</button><button><span>⌖</span>Stores</button><button><span>○</span>Profile</button></nav>
+    </div>
+  </section>
+</main>
+<script>
+  const valid = ['history','detail','savings','issue','status','claim'];
+  function showScreen(name, push=true){
+    if(!valid.includes(name)) name='history';
+    document.querySelectorAll('.screen').forEach(el=>el.classList.toggle('active',el.id==='screen-'+name));
+    document.querySelectorAll('.screen-link').forEach(el=>el.classList.toggle('active',el.dataset.screen===name));
+    document.querySelector('.bottom-nav').style.display = ['history','detail'].includes(name) ? 'flex' : 'none';
+    if(push) history.replaceState(null,'','#'+name);
+  }
+  document.addEventListener('click',e=>{
+    const target=e.target.closest('[data-go],[data-screen]');
+    if(target) showScreen(target.dataset.go || target.dataset.screen);
+    const choice=e.target.closest('.choice');
+    if(choice){document.querySelectorAll('.choice').forEach(c=>c.classList.remove('selected'));choice.classList.add('selected')}
+  });
+  window.addEventListener('hashchange',()=>showScreen(location.hash.slice(1),false));
+  window.showScreen=showScreen;
+  showScreen(location.hash.slice(1)||'history',false);
+</script>
+</body>
+</html>

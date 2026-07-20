@@ -1,0 +1,1654 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>QA Plan &amp; Tracker · Om Desai</title><meta name="description" content="A 40-case QA test strategy plus the full QA tracker workbook, transcribed — execution status Not Run."><link rel="icon" href="/pa/favicon.svg" type="image/svg+xml"><style>.doc-meta[data-astro-cid-2bu7jrx7]{color:var(--text-muted);font-size:var(--text-sm);margin:0 0 var(--sp-5)}
+</style><link rel="stylesheet" href="/pa/_astro/BaseLayout.BOOJg5xu.css"></head><body class="theme-medkart"><header class="site-header"><div class="wrap"><a class="brand" href="/pa/">Om Desai</a><button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav><ul class="site-nav" id="site-nav"><li><a href="/pa/medkart/" aria-current="page">Medkart Product Exercise</a></li><li><a href="/pa/real-product-work/">Real Product Work</a></li><li><a href="/pa/research-coordination/">Research &amp; Coordination</a></li><li><a href="/pa/artifacts/">Artifacts</a></li><li><a href="/pa/about/">About / Resume</a></li></ul></nav></div></header><script type="module">var e=document.getElementById(`nav-toggle`),t=document.getElementById(`site-nav`);e?.addEventListener(`click`,()=>{let n=t?.classList.toggle(`is-open`);e.setAttribute(`aria-expanded`,n?`true`:`false`)});</script><main><div class="wrap wrap--narrow"><section style="padding-bottom: 0;"><p class="eyebrow">Medkart Product Exercise</p><h1>QA Plan &amp; Tracker</h1><nav class="subnav" aria-label="Medkart Product Exercise sections"><a href="/pa/medkart/">Overview</a><a href="/pa/medkart/discovery/">Discovery</a><a href="/pa/medkart/workflows/">Workflows</a><a href="/pa/medkart/prd/">PRD</a><a href="/pa/medkart/feature-spec/">Feature Spec</a><a href="/pa/medkart/wireframes/">Wireframes &amp; Prototype</a><a href="/pa/medkart/research/">Research Guide</a><a href="/pa/medkart/qa/" aria-current="page">QA</a><a href="/pa/medkart/operations/">Operations</a><a href="/pa/medkart/execution-tracker/">Execution Tracker</a></nav></section><section style="padding-top: var(--sp-6);"><div class="prose"><p class="doc-meta" data-astro-cid-2bu7jrx7><span class="mono" data-astro-cid-2bu7jrx7>v0.1</span> · <span class="mono" data-astro-cid-2bu7jrx7>19 July 2026</span> · Draft for prototype validation and implementation feasibility review</p>
+<h2 id="medkart-savings-journey--mvp-test-strategy-defect-workflow-and-pilot-release-controls">Medkart Savings Journey — MVP test strategy, defect workflow and pilot release controls</h2>
+<p><strong>Status:</strong> Draft for prototype validation and implementation feasibility review
+<strong>Related artifacts:</strong> PRD v0.1 • Feature Specification v0.1 • QA Tracker workbook
+<strong>MVP scope:</strong> Linked purchase history, digital invoice, explainable savings and correction handling
+<strong>Execution state:</strong> 40 test cases designed; execution status is Not Run
+<strong>Evidence state:</strong> Eight sample defects demonstrate reporting structure; none are production claims
+<strong>Version:</strong> 0.1 • 19 July 2026
+<strong>Disclosure:</strong> Independent candidate exercise; no access to Medkart production systems</p>
+<blockquote>
+<p><strong>Quality objective:</strong> Prove that store-purchase records are linked, explained and corrected without exposing another customer’s data, misstating savings or interrupting store checkout.</p>
+</blockquote>
+<blockquote>
+<p><strong>Evidence rule:</strong> A designed test is not a passed test. A sample bug is not an observed defect. Execution status changes only after authorized testing with reproducible evidence.</p>
+</blockquote>
+<h2 id="1-scope-and-quality-risks">1. Scope and quality risks</h2>
+<h3 id="11-in-scope">1.1 In scope</h3>
+<ul>
+<li>Transaction ingestion, eligibility, idempotency and delayed-event recovery.</li>
+<li>Unique account matching, fail-closed ambiguous/missing matches and authorization.</li>
+<li>Purchase history, detail, digital invoice and transaction lifecycle states.</li>
+<li>Approved savings calculation, explanation, unavailable states and rounding.</li>
+<li>Issue reporting, immediate protection for “not mine,” case status and support handoff.</li>
+<li>Accessibility, privacy-safe analytics, operational readiness and controlled pilot release.</li>
+</ul>
+<h3 id="12-out-of-scope">1.2 Out of scope</h3>
+<ul>
+<li>Clinical accuracy, prescription validation or medicine-consumption inference.</li>
+<li>Family assignment, refill reminder consent integration and reorder flows.</li>
+<li>Penetration testing of any live environment without written authorization.</li>
+<li>Validation of Medkart’s current internal retail software or production architecture.</li>
+</ul>
+<h3 id="13-risk-based-priorities">1.3 Risk-based priorities</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Risk</th><th>Why it matters</th><th>Primary controls</th><th>Gate</th></tr></thead><tbody><tr><td>Cross-account exposure</td><td>Purchase records may contain sensitive transaction information.</td><td>Fail closed; endpoint authorization; cache isolation; audit.</td><td>P0</td></tr><tr><td>Incorrect identity link</td><td>Shared/recycled numbers or normalization can mis-link records.</td><td>Unique verified match; ambiguous state; protected claim.</td><td>P0</td></tr><tr><td>Misstated savings</td><td>Unapproved/missing comparator can damage trust.</td><td>Approved method/version; suppression; reconciliation.</td><td>P0</td></tr><tr><td>Duplicate or stale records</td><td>Retries/refunds can corrupt history and totals.</td><td>Idempotency; ordering; lifecycle reconciliation.</td><td>P0</td></tr><tr><td>Checkout dependency</td><td>Customer billing must continue during linking failure.</td><td>Asynchronous event; queue; recovery monitoring.</td><td>P0</td></tr><tr><td>Support dead end</td><td>A wrong record must be correctable quickly.</td><td>Case ID; ownership; status; escalation SOP.</td><td>P1</td></tr></tbody></table>
+<h2 id="2-test-strategy">2. Test strategy</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Layer</th><th>Focus</th><th>Examples</th><th>Owner</th></tr></thead><tbody><tr><td>Component</td><td>Calculation and state logic</td><td>Eligibility, normalization, savings, lifecycle reducer</td><td>Engineering</td></tr><tr><td>API / contract</td><td>Authorization and event behavior</td><td>Idempotency, replays, error taxonomy, audit</td><td>Engineering + QA</td></tr><tr><td>Integration</td><td>Retail-event to app journey</td><td>Matched, delayed, refund, outage recovery</td><td>QA + Engineering</td></tr><tr><td>End-to-end</td><td>Customer-visible core flow</td><td>History → detail → invoice/savings → issue</td><td>QA</td></tr><tr><td>Security/privacy</td><td>Data isolation and minimization</td><td>Direct URL, shared device, analytics, brute force</td><td>Security/Privacy</td></tr><tr><td>Accessibility</td><td>Operability and comprehension</td><td>Keyboard, screen reader, scaling, status semantics</td><td>QA + Design</td></tr><tr><td>Operations</td><td>Support and release readiness</td><td>Case queue, SOP, alerts, rollback drill</td><td>Product Ops</td></tr></tbody></table>
+<h3 id="21-test-data-principles">2.1 Test data principles</h3>
+<ul>
+<li>Use synthetic accounts, stores, invoices and item labels only.</li>
+<li>Create explicit datasets for unique, missing, ambiguous and recycled-phone conditions.</li>
+<li>Keep a deterministic event ID for replay and out-of-order lifecycle testing.</li>
+<li>Do not copy customer phone numbers, medicine names, prescriptions or support notes into test evidence.</li>
+<li>Version the approved savings comparator and record expected calculations independently.</li>
+</ul>
+<h3 id="22-environments-and-observability">2.2 Environments and observability</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Need</th><th>Minimum evidence</th></tr></thead><tbody><tr><td>Authorized staging or isolated test environment</td><td>Environment name, build/version, feature flag and tester.</td></tr><tr><td>Event visibility</td><td>Event ID, processing state, retry count and reconciliation outcome.</td></tr><tr><td>Authorization evidence</td><td>Request outcome and redacted audit event; never include another user’s detail.</td></tr><tr><td>Analytics validation</td><td>Approved schema, one-event behavior and redacted payload inspection.</td></tr><tr><td>Support validation</td><td>Case ID, routing, status transition and SLA/owner confirmation.</td></tr></tbody></table>
+<h2 id="3-core-scenario-set">3. Core scenario set</h2>
+<p>The executable workbook contains 40 detailed test cases. The following set is the interview-level walkthrough.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Scenario</th><th>Expected outcome</th><th>Priority</th></tr></thead><tbody><tr><td>TC-001</td><td>Eligible matched purchase</td><td>One linked record with correct store/date/amount/status.</td><td>P0</td></tr><tr><td>TC-002</td><td>Duplicate event replay</td><td>One record; savings counted once.</td><td>P0</td></tr><tr><td>TC-005</td><td>Ambiguous account match</td><td>No transaction detail exposed; protected state.</td><td>P0</td></tr><tr><td>TC-013</td><td>Missing comparator</td><td>Savings amount suppressed with honest explanation.</td><td>P0</td></tr><tr><td>TC-015</td><td>Full return</td><td>Returned state; amounts and savings reconciled.</td><td>P0</td></tr><tr><td>TC-018</td><td>”Not mine” issue</td><td>Detail protected immediately; case created.</td><td>P0</td></tr><tr><td>TC-021</td><td>Direct URL from wrong account</td><td>Denied, no sensitive response, attempt logged.</td><td>P0</td></tr><tr><td>TC-027</td><td>Linking outage</td><td>Checkout completes; event reconciles later.</td><td>P0</td></tr><tr><td>TC-032</td><td>Sensitive issue note</td><td>Free text excluded from general analytics.</td><td>P0</td></tr><tr><td>TC-040</td><td>No reminder consent</td><td>Purchase does not schedule a reminder.</td><td>P0</td></tr></tbody></table>
+<p><em>(See the full 40-case Test_Cases sheet in the companion QA Tracker workbook for complete coverage.)</em></p>
+<h3 id="31-pass-fail-and-blocked">3.1 Pass, fail and blocked</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Status</th><th>Definition</th></tr></thead><tbody><tr><td>Passed</td><td>Observed result matches expected result and required evidence is attached.</td></tr><tr><td>Failed</td><td>Observed result differs; link a reproducible defect.</td></tr><tr><td>Blocked</td><td>Execution cannot proceed because environment, dependency or data is unavailable.</td></tr><tr><td>Not Run</td><td>Designed but not executed. This is the workbook default.</td></tr><tr><td>Not Applicable</td><td>Reviewed and excluded with a recorded reason/approver.</td></tr></tbody></table>
+<h2 id="4-defect-management">4. Defect management</h2>
+<h3 id="41-severity-model">4.1 Severity model</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Severity</th><th>Definition</th><th>Response</th></tr></thead><tbody><tr><td>Critical</td><td>Cross-account exposure, systemic authorization failure or severe privacy/security harm.</td><td>Immediate no-go; restrict access; incident path.</td></tr><tr><td>High</td><td>Core data integrity, lifecycle, savings or correction failure with material user impact.</td><td>Release blocker until fixed or formally risk-accepted.</td></tr><tr><td>Medium</td><td>Recoverable functionality, accessibility or UX failure with a workaround.</td><td>Resolve before pilot unless explicitly approved.</td></tr><tr><td>Low</td><td>Minor presentation or clarity issue without material risk.</td><td>Prioritize by value and capacity.</td></tr></tbody></table>
+<h3 id="42-required-bug-report-anatomy">4.2 Required bug report anatomy</h3>
+<ul>
+<li>One specific summary: condition + behavior + impact.</li>
+<li>Environment/build, test ID and reproducible steps.</li>
+<li>Expected result, observed result and redacted evidence.</li>
+<li>Severity based on impact, not emotion; owner and target milestone.</li>
+<li>Privacy-safe data: no customer contact details, medicine names or clinical notes.</li>
+<li>Retest result, regression scope and closure evidence.</li>
+</ul>
+<blockquote>
+<p><strong>Sample-defect disclosure:</strong> The workbook includes eight intentionally designed sample scenarios to demonstrate reporting quality. Their Evidence Type is “Sample scenario” and Status is “Draft.” They must not be presented as bugs found in Medkart.</p>
+</blockquote>
+<h3 id="43-workflow">4.3 Workflow</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>State</th><th>Exit condition</th></tr></thead><tbody><tr><td>Draft</td><td>Reproduced in an authorized environment and triaged.</td></tr><tr><td>Open</td><td>Owner and severity accepted.</td></tr><tr><td>In Progress</td><td>Fix/build reference available.</td></tr><tr><td>Ready for Retest</td><td>Deployable build and test notes provided.</td></tr><tr><td>Closed</td><td>Original case and agreed regression set pass.</td></tr><tr><td>Deferred</td><td>Reason, risk owner and review date recorded.</td></tr></tbody></table>
+<h2 id="5-entry-exit-and-release-decision">5. Entry, exit and release decision</h2>
+<h3 id="51-test-entry-criteria">5.1 Test entry criteria</h3>
+<ul>
+<li>PRD acceptance criteria and MVP scope are stable enough to test.</li>
+<li>Authorized environment, synthetic test data and required integrations are available.</li>
+<li>Savings comparator/method and state mappings are approved for the build.</li>
+<li>Logging is sufficient to diagnose without collecting unnecessary sensitive data.</li>
+<li>Known limitations and owners are recorded.</li>
+</ul>
+<h3 id="52-pilot-exit-criteria">5.2 Pilot exit criteria</h3>
+<ul>
+<li>All P0 cases pass; no P0 case is Not Run, Failed or Blocked.</li>
+<li>No open Critical or High privacy/security defect.</li>
+<li>No known duplicate counting, cross-account exposure or checkout-blocking behavior.</li>
+<li>Savings explanation and unavailable states are approved and reconciled.</li>
+<li>Support SOP, correction route, monitoring, feature flag and rollback are ready.</li>
+<li>Accessibility and analytics checks pass for the pilot scope.</li>
+<li>Go/no-go decision and risk acceptances are recorded by accountable owners.</li>
+</ul>
+<h3 id="53-automatic-no-go-triggers">5.3 Automatic no-go triggers</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Trigger</th><th>Action</th></tr></thead><tbody><tr><td>Any cross-account exposure or authorization bypass</td><td>Disable/restrict feature; security/privacy incident path.</td></tr><tr><td>Ambiguous identity reveals transaction metadata</td><td>Fail closed and stop rollout.</td></tr><tr><td>Savings is displayed without an approved comparator</td><td>Suppress module; stop rollout until corrected.</td></tr><tr><td>Linking failure interrupts checkout</td><td>Disable dependency; restore checkout independence.</td></tr><tr><td>Correction path cannot protect a “not mine” record</td><td>Stop rollout and activate support fallback.</td></tr></tbody></table>
+<blockquote>
+<p><strong>Decision rule:</strong> The workbook dashboard is a review signal, not an automated release authority. Product, Engineering, QA, Security/Privacy and Operations remain accountable for go/no-go.</p>
+</blockquote>
+<h2 id="6-pilot-monitoring-and-rollback">6. Pilot, monitoring and rollback</h2>
+<h3 id="61-controlled-pilot">6.1 Controlled pilot</h3>
+<ul>
+<li>Use a feature flag and small approved cohort of stores/accounts.</li>
+<li>Confirm staff briefing, support route and escalation contacts before enabling.</li>
+<li>Monitor match outcomes, duplicates, reconciliation delays, issue categories and invoice availability.</li>
+<li>Review early cases daily; expand only after stable results and explicit approval.</li>
+</ul>
+<h3 id="62-suggested-operational-indicators">6.2 Suggested operational indicators</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Indicator</th><th>Purpose</th><th>Guardrail</th></tr></thead><tbody><tr><td>Eligible event → linked record rate</td><td>Detect ingestion/match breakage.</td><td>Segment safely; never expose unmatched detail.</td></tr><tr><td>Ambiguous/missing match rate</td><td>Measure identity friction.</td><td>No automatic linking when uncertain.</td></tr><tr><td>Duplicate record rate</td><td>Detect idempotency failure.</td><td>Target zero; investigate immediately.</td></tr><tr><td>Reconciliation delay</td><td>Detect queue or lifecycle lag.</td><td>Alert on defined threshold.</td></tr><tr><td>”Not mine” issue rate</td><td>Detect possible mis-linking.</td><td>Privacy review and rapid protection.</td></tr><tr><td>Savings unavailable/error rate</td><td>Detect comparator/data gaps.</td><td>Suppress rather than estimate.</td></tr><tr><td>Support resolution time</td><td>Check operational readiness.</td><td>Do not promise an SLA until approved.</td></tr></tbody></table>
+<h3 id="63-rollback-readiness">6.3 Rollback readiness</h3>
+<ul>
+<li>Named decision owner and technical operator.</li>
+<li>Documented triggers, feature-disable steps and confirmation check.</li>
+<li>Checkout remains unaffected when the app feature is disabled.</li>
+<li>Queued events and linked records have an approved recovery/reconciliation plan.</li>
+<li>Customer/support communication copy is ready for material incidents.</li>
+</ul>
+<h2 id="7-roles-cadence-and-evidence">7. Roles, cadence and evidence</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Role</th><th>Accountability</th></tr></thead><tbody><tr><td>Product Manager</td><td>Scope, acceptance criteria, savings meaning and go/no-go decision.</td></tr><tr><td>Engineering</td><td>Implementation quality, observability, fixes, feature flag and rollback.</td></tr><tr><td>QA Owner</td><td>Test design, execution evidence, defect lifecycle and release summary.</td></tr><tr><td>Security/Privacy</td><td>Identity, authorization, data minimization and incident response.</td></tr><tr><td>Retail Operations</td><td>Store impact, pilot readiness and checkout continuity.</td></tr><tr><td>Support</td><td>Correction workflow, case ownership, status language and escalation.</td></tr><tr><td>Analytics/Data</td><td>Approved events, comparator lineage and monitoring integrity.</td></tr><tr><td>Design/Accessibility</td><td>Comprehension, error states and accessible interaction.</td></tr></tbody></table>
+<h3 id="71-recommended-cadence">7.1 Recommended cadence</h3>
+<ul>
+<li>Daily during execution: failures, blockers, privacy risks and environment health.</li>
+<li>Before pilot: evidence review against the 17-item release checklist.</li>
+<li>During pilot: daily metric/issue review with a named decision log.</li>
+<li>After pilot: findings, unresolved risks, customer/store feedback and scale recommendation.</li>
+</ul>
+<h3 id="72-evidence-checklist">7.2 Evidence checklist</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Artifact</th><th>Minimum content</th></tr></thead><tbody><tr><td>Test run</td><td>Case ID, environment/build, tester, timestamp, observed result and evidence link.</td></tr><tr><td>Defect</td><td>Reproduction, expected/observed, severity, owner, target and redacted evidence.</td></tr><tr><td>Release control</td><td>Owner, completion state and proof/decision link.</td></tr><tr><td>Go/no-go record</td><td>Decision, attendees, open risks, acceptances and rollback owner.</td></tr><tr><td>Pilot summary</td><td>Scope, outcomes, metrics, issues, feedback and recommendation.</td></tr></tbody></table>
+<h2 id="8-interview-walkthrough">8. Interview walkthrough</h2>
+<ul>
+<li>Open QA Dashboard and explain why it says execution pending.</li>
+<li>Show TC-005 to demonstrate fail-closed privacy thinking.</li>
+<li>Show BUG-001 and point to “Sample scenario / Draft” disclosure.</li>
+<li>Open Coverage Matrix to prove traceability to PRD requirements.</li>
+<li>Close with Release Checklist and the human go/no-go rule.</li>
+</ul>
+<blockquote>
+<p><strong>Suggested close:</strong> “I have not tested Medkart production. This package shows how I would turn requirements into a safe, traceable QA and release process, then replace assumptions with authorized evidence.”</p>
+</blockquote><hr><p class="eyebrow">Companion workbook</p><p class="doc-meta" data-astro-cid-2bu7jrx7><span class="mono" data-astro-cid-2bu7jrx7>v0.1</span> · <span class="mono" data-astro-cid-2bu7jrx7>19 July 2026</span> · Execution pending — all cases Not Run</p>
+<p>This file is a Markdown transcription of the <code>Medkart_MVP_QA_Tracker.xlsx</code> workbook, preserved sheet-by-sheet for the portfolio website. The original <code>.xlsx</code> should remain available as a downloadable file alongside this page.</p>
+<blockquote>
+<p><strong>Disclosure:</strong> Proposed product exercise • fictional test data • not based on production-system access or executed Medkart results.</p>
+</blockquote>
+<hr>
+<h2 id="sheet-qa-dashboard">Sheet: QA Dashboard</h2>
+<p><strong>Medkart Savings Journey — QA Control Center</strong></p>
+<h3 id="release-view">Release view</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Total cases</td><td>40</td></tr><tr><td>Passed</td><td>0</td></tr><tr><td>Failed</td><td>0</td></tr><tr><td>Blocked</td><td>0</td></tr><tr><td>Not run</td><td>40</td></tr><tr><td>Open Critical</td><td>0</td></tr><tr><td>Checklist complete</td><td>0</td></tr><tr><td>Checklist total</td><td>17</td></tr><tr><td>Pass rate</td><td>0%</td></tr></tbody></table>
+<h3 id="release-recommendation">Release recommendation</h3>
+<blockquote>
+<p><strong>NOT READY — EXECUTION PENDING</strong></p>
+</blockquote>
+<h3 id="how-to-use-this-workbook">How to use this workbook</h3>
+<ol>
+<li>Update Test_Cases status, Actual Result, Evidence Link and Tester.</li>
+<li>Move validated defects from sample Draft status into your real workflow only after execution.</li>
+<li>Complete release controls with evidence.</li>
+<li>Use the dashboard recommendation as a prompt for review — not an automatic release decision.</li>
+<li>Never enter patient/medicine free text or personal contact information into analytics/evidence fields.</li>
+</ol>
+<hr>
+<h2 id="sheet-test-cases">Sheet: Test Cases</h2>
+<p><strong>MVP Test Cases</strong> — Execution sheet • yellow cells are user inputs • statuses default to Not Run</p>
+<p><strong>Scope:</strong> linked history, digital invoice, explainable savings, correction handling, privacy/security, operations and accessibility.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Test ID</th><th>Requirement</th><th>Type</th><th>Priority</th><th>Scenario</th><th>Preconditions</th><th>Steps</th><th>Expected Result</th><th>Status</th></tr></thead><tbody><tr><td>TC-001</td><td>FR-01</td><td>Functional</td><td>P0</td><td>Eligible matched purchase ingestion</td><td>A completed, eligible store bill and a uniquely matched app account exist.</td><td>1. Complete the store transaction. 2. Publish the transaction event. 3. Open Purchase History.</td><td>Exactly one linked purchase appears with store, date, amount and status.</td><td>Not Run</td></tr><tr><td>TC-002</td><td>FR-02</td><td>Integration</td><td>P0</td><td>Duplicate event is idempotent</td><td>TC-001 event has already been processed.</td><td>Replay the same event ID twice.</td><td>No duplicate record; totals and savings are counted once.</td><td>Not Run</td></tr><tr><td>TC-003</td><td>FR-03</td><td>Functional</td><td>P1</td><td>Ineligible transaction excluded</td><td>Transaction is marked ineligible by approved business rule.</td><td>Publish event and refresh history.</td><td>Transaction is not linked; exclusion reason is logged for support.</td><td>Not Run</td></tr><tr><td>TC-004</td><td>FR-04</td><td>Security</td><td>P0</td><td>Unique phone match links correct account</td><td>One verified account matches the normalized phone number.</td><td>Process transaction with matching contact number.</td><td>Record is visible only to that verified account.</td><td>Not Run</td></tr><tr><td>TC-005</td><td>FR-05</td><td>Privacy</td><td>P0</td><td>Ambiguous match fails closed</td><td>Two accounts or profiles could match the supplied identifier.</td><td>Process event and sign in to each candidate account.</td><td>No purchase detail is exposed; case enters protected/unmatched state.</td><td>Not Run</td></tr><tr><td>TC-006</td><td>FR-05</td><td>Privacy</td><td>P0</td><td>Missing identifier fails closed</td><td>Transaction has no usable customer identifier.</td><td>Process event and inspect user histories.</td><td>No account receives the transaction; unmatched workflow is available.</td><td>Not Run</td></tr><tr><td>TC-007</td><td>FR-06</td><td>Functional</td><td>P1</td><td>History ordering</td><td>Account has purchases on different dates.</td><td>Open Purchase History.</td><td>Newest purchase is first and record states are clear.</td><td>Not Run</td></tr><tr><td>TC-008</td><td>FR-06</td><td>Functional</td><td>P2</td><td>Empty history state</td><td>Verified account has no linked purchases.</td><td>Open Purchase History.</td><td>Helpful empty state explains linking and offers claim/support route.</td><td>Not Run</td></tr><tr><td>TC-009</td><td>FR-07</td><td>Functional</td><td>P0</td><td>Purchase detail completeness</td><td>A linked purchase exists.</td><td>Open the purchase detail.</td><td>Store, timestamp, line items, quantity, amount, discount, invoice and state are present when available.</td><td>Not Run</td></tr><tr><td>TC-010</td><td>FR-08</td><td>Functional</td><td>P1</td><td>Digital invoice opens</td><td>Invoice artifact is available.</td><td>Select View invoice.</td><td>Correct invoice opens/downloads and is tied to the selected purchase.</td><td>Not Run</td></tr><tr><td>TC-011</td><td>FR-08</td><td>Negative</td><td>P1</td><td>Invoice temporarily unavailable</td><td>Invoice service returns an error.</td><td>Select View invoice.</td><td>No blank page; user sees retry and support options without losing context.</td><td>Not Run</td></tr><tr><td>TC-012</td><td>FR-09</td><td>Functional</td><td>P0</td><td>Savings displayed with approved comparator</td><td>Approved comparator and computation are available.</td><td>Open Savings Explanation.</td><td>Savings amount and method are shown in plain language with basis and caveat.</td><td>Not Run</td></tr><tr><td>TC-013</td><td>FR-09</td><td>Negative</td><td>P0</td><td>Savings suppressed without comparator</td><td>Comparator is missing or not approved.</td><td>Open purchase detail.</td><td>No fabricated savings amount; UI says savings unavailable.</td><td>Not Run</td></tr><tr><td>TC-014</td><td>FR-09</td><td>Functional</td><td>P1</td><td>Zero savings handled</td><td>Approved calculation returns zero.</td><td>Open purchase detail and explanation.</td><td>Zero is displayed neutrally; no misleading positive claim.</td><td>Not Run</td></tr><tr><td>TC-015</td><td>FR-10</td><td>Integration</td><td>P0</td><td>Return updates record</td><td>A linked purchase is fully returned.</td><td>Publish return event and refresh history/detail.</td><td>Status changes to Returned; totals and savings reconcile.</td><td>Not Run</td></tr><tr><td>TC-016</td><td>FR-10</td><td>Integration</td><td>P0</td><td>Partial refund updates line items</td><td>One line item is refunded.</td><td>Publish partial refund event.</td><td>Affected item, net amount and savings update; audit trail remains.</td><td>Not Run</td></tr><tr><td>TC-017</td><td>FR-10</td><td>Integration</td><td>P1</td><td>Out-of-order lifecycle events</td><td>Refund event arrives before original event.</td><td>Process refund then original purchase.</td><td>Final state is correct; no negative or duplicate totals.</td><td>Not Run</td></tr><tr><td>TC-018</td><td>FR-11</td><td>Privacy</td><td>P0</td><td>Not-mine report protects immediately</td><td>User can see a linked purchase they say is not theirs.</td><td>Select Report issue > This is not mine > Submit.</td><td>Detail is hidden/protected immediately and a support case is created.</td><td>Not Run</td></tr><tr><td>TC-019</td><td>FR-11</td><td>Functional</td><td>P1</td><td>Incorrect item report</td><td>Linked record contains a disputed line item.</td><td>Submit Incorrect item with optional note.</td><td>Case ID and protected status are shown; original transaction stays auditable.</td><td>Not Run</td></tr><tr><td>TC-020</td><td>FR-11</td><td>Negative</td><td>P1</td><td>Issue submission retry</td><td>Case service times out.</td><td>Submit report during timeout.</td><td>User receives retry state; no duplicate cases after retry.</td><td>Not Run</td></tr><tr><td>TC-021</td><td>FR-12</td><td>Security</td><td>P0</td><td>Direct URL unauthorized access denied</td><td>Account A and Account B exist; purchase belongs to A.</td><td>As B, open A’s detail URL/API resource ID.</td><td>Access denied, no sensitive fields returned, attempt logged.</td><td>Not Run</td></tr><tr><td>TC-022</td><td>FR-12</td><td>Security</td><td>P0</td><td>Signed-out access denied</td><td>A valid detail URL is known.</td><td>Sign out and open the URL.</td><td>Authentication is required; cached detail is not displayed.</td><td>Not Run</td></tr><tr><td>TC-023</td><td>FR-12</td><td>Privacy</td><td>P0</td><td>Shared-device cache protection</td><td>Account A views a purchase, signs out, then B signs in.</td><td>Use back navigation and offline/cache states.</td><td>A’s transaction data is not visible to B.</td><td>Not Run</td></tr><tr><td>TC-024</td><td>FR-13</td><td>Security</td><td>P1</td><td>Audit log coverage</td><td>A purchase is linked, viewed, disputed and corrected.</td><td>Inspect audit events.</td><td>Actor, event, timestamp, record ID and outcome are captured without unnecessary medicine text.</td><td>Not Run</td></tr><tr><td>TC-025</td><td>FR-14</td><td>Functional</td><td>P1</td><td>Claim unmatched purchase</td><td>Verified user has invoice number and store/date details.</td><td>Submit claim with valid details.</td><td>Claim enters protected verification; no detail is exposed until approved.</td><td>Not Run</td></tr><tr><td>TC-026</td><td>FR-14</td><td>Security</td><td>P0</td><td>Claim brute-force protection</td><td>User submits repeated invalid invoice guesses.</td><td>Attempt claims above threshold.</td><td>Rate limit/challenge activates and attempts are logged.</td><td>Not Run</td></tr><tr><td>TC-027</td><td>FR-01</td><td>Integration</td><td>P0</td><td>Linking outage does not block checkout</td><td>Linking/event service is unavailable.</td><td>Complete store billing.</td><td>Checkout completes; event is queued/reconciled later.</td><td>Not Run</td></tr><tr><td>TC-028</td><td>FR-01</td><td>Integration</td><td>P1</td><td>Delayed event appears once</td><td>Event is delayed and retried after recovery.</td><td>Restore service and process queue.</td><td>Purchase appears once with correct original timestamp.</td><td>Not Run</td></tr><tr><td>TC-029</td><td>FR-06</td><td>Accessibility</td><td>P1</td><td>Keyboard navigation</td><td>Desktop/mobile accessibility test environment available.</td><td>Navigate all six MVP screens using keyboard/switch controls.</td><td>Logical focus order, visible focus, and all controls operable.</td><td>Not Run</td></tr><tr><td>TC-030</td><td>FR-06</td><td>Accessibility</td><td>P1</td><td>Screen-reader labels</td><td>Screen reader enabled.</td><td>Read history cards, amounts, statuses and action buttons.</td><td>Labels are meaningful; status is not conveyed by color alone.</td><td>Not Run</td></tr><tr><td>TC-031</td><td>FR-06</td><td>Accessibility</td><td>P2</td><td>Text scaling and reflow</td><td>Set text size to 200% / narrow viewport.</td><td>Open each screen and interact.</td><td>No clipped critical content or horizontal scrolling for core flow.</td><td>Not Run</td></tr><tr><td>TC-032</td><td>FR-11</td><td>Privacy</td><td>P0</td><td>Free-text note excluded from analytics</td><td>Issue form includes optional sensitive note.</td><td>Submit note and inspect analytics payload/logs.</td><td>Free text and medicine names are not sent to general analytics.</td><td>Not Run</td></tr><tr><td>TC-033</td><td>FR-06</td><td>Analytics</td><td>P1</td><td>History-view event schema</td><td>Analytics test console available.</td><td>Open Purchase History.</td><td>Approved event fires once with non-sensitive identifiers only.</td><td>Not Run</td></tr><tr><td>TC-034</td><td>FR-09</td><td>Analytics</td><td>P1</td><td>Savings explanation event</td><td>A record has approved savings.</td><td>Open explanation.</td><td>Event captures method/version, not item names or contact details.</td><td>Not Run</td></tr><tr><td>TC-035</td><td>FR-11</td><td>Operations</td><td>P1</td><td>Support case contains actionable context</td><td>User submits a dispute.</td><td>Inspect support queue.</td><td>Case includes case ID, record ID, reason, state and timestamps; excludes unnecessary sensitive fields.</td><td>Not Run</td></tr><tr><td>TC-036</td><td>FR-11</td><td>Operations</td><td>P1</td><td>Case status visible</td><td>A support case changes from Received to Resolved.</td><td>Update case state and refresh app.</td><td>User sees current status and next step without exposing internal notes.</td><td>Not Run</td></tr><tr><td>TC-037</td><td>FR-09</td><td>Regression</td><td>P1</td><td>Currency rounding</td><td>Transactions contain paise and multiple items.</td><td>Compare line, subtotal, discount, paid and savings calculations.</td><td>Displayed values reconcile using one documented rounding rule.</td><td>Not Run</td></tr><tr><td>TC-038</td><td>FR-04</td><td>Security</td><td>P0</td><td>Phone normalization collision</td><td>Identifiers differ by country code/format and could collide.</td><td>Process both transactions.</td><td>Normalization does not cross-link accounts; ambiguous cases fail closed.</td><td>Not Run</td></tr><tr><td>TC-039</td><td>FR-07</td><td>Privacy</td><td>P1</td><td>Notification content minimized</td><td>A link-ready notification is triggered.</td><td>Inspect lock-screen notification.</td><td>No medicine names or sensitive purchase detail appear by default.</td><td>Not Run</td></tr><tr><td>TC-040</td><td>FR-16</td><td>Privacy</td><td>P0</td><td>Transaction does not imply reminder consent</td><td>User has a linked purchase but no reminder consent.</td><td>Process transaction and inspect preference/events.</td><td>No refill reminder is scheduled; consent remains unchanged.</td><td>Not Run</td></tr></tbody></table>
+<p><em>(Columns “Actual Result,” “Evidence Link,” “Tester” and “Notes” are present in the workbook as blank/user-input fields for execution-time use, along with a short tag in the Notes column for each case, e.g. “Happy path,” “Data integrity,” “Zero-tolerance privacy,” etc.)</em></p>
+<hr>
+<h2 id="sheet-bug-reports">Sheet: Bug Reports</h2>
+<p><strong>Sample Bug Reports</strong> — Designed defect scenarios for demonstrating reporting quality • not claims about Medkart production</p>
+<blockquote>
+<p>Promote a row from Draft only after reproducing it in an authorized environment. Do not enter customer contact details or medicine names.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Bug ID</th><th>Evidence Type</th><th>Summary</th><th>Category</th><th>Severity</th><th>Status</th><th>Test ID</th></tr></thead><tbody><tr><td>BUG-001</td><td>Sample scenario</td><td>Ambiguous phone match briefly exposes a transaction card</td><td>Privacy</td><td>Critical</td><td>Draft</td><td>TC-005</td></tr><tr><td>BUG-002</td><td>Sample scenario</td><td>Duplicate event creates two history records and double-counts savings</td><td>Data integrity</td><td>High</td><td>Draft</td><td>TC-002</td></tr><tr><td>BUG-003</td><td>Sample scenario</td><td>Refund updates paid total but leaves original savings</td><td>Calculation</td><td>High</td><td>Draft</td><td>TC-015</td></tr><tr><td>BUG-004</td><td>Sample scenario</td><td>Not-mine report leaves detail visible after submission</td><td>Privacy</td><td>High</td><td>Draft</td><td>TC-018</td></tr><tr><td>BUG-005</td><td>Sample scenario</td><td>Invoice failure has no retry or support path</td><td>Resilience</td><td>Medium</td><td>Draft</td><td>TC-011</td></tr><tr><td>BUG-006</td><td>Sample scenario</td><td>Issue status is conveyed only by color</td><td>Accessibility</td><td>Medium</td><td>Draft</td><td>TC-030</td></tr><tr><td>BUG-007</td><td>Sample scenario</td><td>Issue free-text note appears in analytics payload</td><td>Privacy</td><td>High</td><td>Draft</td><td>TC-032</td></tr><tr><td>BUG-008</td><td>Sample scenario</td><td>Expired claim gives no safe support route</td><td>UX</td><td>Medium</td><td>Draft</td><td>TC-025</td></tr></tbody></table>
+<h3 id="full-detail-per-bug">Full detail per bug</h3>
+<p><strong>BUG-001 — Ambiguous phone match briefly exposes a transaction card</strong></p>
+<ul>
+<li>Steps to reproduce: 1. Create ambiguous account match. 2. Process transaction. 3. Open candidate account before resolution.</li>
+<li>Expected: No transaction metadata is visible until a unique authorized match exists.</li>
+<li>Observed (sample): A card flashes with store/date/amount before protected state replaces it.</li>
+<li>Suggested direction: Fail closed before rendering; add authorization check at API and UI cache boundary.</li>
+<li>Owner: Unassigned · Target: Release blocker</li>
+<li>Notes: Designed for interview exercise; not observed in production.</li>
+</ul>
+<p><strong>BUG-002 — Duplicate event creates two history records and double-counts savings</strong></p>
+<ul>
+<li>Steps to reproduce: Replay the same transaction event ID.</li>
+<li>Expected: One idempotent record and one savings contribution.</li>
+<li>Observed (sample): Two records appear and savings total doubles.</li>
+<li>Suggested direction: Enforce unique event/transaction key and idempotent consumer.</li>
+<li>Owner: Unassigned · Target: Release blocker</li>
+<li>Notes: Hypothetical defect.</li>
+</ul>
+<p><strong>BUG-003 — Refund updates paid total but leaves original savings</strong></p>
+<ul>
+<li>Steps to reproduce: Link purchase, then publish full refund.</li>
+<li>Expected: Returned state and savings reconciled to approved rule.</li>
+<li>Observed (sample): Paid total is updated; savings remains in summary.</li>
+<li>Suggested direction: Recompute materialized savings on lifecycle events.</li>
+<li>Owner: Unassigned · Target: Release blocker</li>
+<li>Notes: Hypothetical defect.</li>
+</ul>
+<p><strong>BUG-004 — Not-mine report leaves detail visible after submission</strong></p>
+<ul>
+<li>Steps to reproduce: Submit “This is not mine” and return to detail.</li>
+<li>Expected: Detail is protected immediately.</li>
+<li>Observed (sample): Line items remain visible until support closes case.</li>
+<li>Suggested direction: Apply immediate protection state and purge local cache.</li>
+<li>Owner: Unassigned · Target: Release blocker</li>
+<li>Notes: Hypothetical defect.</li>
+</ul>
+<p><strong>BUG-005 — Invoice failure has no retry or support path</strong></p>
+<ul>
+<li>Steps to reproduce: Force invoice service error; tap View invoice.</li>
+<li>Expected: Retry and support options appear.</li>
+<li>Observed (sample): Generic error page with no recovery.</li>
+<li>Suggested direction: Add recoverable empty/error state.</li>
+<li>Owner: Unassigned · Target: Before pilot</li>
+<li>Notes: Hypothetical defect.</li>
+</ul>
+<p><strong>BUG-006 — Issue status is conveyed only by color</strong></p>
+<ul>
+<li>Steps to reproduce: Use grayscale or screen reader on status screen.</li>
+<li>Expected: Text/icon/accessible name communicates state.</li>
+<li>Observed (sample): Only chip color changes.</li>
+<li>Suggested direction: Add text status and semantic label.</li>
+<li>Owner: Unassigned · Target: Before pilot</li>
+<li>Notes: Hypothetical defect.</li>
+</ul>
+<p><strong>BUG-007 — Issue free-text note appears in analytics payload</strong></p>
+<ul>
+<li>Steps to reproduce: Submit issue note and inspect event payload.</li>
+<li>Expected: No free text or medicine detail in analytics.</li>
+<li>Observed (sample): Full note is included in generic analytics.</li>
+<li>Suggested direction: Allowlist analytics fields; redact at client and collector.</li>
+<li>Owner: Unassigned · Target: Release blocker</li>
+<li>Notes: Hypothetical defect.</li>
+</ul>
+<p><strong>BUG-008 — Expired claim gives no safe support route</strong></p>
+<ul>
+<li>Steps to reproduce: Open an expired unmatched-purchase claim.</li>
+<li>Expected: Clear reason and verified support route.</li>
+<li>Observed (sample): Dead-end expired message.</li>
+<li>Suggested direction: Add safe restart/support action without revealing record data.</li>
+<li>Owner: Unassigned · Target: Before pilot</li>
+<li>Notes: Hypothetical defect.</li>
+</ul>
+<hr>
+<h2 id="sheet-release-checklist">Sheet: Release Checklist</h2>
+<p><strong>Pilot Release Checklist</strong> — Evidence-based go/no-go preparation for a controlled pilot</p>
+<blockquote>
+<p>P0 controls are release gates. Every completed item should point to evidence or a recorded decision.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Area</th><th>Priority</th><th>Control</th><th>Status</th><th>Owner</th><th>Gate</th></tr></thead><tbody><tr><td>REL-001</td><td>Product</td><td>P0</td><td>PRD scope and acceptance criteria approved</td><td>Not Started</td><td>Product Manager</td><td>Release blocker</td></tr><tr><td>REL-002</td><td>QA</td><td>P0</td><td>All P0 test cases passed</td><td>Not Started</td><td>QA Owner</td><td>Release blocker</td></tr><tr><td>REL-003</td><td>QA</td><td>P0</td><td>No open Critical or High privacy/security bugs</td><td>Not Started</td><td>QA + Security</td><td>Release blocker</td></tr><tr><td>REL-004</td><td>Security/Privacy</td><td>P0</td><td>Authorization and fail-closed identity review completed</td><td>Not Started</td><td>Security/Privacy</td><td>Release blocker</td></tr><tr><td>REL-005</td><td>Security/Privacy</td><td>P0</td><td>Analytics payload data-minimization review completed</td><td>Not Started</td><td>Privacy</td><td>Release blocker</td></tr><tr><td>REL-006</td><td>Engineering</td><td>P0</td><td>Idempotency and event replay verified</td><td>Not Started</td><td>Engineering</td><td>Release blocker</td></tr><tr><td>REL-007</td><td>Engineering</td><td>P0</td><td>Checkout independence and recovery queue verified</td><td>Not Started</td><td>Engineering</td><td>Release blocker</td></tr><tr><td>REL-008</td><td>Data</td><td>P1</td><td>Savings comparator source and calculation version approved</td><td>Not Started</td><td>Product + Data</td><td>Release blocker</td></tr><tr><td>REL-009</td><td>Operations</td><td>P1</td><td>Support SOP, ownership and escalation path ready</td><td>Not Started</td><td>Operations</td><td>Before pilot</td></tr><tr><td>REL-010</td><td>Operations</td><td>P1</td><td>Pilot stores and staff briefing confirmed</td><td>Not Started</td><td>Retail Ops</td><td>Before pilot</td></tr><tr><td>REL-011</td><td>Accessibility</td><td>P1</td><td>Keyboard, screen-reader and text-scaling checks passed</td><td>Not Started</td><td>QA</td><td>Before pilot</td></tr><tr><td>REL-012</td><td>Analytics</td><td>P1</td><td>Approved events validated in staging</td><td>Not Started</td><td>Analytics</td><td>Before pilot</td></tr><tr><td>REL-013</td><td>Documentation</td><td>P1</td><td>User guide and correction FAQ published</td><td>Not Started</td><td>Product Ops</td><td>Before pilot</td></tr><tr><td>REL-014</td><td>Release</td><td>P0</td><td>Feature flag, pilot cohort and monitoring configured</td><td>Not Started</td><td>Release Owner</td><td>Release blocker</td></tr><tr><td>REL-015</td><td>Release</td><td>P0</td><td>Rollback trigger, owner and procedure rehearsed</td><td>Not Started</td><td>Release Owner</td><td>Release blocker</td></tr><tr><td>REL-016</td><td>Monitoring</td><td>P1</td><td>Privacy, match, duplicate and reconciliation alerts active</td><td>Not Started</td><td>Engineering</td><td>Before pilot</td></tr><tr><td>REL-017</td><td>Stakeholders</td><td>P1</td><td>Go/no-go review completed and decision recorded</td><td>Not Started</td><td>Product Manager</td><td>Release blocker</td></tr></tbody></table>
+<hr>
+<h2 id="sheet-coverage-matrix">Sheet: Coverage Matrix</h2>
+<p><strong>Requirements Coverage Matrix</strong> — Traceability from PRD requirements to test cases and acceptance criteria</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Requirement</th><th>Capability</th><th>Test Cases</th><th>Acceptance Criteria</th><th>Priority</th><th>Coverage</th></tr></thead><tbody><tr><td>FR-01</td><td>Transaction ingestion</td><td>TC-001, TC-027, TC-028</td><td>AC-01, AC-09</td><td>P0</td><td>Covered</td></tr><tr><td>FR-02</td><td>Idempotency</td><td>TC-002</td><td>AC-02</td><td>P0</td><td>Covered</td></tr><tr><td>FR-03</td><td>Eligibility</td><td>TC-003</td><td>AC-01</td><td>P1</td><td>Covered</td></tr><tr><td>FR-04</td><td>Account match</td><td>TC-004, TC-038</td><td>AC-01</td><td>P0</td><td>Covered</td></tr><tr><td>FR-05</td><td>Fail-closed match</td><td>TC-005, TC-006</td><td>AC-03</td><td>P0</td><td>Covered</td></tr><tr><td>FR-06</td><td>History list</td><td>TC-007, TC-008, TC-029, TC-030, TC-031, TC-033</td><td>AC-01</td><td>P1</td><td>Covered</td></tr><tr><td>FR-07</td><td>Purchase detail</td><td>TC-009, TC-039</td><td>AC-04</td><td>P0</td><td>Covered</td></tr><tr><td>FR-08</td><td>Digital invoice</td><td>TC-010, TC-011</td><td>AC-04</td><td>P1</td><td>Covered</td></tr><tr><td>FR-09</td><td>Savings explanation</td><td>TC-012, TC-013, TC-014, TC-034, TC-037</td><td>AC-05, AC-06</td><td>P0</td><td>Covered</td></tr><tr><td>FR-10</td><td>Lifecycle states</td><td>TC-015, TC-016, TC-017</td><td>AC-07</td><td>P0</td><td>Covered</td></tr><tr><td>FR-11</td><td>Correction handling</td><td>TC-018, TC-019, TC-020, TC-032, TC-035, TC-036</td><td>AC-08</td><td>P0</td><td>Covered</td></tr><tr><td>FR-12</td><td>Access control</td><td>TC-021, TC-022, TC-023</td><td>AC-10</td><td>P0</td><td>Covered</td></tr><tr><td>FR-13</td><td>Auditability</td><td>TC-024</td><td>AC-10</td><td>P1</td><td>Covered</td></tr><tr><td>FR-14</td><td>Claim unmatched purchase</td><td>TC-025, TC-026</td><td>Should scope</td><td>P1</td><td>Covered</td></tr><tr><td>FR-16</td><td>Reminder consent guardrail</td><td>TC-040</td><td>Future-scope guardrail</td><td>P0</td><td>Covered</td></tr></tbody></table>
+<hr>
+<h2 id="sheet-read-me-workbook-guide--codebook">Sheet: Read Me (Workbook Guide &#x26; Codebook)</h2>
+<p><strong>Interview-ready proof of QA thinking; execution evidence must be added only after authorized testing</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Field / concept</th><th>Meaning</th><th>Use</th></tr></thead><tbody><tr><td>Proposed exercise</td><td>A self-initiated product case study based on limited store observation and stated assumptions.</td><td>Say this clearly in the interview.</td></tr><tr><td>Not Run</td><td>Test has been designed but not executed.</td><td>Default status for all cases.</td></tr><tr><td>P0</td><td>Failure could expose another user’s data, break core records, misstate savings, or block safe rollout.</td><td>Must pass before pilot.</td></tr><tr><td>P1</td><td>Important behavior or operational control.</td><td>Complete before or during tightly controlled pilot as approved.</td></tr><tr><td>Critical bug</td><td>Severe privacy/security harm or unacceptable systemic exposure.</td><td>Immediate no-go.</td></tr><tr><td>Sample scenario</td><td>A deliberately written example defect, not an observed production issue.</td><td>Demonstrates bug-report quality without fabricating evidence.</td></tr><tr><td>Evidence Link</td><td>Authorized screenshot, log, test run, ticket or decision record.</td><td>Never add real customer PII or medicine details.</td></tr><tr><td>Pass rate</td><td>Passed ÷ (Passed + Failed). Blocked and Not Run are excluded.</td><td>Use with counts; never alone.</td></tr><tr><td>Release recommendation</td><td>Formula-based signal using test, bug and checklist state.</td><td>Input to human go/no-go review, not an automatic decision.</td></tr><tr><td>Savings comparator</td><td>Approved reference and calculation method used to explain savings.</td><td>If unavailable, suppress the amount.</td></tr><tr><td>Fail closed</td><td>When identity or authorization is uncertain, show no transaction detail.</td><td>Core privacy design rule.</td></tr><tr><td>Reminder consent</td><td>Explicit permission for reminders; never inferred from a purchase.</td><td>Future-scope guardrail.</td></tr><tr><td>Suggested interview walkthrough</td><td>Dashboard → one P0 privacy case → one sample bug → coverage → release checklist.</td><td>Aim for 3–4 minutes, then invite questions.</td></tr></tbody></table></div></section></div></main><footer class="site-footer"><p>Om Desai · Product Associate candidate portfolio · <a href="mailto:padhai.omdesai@gmail.com">padhai.omdesai@gmail.com</a>· <a href="tel:+918980850095">+91 89808 50095</a>· <a href="/pa/about/">About &amp; résumé</a></p><p>&copy; 2026. Medkart Savings Journey is an independent candidate exercise, not affiliated with or approved by Medkart.</p></footer></body></html>
