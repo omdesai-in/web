@@ -1,6 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/lexi", "destination": "https://web-35f4.vercel.app/lexi" },
-    { "source": "/lexi/:path*", "destination": "https://web-35f4.vercel.app/lexi/:path*" }
-  ]
+  "cleanUrls": true
 }
