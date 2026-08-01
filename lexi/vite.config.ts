@@ -5,6 +5,7 @@ export default defineConfig({
   base: "/lexi/",
   plugins: [react()],
   build: {
-    outDir: "dist",
+    outDir: "dist/lexi",
+    emptyOutDir: true,
   },
 });
