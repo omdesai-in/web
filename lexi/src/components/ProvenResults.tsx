@@ -1,10 +1,13 @@
 import { provenResults } from "../content/portfolio-content";
+import { useReveal } from "../utils/useReveal";
 
 export default function ProvenResults() {
+  const headerReveal = useReveal<HTMLDivElement>();
+
   return (
     <section className="section" id="proven-results">
       <div className="container">
-        <div className="section__header">
+        <div className="section__header" ref={headerReveal.ref} data-reveal={headerReveal.visible}>
           <div className="section__marker">
             <span className="section__dot" aria-hidden="true" />
             <span className="label">{provenResults.marker}</span>

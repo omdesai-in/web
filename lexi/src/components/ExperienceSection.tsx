@@ -7,7 +7,8 @@ import {
   khaitanProspectResearch,
 } from "../content/portfolio-content";
 import VideoPoster from "./VideoPoster";
-import ArtifactGallery, { type EvidenceExtra } from "./ArtifactGallery";
+import EvidenceStage, { type EvidenceDetailContent } from "./ArtifactGallery";
+import { useReveal } from "../utils/useReveal";
 
 type ExperienceSectionProps = {
   experience: ExperienceSectionContent;
@@ -59,11 +60,9 @@ function EmailBody({ blocks }: { blocks: EmailContentBlock[] }) {
   );
 }
 
-function buildLexiExtras(): (EvidenceExtra | null)[] {
-  return [
-    null,
-    {
-      triggerLabel: "communication copy",
+function buildLexiDetailContent(): Partial<Record<string, EvidenceDetailContent>> {
+  return {
+    "lexi-customer-communication": {
       panelTitle: "Customer communication",
       content: (
         <>
@@ -142,8 +141,7 @@ function buildLexiExtras(): (EvidenceExtra | null)[] {
         </>
       ),
     },
-    {
-      triggerLabel: "founder update",
+    "lexi-founder-update": {
       panelTitle: "Founder update",
       content: (
         <>
@@ -224,11 +222,14 @@ function buildLexiExtras(): (EvidenceExtra | null)[] {
         </>
       ),
     },
-  ];
+  };
 }
 
 export default function ExperienceSection({ experience, onOpenVideo }: ExperienceSectionProps) {
-  const extras = experience.id === "lexi-exercise" ? buildLexiExtras() : undefined;
+  const detailContent = experience.id === "lexi-exercise" ? buildLexiDetailContent() : undefined;
+  const markerReveal = useReveal<HTMLDivElement>();
+  const copyReveal = useReveal<HTMLDivElement>();
+  const mediaReveal = useReveal<HTMLDivElement>();
 
   return (
     <section
@@ -236,15 +237,29 @@ export default function ExperienceSection({ experience, onOpenVideo }: Experienc
       id={experience.id}
     >
       <div className="container">
-        <div className="experience__marker">
+        <div className="experience__marker" ref={markerReveal.ref} data-reveal={markerReveal.visible}>
           <span className="section__dot" aria-hidden="true" />
           <span className="experience__label">{experience.label}</span>
         </div>
 
         <div className="experience__intro-grid">
-          <div className="experience__copy">
+          <div className="experience__copy" ref={copyReveal.ref} data-reveal={copyReveal.visible}>
             <h2 className="experience__headline">{experience.headline}</h2>
-            <p className="experience__context">{experience.context}</p>
+            <p className="experience__situation">{experience.story.situationAndResponsibility}</p>
+
+            <span className="label experience__eyebrow">WHAT I DID</span>
+            <ol className="experience__actions">
+              {experience.story.actions.map((action) => (
+                <li key={action}>{action}</li>
+              ))}
+            </ol>
+
+            <p className="experience__result">{experience.story.resultAndLesson}</p>
+
+            <p className="experience__proves">
+              <span className="experience__proves-label">WHAT THIS PROVES</span>
+              {experience.story.relevance}
+            </p>
 
             {experience.referenceMetrics.length > 0 && (
               <div className="experience__reference-metrics">
@@ -259,12 +274,12 @@ export default function ExperienceSection({ experience, onOpenVideo }: Experienc
             {experience.disclosure && <p className="experience__disclosure">{experience.disclosure}</p>}
           </div>
 
-          <div className="experience__media">
+          <div className="experience__media" ref={mediaReveal.ref} data-reveal={mediaReveal.visible}>
             <VideoPoster videoKey={experience.videoKey} onOpen={onOpenVideo} />
           </div>
         </div>
 
-        <ArtifactGallery evidence={experience.evidence} extras={extras} />
+        <EvidenceStage experienceId={experience.id} items={experience.evidence} detailContent={detailContent} />
       </div>
     </section>
   );

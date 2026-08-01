@@ -6,6 +6,18 @@
 
 html {
   color-scheme: dark;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--anchor-offset, 88px);
+}
+
+[id] {
+  scroll-margin-top: var(--anchor-offset, 88px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -102,6 +114,24 @@ p {
   max-width: var(--max-width);
   margin-inline: auto;
   padding-inline: var(--outer-margin);
+}
+
+[data-reveal="false"] {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+[data-reveal="true"] {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 550ms var(--ease-out), transform 550ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal="false"] {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

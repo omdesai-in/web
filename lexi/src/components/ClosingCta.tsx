@@ -1,11 +1,16 @@
 import { closing } from "../content/portfolio-content";
 import { assetPath } from "../utils/assetPath";
+import { useReveal } from "../utils/useReveal";
 
 export default function ClosingCta() {
+  const headlineReveal = useReveal<HTMLHeadingElement>();
+
   return (
     <section className="closing" id="contact">
       <div className="container">
-        <h2 className="closing__headline">{closing.headline}</h2>
+        <h2 className="closing__headline" ref={headlineReveal.ref} data-reveal={headlineReveal.visible}>
+          {closing.headline}
+        </h2>
 
         <div className="closing__actions">
           {closing.actions.map((action) => (

@@ -3,10 +3,8 @@ import type { EvidenceItem } from "../content/portfolio-content";
 import { assetPath } from "../utils/assetPath";
 
 type EvidenceLightboxProps = {
-  evidence: EvidenceItem[];
-  activeIndex: number;
+  item: EvidenceItem;
   onClose: () => void;
-  onNavigate: (index: number) => void;
 };
 
 function getFocusable(container: HTMLElement): HTMLElement[] {
@@ -17,15 +15,9 @@ function getFocusable(container: HTMLElement): HTMLElement[] {
   );
 }
 
-export default function EvidenceLightbox({
-  evidence,
-  activeIndex,
-  onClose,
-  onNavigate,
-}: EvidenceLightboxProps) {
+export default function EvidenceLightbox({ item, onClose }: EvidenceLightboxProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const item = evidence[activeIndex];
 
   useEffect(() => {
     closeButtonRef.current?.focus();
@@ -33,16 +25,6 @@ export default function EvidenceLightbox({
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         onClose();
-        return;
-      }
-
-      if (event.key === "ArrowRight") {
-        onNavigate((activeIndex + 1) % evidence.length);
-        return;
-      }
-
-      if (event.key === "ArrowLeft") {
-        onNavigate((activeIndex - 1 + evidence.length) % evidence.length);
         return;
       }
 
@@ -69,7 +51,7 @@ export default function EvidenceLightbox({
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
     };
-  }, [activeIndex, evidence.length, onClose, onNavigate]);
+  }, [onClose]);
 
   return (
     <div className="lightbox__overlay" role="presentation" onClick={onClose}>
@@ -93,39 +75,13 @@ export default function EvidenceLightbox({
           </svg>
         </button>
 
-        {evidence.length > 1 && (
-          <button
-            type="button"
-            className="lightbox__nav lightbox__nav--prev"
-            onClick={() => onNavigate((activeIndex - 1 + evidence.length) % evidence.length)}
-            aria-label="Previous evidence item"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-              <path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-        )}
-
         <div className="lightbox__image-wrap">
-          <img src={assetPath(item.image)} alt={`${item.title}. ${item.caption}`} />
+          <img src={assetPath(item.image)} alt={item.alt} />
         </div>
-
-        {evidence.length > 1 && (
-          <button
-            type="button"
-            className="lightbox__nav lightbox__nav--next"
-            onClick={() => onNavigate((activeIndex + 1) % evidence.length)}
-            aria-label="Next evidence item"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-              <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-        )}
 
         <figcaption className="lightbox__caption">
           <span className="lightbox__caption-title">{item.title}</span>
-          <span className="lightbox__caption-text">{item.caption}</span>
+          <span className="lightbox__caption-text">{item.description}</span>
         </figcaption>
       </div>
     </div>

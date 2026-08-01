@@ -1,11 +1,14 @@
 import { strengths } from "../content/portfolio-content";
 import { assetPath } from "../utils/assetPath";
+import { useReveal } from "../utils/useReveal";
 
 export default function Strengths() {
+  const headerReveal = useReveal<HTMLDivElement>();
+
   return (
     <section className="section" id="how-i-work">
       <div className="container">
-        <div className="section__header">
+        <div className="section__header" ref={headerReveal.ref} data-reveal={headerReveal.visible}>
           <div className="section__marker">
             <span className="section__dot" aria-hidden="true" />
             <span className="label">{strengths.marker}</span>

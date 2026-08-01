@@ -1,7 +1,17 @@
+export type EvidenceFit = "cover" | "contain";
+
+export type EvidenceDetailType = "lightbox" | "customer-communication" | "founder-update";
+
 export type EvidenceItem = {
+  id: string;
   title: string;
   image: string;
-  caption: string;
+  alt: string;
+  description: string;
+  actionLabel?: string;
+  fit: EvidenceFit;
+  focalPosition?: string;
+  detailType: EvidenceDetailType;
 };
 
 export type MetricItem = {
@@ -10,11 +20,18 @@ export type MetricItem = {
   linkTarget: string;
 };
 
+export type ExperienceStory = {
+  situationAndResponsibility: string;
+  actions: [string, string, string];
+  resultAndLesson: string;
+  relevance: string;
+};
+
 export type ExperienceSectionContent = {
   id: string;
   label: string;
   headline: string;
-  context: string;
+  story: ExperienceStory;
   disclosure?: string;
   videoKey: string;
   mediaPosition: "left" | "right";
@@ -40,9 +57,9 @@ export const navigation = {
 
 export const hero = {
   eyebrow: "FOUNDER'S ASSOCIATE CANDIDATE",
-  headline: "Give me the unclear problem. I'll find the next move.",
+  headline: "I turn unclear priorities into research, systems, and next actions.",
   supporting:
-    "I research unfamiliar problems, make complex ideas easier to act on, and keep the follow-through moving until the work is useful.",
+    "I learn how a problem works, make it concrete, and stay close to execution until people can use the result.",
   primaryAction: { label: "VIEW PROOF OF WORK", href: "#proven-results" },
   secondaryAction: { label: "WATCH MY INTRODUCTION", videoKey: "introduction" },
   image: "hero/om-desai-hero.webp",
@@ -50,25 +67,25 @@ export const hero = {
 
 export const strengths = {
   marker: "HOW I WORK",
-  headline: "Three habits behind the work.",
-  supporting: "The projects differ, but the way I approach them stays consistent.",
+  headline: "How I move unclear work forward.",
+  supporting: "The four projects below are different, but the operating pattern is the same.",
   items: [
     {
       id: "taking-initiative",
       title: "Taking Initiative",
-      copy: "I do not wait for a perfect brief. I identify the useful first move, create something concrete, and use it to improve the direction.",
+      copy: "I look for the first useful move. That has meant building a placement tracker from recurring student questions, designing a cohort from scratch, and creating a commercial exercise before being asked.",
       vector: "vectors/taking-initiative.svg",
     },
     {
       id: "ownership",
       title: "Ownership",
-      copy: "I stay with the work beyond the visible deliverable, including coordination, follow-ups, fixes, and the less glamorous steps needed to close the loop.",
+      copy: "I stay with the work after the visible deliverable—running sessions, coordinating people, updating information, resolving issues, and closing the loop.",
       vector: "vectors/ownership.svg",
     },
     {
       id: "curiosity",
       title: "Curiosity",
-      copy: "I ask questions until I understand the user, the system, and the constraint well enough to make a better decision.",
+      copy: "I speak with users, study the workflow, and test my assumptions before deciding what should be built or communicated.",
       vector: "vectors/curiosity.svg",
     },
   ],
@@ -76,10 +93,10 @@ export const strengths = {
 
 export const provenResults = {
   marker: "PROVEN RESULTS",
-  headline: "Work that reached people, not just a final folder.",
-  supporting: "Selected outcomes from projects I built, operated, demonstrated, or improved.",
+  headline: "Evidence that the work reached real people.",
+  supporting: "Selected outcomes from projects I built, operated, or improved.",
   metrics: [
-    { value: "255", descriptor: "students used the placement platform", linkTarget: "#cyfj" },
+    { value: "255", descriptor: "students accessed the placement platform", linkTarget: "#cyfj" },
     {
       value: "70+",
       descriptor: "applications managed across three cohorts",
@@ -91,8 +108,8 @@ export const provenResults = {
       linkTarget: "#iste-placement-leadership",
     },
     {
-      value: "3 to 15",
-      descriptor: "students reached after expanding a placement learning module",
+      value: "3 → 15",
+      descriptor: "students reached after expanding one learning module",
       linkTarget: "#iste-placement-leadership",
     },
   ] satisfies MetricItem[],
@@ -332,31 +349,57 @@ export const experiences: ExperienceSectionContent[] = [
   {
     id: "lexi-exercise",
     label: "LEXI COMMERCIAL EXERCISE",
-    headline: "From a memorable product pitch to a clear next step.",
-    context:
-      "An independent exercise exploring how I would introduce Lexi to a legal team, build momentum after the conversation, and convert customer signals into a useful founder action.",
+    headline: "I turned a legal-AI pitch into a realistic path from first conversation to pilot.",
+    story: {
+      situationAndResponsibility:
+        "Lexi solves several connected legal workflows, but a prospect still needs a simple reason to care and a low-risk way to begin. As an independent candidate exercise, I chose a relevant Tech M&A prospect, studied the public context, and designed the commercial journey I would want a founder to review.",
+      actions: [
+        "Built a concise, Suits-inspired pitch that connects contract review, structured analysis, and drafting within one legal matter.",
+        "Researched Khaitan & Co and created a three-message sequence: cold outreach, lower-friction follow-up, and a hypothetical post-demo follow-up.",
+        "Converted the scenario into a founder update with the key assumptions, risks, proposed pilot, measures, and immediate next action.",
+      ],
+      resultAndLesson:
+        "The result is not a claimed sale. It is a complete, reviewable path from prospect research to a controlled pilot hypothesis. The exercise showed me that selling an unfamiliar product is less about listing features and more about choosing one credible problem, reducing the next commitment, and making the open questions visible.",
+      relevance:
+        "I can learn an unfamiliar product, make it relevant to a specific prospect, and turn uncertainty into a testable next step for the founders.",
+    },
     disclosure:
       "Independent candidate exercise. No outreach was sent. This work was not commissioned by Lexi or Khaitan & Co.",
     videoKey: "lexiPitch",
     mediaPosition: "right",
     evidence: [
       {
+        id: "lexi-product-pitch",
         title: "Product pitch",
         image: "lexi/lexi-product-pitch.webp",
-        caption:
-          "A Suits-inspired story connecting contract review, tabular analysis, and drafting within one legal matter.",
+        alt: "Designed frame from the Suits-inspired Lexi product pitch",
+        description:
+          "The pitch makes three connected Lexi capabilities understandable through one legal matter instead of presenting an abstract feature list.",
+        actionLabel: "View full image",
+        fit: "contain",
+        detailType: "lightbox",
       },
       {
+        id: "lexi-customer-communication",
         title: "Customer communication",
         image: "lexi/lexi-customer-communication.webp",
-        caption:
-          "Research-led cold outreach, post-demo follow-up, and lower-friction re-engagement for a hypothetical Tech M&A prospect.",
+        alt: "Preview of the three-message cold outreach, follow-up, and re-engagement sequence for Khaitan & Co",
+        description:
+          "The three-message sequence moves from relevance, to a lower-friction response, to a controlled pilot—without implying that real outreach or a demo occurred.",
+        actionLabel: "Read the full sequence",
+        fit: "contain",
+        detailType: "customer-communication",
       },
       {
+        id: "lexi-founder-update",
         title: "Founder update",
         image: "lexi/lexi-founder-update.webp",
-        caption:
-          "A compact internal memo turning customer signals into a concern, experiment, measure, and immediate next action.",
+        alt: "Preview of the founder update memo summarising the Khaitan & Co exercise",
+        description:
+          "The memo gives a founder the decision context: what is known, what remains an assumption, what could be tested, and what should happen next.",
+        actionLabel: "Read the founder update",
+        fit: "contain",
+        detailType: "founder-update",
       },
     ],
     referenceMetrics: [],
@@ -364,26 +407,58 @@ export const experiences: ExperienceSectionContent[] = [
   {
     id: "ancient-intelligence-lab",
     label: "ANCIENT INTELLIGENCE LAB",
-    headline: "I built the program, ran the cohorts, and changed the model when reality demanded it.",
-    context:
-      "A student-development program built across three cohorts, from more than 70 applications to practical sessions, participant communication, convocation, and completion.",
+    headline: "I built a student program, operated three cohorts, and changed the model when participation became difficult.",
+    story: {
+      situationAndResponsibility:
+        "First-year students wanted a space to reflect on their confidence, ambitions, and choices—but conversation alone was not enough to create progress. I founded Ancient Intelligence Lab and owned the participant journey from applications and selection to sessions, communication, adaptation, and convocation.",
+      actions: [
+        "Managed more than 70 applications, issued 14 offers, and brought 10 participants into three small cohorts.",
+        "Facilitated practical work around confidence, creativity, and courage, including reflective questions, participant demonstrations, and independently organised activities.",
+        "Changed the original discussion-led format into task- and challenge-based participation when shared availability made the first model difficult to sustain.",
+      ],
+      resultAndLesson:
+        "Seven participants completed the program. More importantly, running the cohorts taught me to separate the purpose of a program from its first delivery format: when the format stopped fitting participants’ reality, I changed the mechanism while protecting the intended outcome.",
+      relevance:
+        "I can build a people-focused initiative from zero, operate the unglamorous details, notice when the model is failing, and adapt without losing the objective.",
+    },
+    disclosure: "Selected facilitation details are intentionally omitted to protect participant privacy.",
     videoKey: "ancientIntelligenceLab",
     mediaPosition: "left",
     evidence: [
       {
+        id: "ail-facilitating-sessions",
         title: "Facilitating the sessions",
         image: "ancient-intelligence-lab/ancient-intelligence-lab-session.webp",
-        caption: "Direct delivery, communication, and facilitation during a live cohort session.",
+        alt: "Om facilitating a live cohort session at a classroom whiteboard",
+        description:
+          "I did not only design the program; I facilitated the sessions and observed where participants engaged, hesitated, or needed a different format.",
+        actionLabel: "View full image",
+        fit: "cover",
+        focalPosition: "50% 18%",
+        detailType: "lightbox",
       },
       {
+        id: "ail-closing-participant-journey",
         title: "Closing the participant journey",
         image: "ancient-intelligence-lab/ancient-intelligence-lab-convocation.webp",
-        caption: "A real cohort reaching completion at convocation.",
+        alt: "Five participants smiling together at the Ancient Intelligence Lab convocation",
+        description:
+          "Seven of the ten participants who began completed the program. Convocation gave that journey a deliberate point of closure and recognition.",
+        actionLabel: "View full image",
+        fit: "cover",
+        focalPosition: "50% 32%",
+        detailType: "lightbox",
       },
       {
-        title: "Designing for the people around the participant",
+        id: "ail-communicating-beyond-session",
+        title: "Communicating beyond the session",
         image: "ancient-intelligence-lab/ancient-intelligence-lab-parent-certificate.webp",
-        caption: "Thoughtful communication extended beyond the core session, to parents.",
+        alt: "Certificate letter addressed to a participant's parents",
+        description:
+          "The parent certificate reflects an intentional participant experience that extended beyond the session itself and recognised the support around each student.",
+        actionLabel: "View full image",
+        fit: "contain",
+        detailType: "lightbox",
       },
     ],
     referenceMetrics: ["3 cohorts", "70+ applications", "14 offers", "10 participants", "7 graduates"],
@@ -391,67 +466,126 @@ export const experiences: ExperienceSectionContent[] = [
   {
     id: "cyfj",
     label: "CRACK YOUR FIRST JOB",
-    headline: "I turned scattered placement information into a product students could actually use.",
-    context:
-      "A placement-information platform built and operated across three colleges, combining opportunity tracking, deadlines, company context, preparation resources, analytics, and issue resolution.",
+    headline: "I turned scattered placement updates into one product—and learned why access alone does not create repeat use.",
+    story: {
+      situationAndResponsibility:
+        "Students were receiving six to seven placement emails each week, with deadlines, job descriptions, and drive dates spread across different messages. After ten informal student conversations, I found that the problem was not a lack of information; it was the effort required to organise and act on it. I took responsibility for turning that repeated confusion into a usable first product.",
+      actions: [
+        "Built a web platform that combined opportunity tracking, deadlines, company context, preparation resources, and a calendar in one place.",
+        "Used a Google Form and Google Sheets workflow to collect information, then repaired Apps Script issues affecting how that data reached the site.",
+        "Added analytics, monitored questions and behaviour, and continued managing content, deadlines, performance issues, and fixes after launch.",
+      ],
+      resultAndLesson:
+        "The platform reached 255 students across three colleges and recorded 2,600 interactions. It also had low repeat usage. Navigation confusion, performance, and the continued demand for direct answers showed me that shipping a useful first version is not the same as building a habit. Reach proved the problem was real; retention exposed what the product still had to solve.",
+      relevance:
+        "I can move from user conversations to an MVP, operate it with real users, read imperfect evidence honestly, and use that evidence to define the next product problem.",
+    },
     videoKey: "cyfj",
     mediaPosition: "right",
     evidence: [
       {
+        id: "cyfj-opportunity-tracker",
         title: "Opportunity tracker",
         image: "cyfj/cyfj-opportunity-tracker.webp",
-        caption: "A concrete response to scattered opportunities and deadlines.",
+        alt: "Opportunity tracker interface listing placement drives with deadlines and status",
+        description:
+          "The tracker turns scattered emails and deadlines into one actionable view—a direct response to the problem students described.",
+        actionLabel: "View full image",
+        fit: "contain",
+        detailType: "lightbox",
       },
       {
+        id: "cyfj-usage-evidence",
         title: "Usage evidence",
         image: "cyfj/cyfj-analytics-overview.webp",
-        caption: "Real student reach and observed use.",
+        alt: "Analytics snapshot showing active users, new users, and event count",
+        description:
+          "Analytics confirmed real reach—255 students and 2,600 interactions—while also revealing that repeat use and navigation still needed work.",
+        actionLabel: "View full image",
+        fit: "contain",
+        detailType: "lightbox",
       },
       {
-        title: "Boarding pass experience",
+        id: "cyfj-boarding-pass",
+        title: "Boarding-pass experience",
         image: "cyfj/cyfj-boarding-pass.webp",
-        caption: "Attention to the end-user experience and presentation of information.",
+        alt: "Boarding-pass styled checklist for an upcoming placement opportunity",
+        description:
+          "The boarding-pass format was an attempt to make an upcoming opportunity easier to scan and act on, not merely another line in a database.",
+        actionLabel: "View full image",
+        fit: "contain",
+        detailType: "lightbox",
       },
     ],
-    referenceMetrics: ["255 students", "3 colleges", "2,600 tracked events"],
+    referenceMetrics: ["255 students", "3 colleges", "2,600 recorded interactions"],
   },
   {
     id: "iste-placement-leadership",
     label: "ISTE AND PLACEMENT LEADERSHIP",
-    headline: "I converted repeated coordination into systems other people could run.",
-    context:
-      "Research, facilitation, operating documents, event coordination, and learning support designed to help student teams and participants act with less dependence on individual guidance.",
+    headline: "I turned repeated student coordination into visible systems other people could run.",
+    story: {
+      situationAndResponsibility:
+        "Student initiatives depended heavily on individual follow-ups, verbal context, and senior members remembering what had to happen next. Across ISTE and placement work, I took responsibility for understanding students, coordinating delivery, and converting repeated guidance into reusable operating systems.",
+      actions: [
+        "Used insights from more than 30 student conversations to shape facilitation and learning support around actual student needs.",
+        "Created a facilitation SOP that made roles, preparation, hand-offs, and follow-through clear enough for five events to run without senior involvement.",
+        "Used a shared operations sheet to coordinate responsibilities, supported an event involving more than 60 people, and expanded one learning module from 3 to 15 students.",
+      ],
+      resultAndLesson:
+        "The work became less dependent on one person carrying the full context. The SOP, shared tracking, and clearer ownership made execution more repeatable. I learned that coordination improves when expectations, decisions, and next actions are visible—not when the coordinator simply sends more reminders.",
+      relevance:
+        "I can listen across stakeholders, translate recurring coordination into a practical operating system, and keep people aligned through execution.",
+    },
     videoKey: "istePlacement",
     mediaPosition: "left",
     evidence: [
       {
+        id: "iste-facilitation-sop",
         title: "Facilitation SOP",
         image: "iste-placement-leadership/iste-facilitation-sop.webp",
-        caption: "Repeated work converted into a reusable operating system.",
+        alt: "Facilitation SOP document outlining roles, preparation, and hand-offs",
+        description:
+          "The SOP turns preparation, roles, delivery, and hand-offs into a repeatable process; it supported five events without senior involvement.",
+        actionLabel: "View full image",
+        fit: "contain",
+        detailType: "lightbox",
       },
       {
+        id: "iste-coordinating-at-scale",
         title: "Coordinating at scale",
         image: "iste-placement-leadership/iste-placement-60-person-event.webp",
-        caption: "On-ground execution involving more than 60 people.",
+        alt: "More than sixty people gathered on stage at a coordinated placement event",
+        description:
+          "This event required more than 60 people to move through one coordinated plan, making ownership and on-ground follow-through visible.",
+        actionLabel: "View full image",
+        fit: "cover",
+        focalPosition: "50% 42%",
+        detailType: "lightbox",
       },
       {
+        id: "iste-operational-management",
         title: "Operational management",
         image: "iste-placement-leadership/iste-operations-google-sheet.webp",
-        caption: "Responsibilities, planning, and follow-through made visible.",
+        alt: "Shared operations sheet tracking tasks, owners, and status",
+        description:
+          "The shared sheet made responsibilities, status, and next actions visible so coordination did not depend on private messages or one person’s memory.",
+        actionLabel: "View full image",
+        fit: "contain",
+        detailType: "lightbox",
       },
     ],
     referenceMetrics: [
       "30+ student conversations",
-      "5 events",
-      "60+ people",
-      "learning module expanded from 3 to 15 students",
+      "5 events run without senior involvement",
+      "60+ people coordinated during one placement event",
+      "one learning module expanded from 3 to 15 students",
     ],
   },
 ];
 
 export const closing = {
   headline:
-    "If Lexi needs someone who can pick up an unclear priority, create structure, and keep it moving, I would like to talk.",
+    "If Lexi needs someone who can learn an unclear priority, create the first useful structure, and stay with the execution, I would like to talk.",
   actions: [
     { label: "EMAIL OM", href: `mailto:${identity.email}`, kind: "external" as const },
     { label: "VIEW LINKEDIN", href: identity.linkedin, kind: "external" as const },
