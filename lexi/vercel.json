@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/lexi", "destination": "/index.html" },
+    { "source": "/lexi/:path*", "destination": "/index.html" }
+  ]
+}
