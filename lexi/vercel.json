@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/lexi", "destination": "/lexi/index.html" },
-    { "source": "/lexi/:path*", "destination": "/lexi/index.html" }
+    { "source": "/lexi", "destination": "/index.html" },
+    { "source": "/lexi/:path*", "destination": "/index.html" }
   ]
 }
