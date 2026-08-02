@@ -79,7 +79,7 @@ export const strengths = {
     {
       id: "ownership",
       title: "Ownership",
-      copy: "I stay with the work after the visible deliverable—running sessions, coordinating people, updating information, resolving issues, and closing the loop.",
+      copy: "I stay with the work after the visible deliverable:running sessions, coordinating people, updating information, resolving issues, and closing the loop.",
       vector: "vectors/ownership.svg",
     },
     {
@@ -385,7 +385,7 @@ export const experiences: ExperienceSectionContent[] = [
         image: "lexi/lexi-customer-communication.webp",
         alt: "Preview of the three-message cold outreach, follow-up, and re-engagement sequence for Khaitan & Co",
         description:
-          "The three-message sequence moves from relevance, to a lower-friction response, to a controlled pilot—without implying that real outreach or a demo occurred.",
+          "The three-message sequence moves from relevance, to a lower-friction response, to a controlled pilot without implying that real outreach or a demo occurred.",
         actionLabel: "Read the full sequence",
         fit: "contain",
         detailType: "customer-communication",
@@ -410,7 +410,7 @@ export const experiences: ExperienceSectionContent[] = [
     headline: "I built a student program, operated three cohorts, and changed the model when participation became difficult.",
     story: {
       situationAndResponsibility:
-        "First-year students wanted a space to reflect on their confidence, ambitions, and choices—but conversation alone was not enough to create progress. I founded Ancient Intelligence Lab and owned the participant journey from applications and selection to sessions, communication, adaptation, and convocation.",
+        "First-year students wanted a space to reflect on their confidence, ambitions, and choices but conversation alone was not enough to create progress. I founded Ancient Intelligence Lab and owned the participant journey from applications and selection to sessions, communication, adaptation, and convocation.",
       actions: [
         "Managed more than 70 applications, issued 14 offers, and brought 10 participants into three small cohorts.",
         "Facilitated practical work around confidence, creativity, and courage, including reflective questions, participant demonstrations, and independently organised activities.",
@@ -466,7 +466,7 @@ export const experiences: ExperienceSectionContent[] = [
   {
     id: "cyfj",
     label: "CRACK YOUR FIRST JOB",
-    headline: "I turned scattered placement updates into one product—and learned why access alone does not create repeat use.",
+    headline: "I turned scattered placement updates into one product and learned why access alone does not create repeat use.",
     story: {
       situationAndResponsibility:
         "Students were receiving six to seven placement emails each week, with deadlines, job descriptions, and drive dates spread across different messages. After ten informal student conversations, I found that the problem was not a lack of information; it was the effort required to organise and act on it. I took responsibility for turning that repeated confusion into a usable first product.",
@@ -489,7 +489,7 @@ export const experiences: ExperienceSectionContent[] = [
         image: "cyfj/cyfj-opportunity-tracker.webp",
         alt: "Opportunity tracker interface listing placement drives with deadlines and status",
         description:
-          "The tracker turns scattered emails and deadlines into one actionable view—a direct response to the problem students described.",
+          "The tracker turns scattered emails and deadlines into one actionable view,a direct response to the problem students described.",
         actionLabel: "View full image",
         fit: "contain",
         detailType: "lightbox",
@@ -500,7 +500,7 @@ export const experiences: ExperienceSectionContent[] = [
         image: "cyfj/cyfj-analytics-overview.webp",
         alt: "Analytics snapshot showing active users, new users, and event count",
         description:
-          "Analytics confirmed real reach—255 students and 2,600 interactions—while also revealing that repeat use and navigation still needed work.",
+          "Analytics confirmed real reach,255 students and 2,600 interactions,while also revealing that repeat use and navigation still needed work.",
         actionLabel: "View full image",
         fit: "contain",
         detailType: "lightbox",
@@ -532,7 +532,7 @@ export const experiences: ExperienceSectionContent[] = [
         "Used a shared operations sheet to coordinate responsibilities, supported an event involving more than 60 people, and expanded one learning module from 3 to 15 students.",
       ],
       resultAndLesson:
-        "The work became less dependent on one person carrying the full context. The SOP, shared tracking, and clearer ownership made execution more repeatable. I learned that coordination improves when expectations, decisions, and next actions are visible—not when the coordinator simply sends more reminders.",
+        "The work became less dependent on one person carrying the full context. The SOP, shared tracking, and clearer ownership made execution more repeatable. I learned that coordination improves when expectations, decisions, and next actions are visible,not when the coordinator simply sends more reminders.",
       relevance:
         "I can listen across stakeholders, translate recurring coordination into a practical operating system, and keep people aligned through execution.",
     },
